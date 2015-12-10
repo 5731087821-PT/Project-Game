@@ -22,7 +22,7 @@ public class Coin implements IRenderable{
 		this.destroyed = false;
 	}
 	
-	protected void update(){
+	public void update(){
 		disappearCounter--;
 		if(disappearCounter<=0) this.destroyed = true;
 		
@@ -68,5 +68,17 @@ public class Coin implements IRenderable{
 	public boolean isVisible() {
 		// TODO Auto-generated method stub
 		return true;
+	}
+
+	@Override
+	public int getX() {
+		// TODO Auto-generated method stub
+		return this.x;
+	}
+
+	@Override
+	public int getY() {
+		// TODO Auto-generated method stub
+		return this.y;
 	}
 }

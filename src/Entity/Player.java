@@ -74,11 +74,11 @@ public class Player implements IRenderable {
 			}
 			
 			if(deadCounter%25<12){
-				g2d.setColor(Color.RED);
-			}else{
-				g2d.setColor(new Color(255,0,0,0));
-			}
-			g2d.fillOval(x, y, radius * 2, radius * 2);
+					g2d.setColor(Color.RED);
+				}else{
+					g2d.setColor(new Color(255,0,0,0));
+				}
+				g2d.fillOval(x, y, radius * 2, radius * 2);
 				
 			if(deadCounter == 0)
 				RenderableHolder.getInstance().getRenderableList().remove(this);
@@ -89,5 +89,17 @@ public class Player implements IRenderable {
 	public boolean isVisible() {
 		// TODO Auto-generated method stub
 		return true;
+	}
+
+	@Override
+	public int getX() {
+		// TODO Auto-generated method stub
+		return this.x;
+	}
+
+	@Override
+	public int getY() {
+		// TODO Auto-generated method stub
+		return this.y;
 	}
 }
