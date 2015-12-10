@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 import render.IRenderable;
-import res.Resource;
+import utility.Resource;
 
 public class PlayerStatus implements IRenderable {
 	private int score;

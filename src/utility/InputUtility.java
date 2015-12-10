@@ -1,4 +1,4 @@
-package input;
+package utility;
 
 import java.awt.event.KeyEvent;
 

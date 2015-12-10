@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import Entity.Gateway;
 import render.IRenderable;
 import render.RenderableHolder;
+import utility.ConfigurableOption;
 
 public class MainGame extends JPanel{
 	private JButton nextStage;

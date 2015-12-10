@@ -3,7 +3,7 @@ package render;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-import res.ConfigurableOption;
+import utility.ConfigurableOption;
 
 public class GameBackground implements IRenderable{
 
@@ -12,7 +12,7 @@ public class GameBackground implements IRenderable{
 	private int imageWidth;
 	
 	public GameBackground(){
-		bgImage = DrawingUtility.bg;
+//		bgImage = DrawingUtility.bg;
 		if(bgImage != null){
 			imageWidth = bgImage.getWidth();
 		}else{

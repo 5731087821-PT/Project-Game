@@ -1,4 +1,4 @@
-package res;
+package utility;
 
 import java.applet.Applet;
 import java.applet.AudioClip;

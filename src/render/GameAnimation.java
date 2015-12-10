@@ -3,7 +3,7 @@ package render;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-import lib.IRenderableObject;
+import render.*;
 
 public class GameAnimation implements IRenderable {
 

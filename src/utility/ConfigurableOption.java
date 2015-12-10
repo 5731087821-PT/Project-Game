@@ -1,4 +1,5 @@
-package res;
+package utility;
+
 
 public class ConfigurableOption {
 	public static int screenWidth = 720;
