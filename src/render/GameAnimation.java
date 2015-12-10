@@ -1,8 +1,3 @@
-/**
- * @author Thuchchai Jiamsorn (5731050521) 
- * @version 11 Nov 2015
- * Lab5 part2 (2/2015) in 2110215 Prog Meth
- */
 package render;
 
 import java.awt.Graphics2D;

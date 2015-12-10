@@ -3,7 +3,7 @@ package ui;
 import java.awt.Color;
 import java.awt.Dimension;
 
-import javax.swing.*;
+import javax.swing.JPanel;
 
 public class MiniGame extends JPanel{
 	public MiniGame(){

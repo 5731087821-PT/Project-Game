@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import render.RenderableHolder;
-import render.Resource;
+import res.*;
 
 public class GameLogic {
 	private static GameLogic instance;	
