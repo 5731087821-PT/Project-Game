@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 
 import lib.IRenderableObject;
 
-public class GameAnimation implements IRenderableObject {
+public class GameAnimation implements IRenderable {
 
 	private BufferedImage image = null;
 	private int frameCount,frameDelay;
@@ -168,12 +168,18 @@ public class GameAnimation implements IRenderableObject {
 	}
 
 	@Override
-	public void render(Graphics2D g2) {
+	public void draw(Graphics2D g2) {
 		/* fill code */
 		if(!visible || image==null){
 			return ;
 		}
 		g2.drawImage(image.getSubimage(currentFrame*frameWidth, 0, frameWidth, frameHeight), null, x, y);
+	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
