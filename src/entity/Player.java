@@ -23,7 +23,7 @@ public class Player implements IRenderable {
 	}
 
 	public void update() {
-		for(IRenderable renderable : RenderableHolder.getInstance().getRenderableList()){
+		for(IRenderable renderable : RenderableHolder.getInstance().getNorthRenderableList()){
 			if(renderable instanceof Gateway){
 				if( ((Gateway) renderable).isGateClose() ){
 					continue;
@@ -82,7 +82,7 @@ public class Player implements IRenderable {
 				g2d.fillOval(x, y, radius * 2, radius * 2);
 				
 			if(deadCounter == 0)
-				RenderableHolder.getInstance().getRenderableList().remove(this);
+				RenderableHolder.getInstance().getNorthRenderableList().remove(this);
 		}
 	}
 

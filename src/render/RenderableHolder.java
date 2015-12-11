@@ -10,17 +10,18 @@ public class RenderableHolder {
 		return instance;
 	}
 	
-	
-	private List<IRenderable> entities;
+	private List<IRenderable> northEntities;
+	private List<IRenderable> southEntities;
 	
 	public RenderableHolder(){
-		entities = new ArrayList<IRenderable>();
+		northEntities = new ArrayList<IRenderable>();
+		southEntities = new ArrayList<IRenderable>();
 	}
 
-	public void add(IRenderable entity){
-		entities.add(entity);
+	public void addNorthEntity(IRenderable entity){
+		northEntities.add(entity);
 		//Sort our list by Z -- we don't sort during "image drawing" as it's not efficient
-		Collections.sort(entities, new Comparator<IRenderable>() {
+		Collections.sort(northEntities, new Comparator<IRenderable>() {
 			@Override
 			public int compare(IRenderable o1, IRenderable o2) {
 				if(o1.getZ() > o2.getZ()) return 1;
@@ -29,7 +30,23 @@ public class RenderableHolder {
 		});
 	}
 	
-	public List<IRenderable> getRenderableList(){
-		return entities;
+	public void addSouthEntity(IRenderable entity){
+		southEntities.add(entity);
+		//Sort our list by Z -- we don't sort during "image drawing" as it's not efficient
+		Collections.sort(southEntities, new Comparator<IRenderable>() {
+			@Override
+			public int compare(IRenderable o1, IRenderable o2) {
+				if(o1.getZ() > o2.getZ()) return 1;
+				return -1;
+			}
+		});
+	}
+	
+	public List<IRenderable> getNorthRenderableList(){
+		return northEntities;
+	}
+	
+	public List<IRenderable> getSouthRenderableList(){
+		return southEntities;
 	}
 }

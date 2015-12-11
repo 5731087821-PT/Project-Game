@@ -2,8 +2,10 @@
 
 import javax.swing.*;
 
-import entity.GameLogic;
+import entity.GameScreenLogic;
 import render.GameScreen;
+import render.MainGame;
+import render.SouthPanel;
 import ui.*;
 
 public class Main {
@@ -12,9 +14,10 @@ public class Main {
 		// TODO Auto-generated method stub
 		GameScreen gameScreen = new GameScreen();
 		MainGame mainGame = new MainGame();
-		GameLogic gameLogic = new GameLogic();
+		SouthPanel southPanel = new SouthPanel(mainGame);
+		GameScreenLogic gameLogic = new GameScreenLogic();
 		
-		JFrame GameWindow = new GameWindow(gameScreen, mainGame, gameLogic);
+		JFrame GameWindow = new GameWindow(gameScreen, mainGame, southPanel, gameLogic);
 		
 	}
 

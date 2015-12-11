@@ -56,7 +56,7 @@ public class Coin implements IRenderable{
 			g2d.fillOval(x, y, radius * 2, radius * 2);
 			
 			if(deadCounter == 0)
-				RenderableHolder.getInstance().getRenderableList().remove(this);
+				RenderableHolder.getInstance().getNorthRenderableList().remove(this);
 		}
 	}
 

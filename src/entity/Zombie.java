@@ -54,7 +54,7 @@ public class Zombie implements IRenderable{
 			g2d.fillRect(x, y, 40, 40);
 			
 			if(deadCounter == 0){
-				RenderableHolder.getInstance().getRenderableList().remove(this);
+				RenderableHolder.getInstance().getNorthRenderableList().remove(this);
 			}
 		}
 	}

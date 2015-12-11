@@ -7,7 +7,7 @@ import render.RenderableHolder;
 import render.Resource;
 import utility.ConfigurableOption;
 
-public class GameLogic {
+public class GameScreenLogic {
 	protected Player player;
 	protected PlayerStatus playerStatus;
 	protected Gateway gateIn, gateOut;
@@ -20,7 +20,7 @@ public class GameLogic {
 	private Resource resource;
 	public static boolean spawnZombie;
 	
-	public GameLogic(){
+	public GameScreenLogic(){
 		this.player = new Player();
 		this.playerStatus = new PlayerStatus();
 		this.gateIn = new Gateway(ConfigurableOption.xGateway1, ConfigurableOption.yGateway1);
@@ -32,10 +32,10 @@ public class GameLogic {
 		this.resource = new Resource();
 		this.spawnZombie = true;
 		
-		RenderableHolder.getInstance().add(player);
-		RenderableHolder.getInstance().add(playerStatus);
-		RenderableHolder.getInstance().add(gateIn);
-		RenderableHolder.getInstance().add(gateOut);
+		RenderableHolder.getInstance().addNorthEntity(player);
+		RenderableHolder.getInstance().addNorthEntity(playerStatus);
+		RenderableHolder.getInstance().addNorthEntity(gateIn);
+		RenderableHolder.getInstance().addNorthEntity(gateOut);
 	}
 	
 	public void logicUpdate() {
@@ -54,14 +54,14 @@ public class GameLogic {
 				}
 			}
 			Zombie zombie = new Zombie(zombies.size()+1);
-			RenderableHolder.getInstance().add(zombie);
+			RenderableHolder.getInstance().addNorthEntity(zombie);
 			zombies.add(zombie);
 		}
 		
 		if(spawnDelayCounter >= SPAWN_DELAY && player.getDoorOpen()!=2){
 			spawnDelayCounter =0;
 			Coin coin = new Coin();
-			RenderableHolder.getInstance().add(coin);
+			RenderableHolder.getInstance().addNorthEntity(coin);
 			coins.add(coin);
 		}
 		

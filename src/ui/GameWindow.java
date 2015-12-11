@@ -4,21 +4,24 @@ import java.awt.*;
 
 import javax.swing.*;
 
-import entity.GameLogic;
+import entity.GameScreenLogic;
 import render.GameScreen;
+import render.MainGame;
 import utility.ConfigurableOption;;
 
 public class GameWindow extends JFrame{
 	private int width,height;
 	private GameScreen gameScreen;
-	private JPanel mainGame;
-	private GameLogic gameLogic;
+	private MainGame mainGame;
+	private JPanel southPanel;
+	private GameScreenLogic gameLogic;
 	
-	public GameWindow(GameScreen gameScreen, JPanel mainGame, GameLogic gameLogic){
+	public GameWindow(GameScreen gameScreen, MainGame mainGame, JPanel southPanel, GameScreenLogic gameLogic){
 		this.width = ConfigurableOption.screenWidth;
 		this.height = ConfigurableOption.screenHeight;
 		this.gameScreen = gameScreen;
 		this.mainGame = mainGame;
+		this.southPanel = southPanel;
 		this.gameLogic = gameLogic;
 		
 		this.setPreferredSize(new Dimension(width, height));
@@ -26,7 +29,7 @@ public class GameWindow extends JFrame{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		this.add(gameScreen, BorderLayout.NORTH);
-		this.add(mainGame, BorderLayout.CENTER);
+		this.add(southPanel, BorderLayout.CENTER);
 		
 		this.setResizable(false);
 		this.pack();
@@ -38,6 +41,7 @@ public class GameWindow extends JFrame{
 			}catch (InterruptedException e){
 				e.printStackTrace();
 			}
+			mainGame.repaint();
 			gameScreen.repaint();
 			gameLogic.logicUpdate();
 		}
