@@ -2,7 +2,7 @@
 
 import javax.swing.*;
 
-import Entity.GameLogic;
+import entity.GameLogic;
 import render.GameScreen;
 import ui.*;
 

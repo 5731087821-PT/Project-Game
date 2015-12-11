@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import Entity.Gateway;
+import entity.Gateway;
 import render.IRenderable;
 import render.RenderableHolder;
 import utility.ConfigurableOption;

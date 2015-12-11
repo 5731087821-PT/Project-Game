@@ -4,8 +4,9 @@ import java.awt.*;
 
 import javax.swing.*;
 
-import Entity.GameLogic;
+import entity.GameLogic;
 import render.GameScreen;
+import utility.ConfigurableOption;;
 
 public class GameWindow extends JFrame{
 	private int width,height;
@@ -14,8 +15,8 @@ public class GameWindow extends JFrame{
 	private GameLogic gameLogic;
 	
 	public GameWindow(GameScreen gameScreen, JPanel mainGame, GameLogic gameLogic){
-		this.width = 720;
-		this.height = 480;
+		this.width = ConfigurableOption.screenWidth;
+		this.height = ConfigurableOption.screenHeight;
 		this.gameScreen = gameScreen;
 		this.mainGame = mainGame;
 		this.gameLogic = gameLogic;

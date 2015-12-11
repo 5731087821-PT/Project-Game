@@ -5,12 +5,14 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
+import utility.ConfigurableOption;
+
 public class GameScreen extends JComponent {
 	
 	public GameScreen(){
 		super();
 		setDoubleBuffered(true);
-		setPreferredSize(new Dimension(720, 160));
+		setPreferredSize(new Dimension(ConfigurableOption.screenWidth, ConfigurableOption.gameScreenHeight));
 		setLayout(null);
 		setVisible(true);
 		setFocusable(true);
