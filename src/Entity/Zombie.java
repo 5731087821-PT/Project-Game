@@ -9,19 +9,21 @@ import utility.ConfigurableOption;
 public class Zombie implements IRenderable{
 	protected int x;
 	protected int y;
+	protected int speed;
 	protected boolean moving; 
 	protected boolean destroyed;
 	private int deadCounter;
 
-	public Zombie() {
+	public Zombie(int speed) {
 		this.x = -40;
 		this.y = ConfigurableOption.gameScreenHeight-40;
+		this.speed = speed;
 		this.moving = true;
 	}
 
 	public void update() {
 		if(moving){
-			x++;
+			x+=speed;
 		}
 	}
 

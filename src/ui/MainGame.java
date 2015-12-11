@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import entity.GameLogic;
 import entity.Gateway;
 import render.IRenderable;
 import render.RenderableHolder;
@@ -13,12 +14,16 @@ import utility.ConfigurableOption;
 
 public class MainGame extends JPanel{
 	private JButton nextStage;
+	private JButton mistake;
 	private int count;
 	
 	public MainGame(){
 		this.count = 0;
 		nextStage = new JButton("Next Stage");
+		mistake = new JButton("Mistake");
+		
 		this.add(nextStage);
+		this.add(mistake);
 		
 		nextStage.addActionListener(new ActionListener() {
 			
@@ -39,6 +44,15 @@ public class MainGame extends JPanel{
 						}
 					}
 				}
+			}
+		});
+		
+		mistake.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				GameLogic.spawnZombie = true;
 			}
 		});
 	}
