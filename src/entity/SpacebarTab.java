@@ -63,7 +63,9 @@ public class SpacebarTab implements IRenderable{
 				for(SpacebarGap gap : gaps){
 					if((runningBalls.get(0).getX()+runningBalls.get(0).getDiameter() - gap.getX()) > 10 && (gap.getX() + ConfigurableOption.gapWidth - runningBalls.get(0).getX() > 10) ){
 						gap.destroyed = true;
-						runningBalls.get(0).destroyed = true;
+						if(ConfigurableOption.stageNow == 0){
+							runningBalls.get(0).destroyed = true;
+						}
 					}
 				}
 			}

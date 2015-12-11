@@ -41,9 +41,11 @@ public class SouthPanel extends JPanel{
 						}else if( ((Gateway) renderable).getX() == 260 && count == 0 ){
 							((Gateway) renderable).setGateClose(false);
 							count = 1;
+							ConfigurableOption.stageNow = 1;
 							break;
 						}else if( ((Gateway) renderable).getX() == 450 && count == 1 ){
 							((Gateway) renderable).setGateClose(false);
+							ConfigurableOption.stageNow = 2;
 							break;
 						}
 					}

@@ -20,7 +20,7 @@ public class SpacebarGap implements IRenderable{
 		if(ConfigurableOption.stageNow == 0){
 			x = ConfigurableOption.xSpacebarTab+ConfigurableOption.tabDistance-120;
 		}else if(ConfigurableOption.stageNow == 1){
-			x = RandomUtility.random(ConfigurableOption.xSpacebarTab, ConfigurableOption.xSpacebarTab+ConfigurableOption.tabDistance-20);
+			x = RandomUtility.random(ConfigurableOption.xSpacebarTab, ConfigurableOption.xSpacebarTab+ConfigurableOption.tabDistance-width);
 		}
 		
 		this.destroyed = false;
