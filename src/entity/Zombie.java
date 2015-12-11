@@ -9,9 +9,9 @@ import utility.ConfigurableOption;
 public class Zombie implements IRenderable{
 	protected int x;
 	protected int y;
-	protected int speed;
-	protected boolean moving; 
-	protected boolean destroyed;
+	public int speed;
+	public boolean moving; 
+	public boolean destroyed;
 	private int deadCounter;
 
 	public Zombie(int speed) {

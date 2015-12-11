@@ -16,7 +16,7 @@ public class ConfigurableOption {
 	public static int xSpacebarTab = mainGameWidth/10;
 	public static int ySpacebarTab = 30;
 	public static int spacebarTabHeight = 20;
-	public static int gapWidth = 80;
+	public static int gapWidth = 30;
 	public static int tabDistance = 8*mainGameWidth/10;
 	
 	public static int stageNow = 0;

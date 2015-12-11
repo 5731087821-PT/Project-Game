@@ -12,7 +12,7 @@ public class Coin implements IRenderable{
 	protected int y;
 	protected int radius;
 	protected int disappearCounter;
-	protected boolean destroyed;
+	public boolean destroyed;
 	private int deadCounter;
 	
 	public Coin(){

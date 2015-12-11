@@ -10,7 +10,7 @@ public class Player implements IRenderable {
 	protected int x;
 	protected int y;
 	protected int radius;
-	protected boolean destroyed;
+	public boolean destroyed;
 	private int doorOpen;
 	private int deadCounter;
 

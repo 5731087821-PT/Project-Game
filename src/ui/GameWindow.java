@@ -4,8 +4,8 @@ import java.awt.*;
 
 import javax.swing.*;
 
-import entity.GameScreenLogic;
-import entity.MainGameLogic;
+import LogicGame.GameScreenLogic;
+import LogicGame.MainGameLogic;
 import render.GameScreen;
 import render.MainGame;
 import utility.ConfigurableOption;;

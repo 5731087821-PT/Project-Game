@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import entity.GameScreenLogic;
+import LogicGame.GameScreenLogic;
 import entity.Gateway;
 import utility.ConfigurableOption;
 

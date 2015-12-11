@@ -1,6 +1,5 @@
 package utility;
 
-import java.awt.event.KeyEvent;
 
 public class InputUtility {
 
