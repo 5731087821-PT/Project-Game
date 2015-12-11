@@ -4,6 +4,7 @@ import java.applet.Applet;
 import java.applet.AudioClip;
 import java.awt.Font;
 import java.awt.image.BufferedImage;
+import java.util.HashMap;
 
 import javax.imageio.ImageIO;
 
@@ -12,23 +13,18 @@ import render.RenderableHolder;
 public class Resource {
 	
 	public static final Font standardFont = new Font("Tahoma",Font.BOLD,30);
-	public static BufferedImage appleSprite;
-	public static AudioClip coinSound;
-	public static AudioClip acShoot;
-	public static AudioClip acCollect;
-	static{
+	private static HashMap<String,AnimationManager> rs = new HashMap<>();
+	private static HashMap<String,AudioClip> audio = new HashMap<>();
+	public Resource(){
 		try {
 			ClassLoader loader = RenderableHolder.class.getClassLoader();
 			appleSprite = ImageIO.read(loader.getResource("res/Apple.png"));
-			coinSound = Applet.newAudioClip(Resource.class.getClassLoader().getResource("res/coin.wav"));
-			acShoot = Applet.newAudioClip(Resource.class.getClassLoader().getResource("res/se/shoot.wav"));
-			acCollect = Applet.newAudioClip(Resource.class.getClassLoader().getResource("res/se/collect.wav"));
 		} catch (Exception e) {
 			appleSprite = null;
-			coinSound = null;
-			acShoot = null;
-			acCollect = null;
 		}
+		
+		audio.put("coin",Applet.newAudioClip(Resource.class.getClassLoader().getResource("res/coin.wav")));
+		
 	}
 	public static void playSound(String identifier){
 		if(identifier=="shoot"){
