@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 import render.IRenderable;
+import utility.ConfigurableOption;
 
 public class Gateway implements IRenderable{
 	protected int x;
@@ -17,7 +18,7 @@ public class Gateway implements IRenderable{
 	}
 
 	public void update() {
-		if(!gateClose && y >= -120){
+		if(!gateClose && y >= -160){
 			y--;
 		}
 	}
@@ -48,7 +49,7 @@ public class Gateway implements IRenderable{
 	public void draw(Graphics2D g2d) {
 		// TODO Auto-generated method stub
 		g2d.setColor(new Color(0, 0, 0, 100));
-		g2d.fillRect(x, y, 10, 160);
+		g2d.fillRect(x, y, 10, ConfigurableOption.gameScreenHeight);
 	}
 
 	@Override

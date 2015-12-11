@@ -4,6 +4,7 @@ import java.awt.*;
 
 import render.IRenderable;
 import render.RenderableHolder;
+import utility.ConfigurableOption;
 
 public class Player implements IRenderable {
 	protected int x;
@@ -14,9 +15,9 @@ public class Player implements IRenderable {
 	private int deadCounter;
 
 	public Player() {
-		this.x = 210;
-		this.y = 120;
 		this.radius = 20;
+		this.x = ConfigurableOption.screenWidth-(5*ConfigurableOption.screenWidth/7);
+		this.y = ConfigurableOption.gameScreenHeight-radius*2;
 		this.destroyed = false;
 		this.doorOpen = 0;
 	}
@@ -26,15 +27,15 @@ public class Player implements IRenderable {
 			if(renderable instanceof Gateway){
 				if( ((Gateway) renderable).isGateClose() ){
 					continue;
-				}else if( ((Gateway) renderable).getX() == 260 && doorOpen !=2 && ((Gateway)renderable).getY() <= -40){
+				}else if( ((Gateway) renderable).getX() == ConfigurableOption.xGateway1 && doorOpen !=2 && ((Gateway)renderable).getY() <= -40){
 					doorOpen = 1;
-				}else if( ((Gateway) renderable).getX() == 450){
+				}else if( ((Gateway) renderable).getX() == ConfigurableOption.xGateway2){
 					doorOpen = 2;
 				}
 			}
 		}
 		
-		if(doorOpen == 1 && x < 300){
+		if(doorOpen == 1 && x < ConfigurableOption.xGateway1+30){
 			this.x+=2;
 		}else if(doorOpen == 2){
 			this.x+=3;

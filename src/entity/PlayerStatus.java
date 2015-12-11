@@ -4,42 +4,52 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 import render.IRenderable;
+import utility.ConfigurableOption;
 import utility.Resource;
 
-public class PlayerStatus implements IRenderable {
-	private int score;
+public class PlayerStatus implements IRenderable{
+	private int coins;
 	
-	public PlayerStatus() {
-		this.score = 0;
+	public PlayerStatus(){
+		this.coins = 0;
 	}
 	
-	public void addScore(int s) {
-		this.score += s;
+	public int getCoin(){
+		return this.coins;
 	}
 	
-	public void substractionScore(int s) {
-		this.score -= s;
-		if(this.score < 0) this.score = 0;
+	public void setCoin(int coin){
+		this.coins = coin;
+	}
+	
+	public void addScore(int coin){
+		this.coins += coin;
+	}
+	
+	public void subtractionScore(int coin){
+		this.coins -= coin;
+	}
+	
+	@Override
+	public int getZ() {
+		// TODO Auto-generated method stub
+		return 1000;
 	}
 
 	@Override
 	public void draw(Graphics2D g2d) {
-		g2d.setColor(Color.BLACK);
-		g2d.fillRect(0, 420, 640, 60); 
-		
+		// TODO Auto-generated method stub
+		g2d.setColor(new Color(0, 0, 0));
+		g2d.fillRect(0, 0, ConfigurableOption.screenWidth, 40);
 		g2d.setColor(Color.WHITE);
 		g2d.setFont(Resource.standardFont);
-		g2d.drawString("SCORE: " + score, 10, 460);
+		g2d.drawString("COIN: "+this.coins, 10, 32);
 	}
 
 	@Override
 	public boolean isVisible() {
+		// TODO Auto-generated method stub
 		return true;
-	}
-
-	@Override
-	public int getZ() {
-		return 3;
 	}
 
 	@Override
@@ -59,5 +69,5 @@ public class PlayerStatus implements IRenderable {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
 }
-

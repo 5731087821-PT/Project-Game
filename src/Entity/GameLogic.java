@@ -5,10 +5,12 @@ import java.util.function.Predicate;
 
 import render.RenderableHolder;
 import render.Resource;
+import utility.ConfigurableOption;
 
 public class GameLogic {
 	protected Zombie zombie;
 	protected Player player;
+	protected PlayerStatus playerStatus;
 	protected Gateway gateIn, gateOut;
 	protected ArrayList<Coin> coins;
 	private static final int SPAWN_DELAY = 50;
@@ -20,8 +22,9 @@ public class GameLogic {
 	public GameLogic(){
 		this.zombie = new Zombie();
 		this.player = new Player();
-		this.gateIn = new Gateway(260, 0);
-		this.gateOut = new Gateway(450, 0);
+		this.playerStatus = new PlayerStatus();
+		this.gateIn = new Gateway(ConfigurableOption.xGateway1, ConfigurableOption.yGateway1);
+		this.gateOut = new Gateway(ConfigurableOption.xGateway2, ConfigurableOption.yGateway2);
 		this.coins = new ArrayList<Coin>();
 		this.spawnDelayCounter = 0;
 		this.movingDelayCounter = 0;
@@ -29,9 +32,9 @@ public class GameLogic {
 		
 		RenderableHolder.getInstance().add(zombie);
 		RenderableHolder.getInstance().add(player);
+		RenderableHolder.getInstance().add(playerStatus);
 		RenderableHolder.getInstance().add(gateIn);
 		RenderableHolder.getInstance().add(gateOut);
-		
 	}
 	
 	public void logicUpdate() {

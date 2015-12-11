@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 
 import render.IRenderable;
 import render.RenderableHolder;
+import utility.ConfigurableOption;
 
 public class Coin implements IRenderable{
 	protected int x;
@@ -15,9 +16,9 @@ public class Coin implements IRenderable{
 	private int deadCounter;
 	
 	public Coin(){
-		this.x = RandomUtility.random(275, 425);
-		this.y = 140;
 		this.radius = 10;
+		this.x = RandomUtility.random(275, 425);
+		this.y = ConfigurableOption.gameScreenHeight-radius*2;
 		this.disappearCounter = RandomUtility.random(100, 300);
 		this.destroyed = false;
 	}
