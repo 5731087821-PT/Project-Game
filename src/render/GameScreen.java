@@ -18,8 +18,6 @@ public class GameScreen extends JComponent {
 		setPreferredSize(new Dimension(width, height));
 		setLayout(null);
 		setVisible(true);
-		setFocusable(true);
-		requestFocus();
 	}
 	
 	public void paintComponent(Graphics g){

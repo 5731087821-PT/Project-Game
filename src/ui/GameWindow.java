@@ -5,6 +5,7 @@ import java.awt.*;
 import javax.swing.*;
 
 import entity.GameScreenLogic;
+import entity.MainGameLogic;
 import render.GameScreen;
 import render.MainGame;
 import utility.ConfigurableOption;;
@@ -14,15 +15,17 @@ public class GameWindow extends JFrame{
 	private GameScreen gameScreen;
 	private MainGame mainGame;
 	private JPanel southPanel;
-	private GameScreenLogic gameLogic;
+	private GameScreenLogic gameScreenLogic;
+	private MainGameLogic mainGameLogic;
 	
-	public GameWindow(GameScreen gameScreen, MainGame mainGame, JPanel southPanel, GameScreenLogic gameLogic){
+	public GameWindow(GameScreen gameScreen, MainGame mainGame, GameScreenLogic gameScreenLogic, MainGameLogic mainGameLogic, JPanel southPanel){
 		this.width = ConfigurableOption.screenWidth;
 		this.height = ConfigurableOption.screenHeight;
 		this.gameScreen = gameScreen;
 		this.mainGame = mainGame;
 		this.southPanel = southPanel;
-		this.gameLogic = gameLogic;
+		this.gameScreenLogic = gameScreenLogic;
+		this.mainGameLogic = mainGameLogic;
 		
 		this.setPreferredSize(new Dimension(width, height));
 		this.setLayout(new BorderLayout());
@@ -37,13 +40,16 @@ public class GameWindow extends JFrame{
 		
 		while(true){
 			try{
-				Thread.sleep(20);
+				Thread.sleep(10);
 			}catch (InterruptedException e){
 				e.printStackTrace();
 			}
 			mainGame.repaint();
 			gameScreen.repaint();
-			gameLogic.logicUpdate();
+			gameScreenLogic.logicUpdate();
+			mainGameLogic.logicUpdate();
+			
+			mainGame.requestFocus();
 		}
 	}
 }

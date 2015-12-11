@@ -3,6 +3,7 @@
 import javax.swing.*;
 
 import entity.GameScreenLogic;
+import entity.MainGameLogic;
 import render.GameScreen;
 import render.MainGame;
 import render.SouthPanel;
@@ -15,9 +16,10 @@ public class Main {
 		GameScreen gameScreen = new GameScreen();
 		MainGame mainGame = new MainGame();
 		SouthPanel southPanel = new SouthPanel(mainGame);
-		GameScreenLogic gameLogic = new GameScreenLogic();
+		GameScreenLogic gameScreenLogic = new GameScreenLogic();
+		MainGameLogic mainGameLogic = new MainGameLogic();
 		
-		JFrame GameWindow = new GameWindow(gameScreen, mainGame, southPanel, gameLogic);
+		JFrame GameWindow = new GameWindow(gameScreen, mainGame, gameScreenLogic, mainGameLogic, southPanel);
 		
 	}
 

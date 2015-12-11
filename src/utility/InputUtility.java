@@ -91,9 +91,7 @@ public class InputUtility {
 	}
 	
 	public static void postUpdate(){
-		mouseLeftTriggered = false;
-		mouseRightTriggered = false;
-		keyTriggered[KeyEvent.VK_SPACE] = false;
+//		keyTriggered[KeyEvent.VK_SPACE] = false;
 		for(int i=0;i<keyTriggered.length;i++){
 			keyTriggered[i] = false;
 		}
