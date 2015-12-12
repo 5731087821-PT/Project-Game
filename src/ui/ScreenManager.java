@@ -29,7 +29,7 @@ public class ScreenManager extends JFrame{
 	private NorthScreen northScreen;
 	private SouthScreen southScreen;
 	private NorthScreenLogic northScreenLogic;
-	private SouthScreenLogic southGameLogic;
+	private SouthScreenLogic southScreenLogic;
 	
 	private JPanel panel;
 	
@@ -42,12 +42,15 @@ public class ScreenManager extends JFrame{
 		northScreen = new NorthScreen();
 		southScreen = new SouthScreen();
 		northScreenLogic = new NorthScreenLogic();
-		southGameLogic = new SouthScreenLogic();
+		southScreenLogic = new SouthScreenLogic();
 
 		
 		panel = new JPanel();
 		panel.setPreferredSize(new Dimension(ConfigurableOption.screenWidth, ConfigurableOption.screenHeight));
-		panel.setLayout(new FlowLayout(FlowLayout.LEADING, 0, 0));
+		panel.setLayout(new FlowLayout(FlowLayout.LEADING, 0, 0));southScreenLogic = new SouthScreenLogic();
+		
+		northScreenLogic.setSouthScreenLogic(southScreenLogic);
+		southScreenLogic.setNorthScreenLogic(northScreenLogic);
 		
 		
 		bgm = Resource.getAudio("gamebgm");
@@ -119,7 +122,9 @@ public class ScreenManager extends JFrame{
 				currentScreen.add(northScreen);
 				currentScreen.add(southScreen);
 				currentLogic.add(northScreenLogic);
-				currentLogic.add(southGameLogic);
+				currentLogic.add(southScreenLogic);
+				this.add(northScreen, BorderLayout.NORTH);
+				this.add(southScreen, BorderLayout.SOUTH);
 				bgm = Resource.getAudio("gamebgm");
 				bgm.play();
 				break;

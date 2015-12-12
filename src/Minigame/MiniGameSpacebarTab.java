@@ -48,13 +48,10 @@ public class MiniGameSpacebarTab implements IRenderable {
 		this.direction = 1;
 		this.answerCounter = 0;
 		this.spawnDelayCounter = 0;
-		this.playerStatus = new PlayerStatus();
 		this.coins = new ArrayList<Coin>();
 		this.runningBalls = new ArrayList<RunningBall>();
 		gaps = new ArrayList<SpacebarGap>();
 		this.threadStart = false;
-		
-		RenderableHolder.getInstance().addNorthEntity(playerStatus);
 	}
 
 	@Override
@@ -142,8 +139,6 @@ public class MiniGameSpacebarTab implements IRenderable {
 	public void update() {
 		// TODO Auto-generated method stub
 		spawnDelayCounter++;
-		
-		playerStatus.update();
 		
 		if(spawnDelayCounter >= SPAWN_DELAY && ConfigurableOption.stageNow !=2 && ConfigurableOption.coinCounter < ConfigurableOption.coinLimit){
 			if(ConfigurableOption.seedCoin%30==0) ConfigurableOption.seedCoin = 0;
@@ -256,6 +251,10 @@ public class MiniGameSpacebarTab implements IRenderable {
 				return coin.isDestroyed();
 			}
 		});
+	}
+	
+	public void setPlayerStatus(PlayerStatus playerStatus){
+		this.playerStatus = playerStatus;
 	}
 
 	@Override
