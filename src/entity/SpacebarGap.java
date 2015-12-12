@@ -3,33 +3,38 @@ package entity;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-import com.sun.glass.events.KeyEvent;
-
 import render.IRenderable;
 import render.RenderableHolder;
 import utility.ConfigurableOption;
-import utility.InputUtility;
-import utility.RandomUtility;
 
 public class SpacebarGap implements IRenderable{
 	protected int x;
 	protected int width;
+	protected int disappearCounter;
 	public boolean destroyed;
+	public int seed;
 	
-	public SpacebarGap(){
+	public SpacebarGap(int disappearCounter, int x){
 		width = ConfigurableOption.gapWidth;
 		if(ConfigurableOption.stageNow == 0){
-			x = ConfigurableOption.xSpacebarTab+ConfigurableOption.tabDistance-120;
+			this.x = ConfigurableOption.xSpacebarTab+ConfigurableOption.tabDistance-120;
 		}else if(ConfigurableOption.stageNow == 1){
-			x = RandomUtility.random(ConfigurableOption.xSpacebarTab, ConfigurableOption.xSpacebarTab+ConfigurableOption.tabDistance-width);
+			this.x = x;
 		}
 		
+		this.disappearCounter = disappearCounter;
 		this.destroyed = false;
+		this.seed = ConfigurableOption.seedCoin;
 	}
+	
 	@Override
 	public void draw(Graphics2D g2d) {
 		// TODO Auto-generated method stub
-		g2d.setColor(new Color(245, 245, 245));
+		if(disappearCounter > 500){
+			g2d.setColor(new Color(245, 245, 245));
+		}else{
+			g2d.setColor(new Color(245, 245, 245, disappearCounter/2));
+		}
 		g2d.fillRoundRect(x, ConfigurableOption.ySpacebarTab, width, 20, 6, 6);
 	}
 
@@ -42,8 +47,11 @@ public class SpacebarGap implements IRenderable{
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub
+		disappearCounter--;
+		if(disappearCounter<=0) this.destroyed = true;
 		if(destroyed){
 			RenderableHolder.getInstance().getSouthRenderableList().remove(this);
+			ConfigurableOption.coinCounter--;
 		}
 	}
 

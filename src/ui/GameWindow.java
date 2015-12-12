@@ -28,7 +28,6 @@ public class GameWindow extends JFrame{
 	
 	private NorthScreen northScreen;
 	private SouthScreen southScreen;
-	private JPanel southPanelTester;
 	private NorthScreenLogic northScreenLogic;
 	private SouthScreenLogic southGameLogic;
 	
@@ -40,7 +39,6 @@ public class GameWindow extends JFrame{
 
 		northScreen = new NorthScreen();
 		southScreen = new SouthScreen();
-		southPanelTester = new SouthPanelTester(southScreen);
 		northScreenLogic = new NorthScreenLogic();
 		southGameLogic = new SouthScreenLogic();
 		
@@ -114,11 +112,11 @@ public class GameWindow extends JFrame{
 			case GAMESCREEN:{
 				System.out.println("Game Screen");
 				currentScreen.add(northScreen);
-				currentScreen.add(southPanelTester);
+				currentScreen.add(southScreen);
 				currentLogic.add(northScreenLogic);
 				currentLogic.add(southGameLogic);
 				this.add(northScreen, BorderLayout.NORTH);
-				this.add(southPanelTester, BorderLayout.CENTER);
+				this.add(southScreen, BorderLayout.SOUTH);
 				bgm = Resource.getAudio("gamebgm");
 				bgm.play();
 				break;

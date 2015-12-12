@@ -3,6 +3,7 @@ package entity;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import LogicGame.MiniGameSpacebarTab;
 import render.IRenderable;
 import render.RenderableHolder;
 import utility.ConfigurableOption;
@@ -15,19 +16,23 @@ public class Coin implements IRenderable{
 	protected int disappearCounter;
 	public boolean destroyed;
 	private int deadCounter;
+	public int seed;
 	
-	public Coin(){
+	public Coin(int disappearCounter){
 		this.radius = 10;
 		this.x = RandomUtility.random(275, 425);
 		this.y = ConfigurableOption.northScreenHeight-radius*2;
-		this.disappearCounter = RandomUtility.random(100, 300);
+		this.disappearCounter = disappearCounter;
 		this.destroyed = false;
+		this.seed = ConfigurableOption.seedCoin;
 	}
 	
 	public void update(){
 		disappearCounter--;
 		if(disappearCounter<=0) this.destroyed = true;
-		
+		if(destroyed){
+			RenderableHolder.getInstance().getNorthRenderableList().remove(this);
+		}
 	}
 	
 	@Override
@@ -56,9 +61,9 @@ public class Coin implements IRenderable{
 			}
 			g2d.fillOval(x, y, radius * 2, radius * 2);
 			
-			if(deadCounter == 0)
+			if(deadCounter == 0){
 				destroyed = true;
-//				RenderableHolder.getInstance().getNorthRenderableList().remove(this);
+			}
 		}
 	}
 

@@ -28,6 +28,7 @@ public class PlayerStatus implements IRenderable{
 	
 	public void subtractionScore(int coin){
 		this.coins -= coin;
+		if(coins<0) coins = 0;
 	}
 	
 	@Override

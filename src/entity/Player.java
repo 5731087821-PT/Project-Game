@@ -55,9 +55,9 @@ public class Player implements IRenderable {
 			if(renderable instanceof Gateway){
 				if( ((Gateway) renderable).isGateClose() ){
 					continue;
-				}else if( ((Gateway) renderable).getX() == ConfigurableOption.xGateway1 && doorOpen !=2 && ((Gateway)renderable).getY() <= -40){
+				}else if( ((Gateway) renderable).getX() == ConfigurableOption.xGateway1 && doorOpen !=2 && ((Gateway)renderable).getY() <= -50){
 					doorOpen = 1;
-				}else if( ((Gateway) renderable).getX() == ConfigurableOption.xGateway2){
+				}else if( ((Gateway) renderable).getX() == ConfigurableOption.xGateway2 && ((Gateway)renderable).getY() <= -20){
 					doorOpen = 2;
 				}
 			}
@@ -116,7 +116,7 @@ public class Player implements IRenderable {
 				
 			if(deadCounter == 0)
 				destroyed = true;
-//				RenderableHolder.getInstance().getNorthRenderableList().remove(this);
+				RenderableHolder.getInstance().getNorthRenderableList().remove(this);
 		}
 	}
 

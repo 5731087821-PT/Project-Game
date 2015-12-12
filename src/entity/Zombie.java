@@ -55,7 +55,7 @@ public class Zombie implements IRenderable{
 			
 			if(deadCounter == 0){
 				destroyed = true;
-//				RenderableHolder.getInstance().getNorthRenderableList().remove(this);
+				RenderableHolder.getInstance().getNorthRenderableList().remove(this);
 			}
 		}
 	}
