@@ -3,7 +3,7 @@ package entity;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-import Minigame.MiniGameSpacebarTab;
+import Minigame.SpacebarTab;
 import render.IRenderable;
 import render.RenderableHolder;
 import utility.ConfigurableOption;

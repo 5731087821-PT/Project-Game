@@ -9,21 +9,35 @@ import utility.Resource;
 
 public class PlayerStatus implements IRenderable{
 	private int coins;
+	private int combo;
 	
 	public PlayerStatus(){
 		this.coins = 0;
+		this.combo = 1;
 	}
 	
 	public int getCoin(){
 		return this.coins;
 	}
-	
+
+	public int getCombo(){
+		return this.combo;
+	}
+
 	public void setCoin(int coin){
 		this.coins = coin;
 	}
 	
 	public void addScore(int coin){
 		this.coins += coin;
+	}
+	
+	public void comboInterrupted(){
+		this.combo = 1;
+	}
+	
+	public void addCombo(int combo){
+		this.combo += combo;
 	}
 	
 	public void subtractionScore(int coin){
@@ -45,6 +59,7 @@ public class PlayerStatus implements IRenderable{
 		g2d.setColor(Color.WHITE);
 		g2d.setFont(Resource.standardFont);
 		g2d.drawString("COIN: "+this.coins, 10, 32);
+		g2d.drawString("COMBO: "+this.combo, 200, 32);
 	}
 
 	@Override

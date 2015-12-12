@@ -49,9 +49,8 @@ public class RunningBall implements IRenderable{
 		}else if (x<=ConfigurableOption.xSpacebarTab){
 			this.direction = 1;
 		}
-		
-		x+=3*this.direction;
-		
+
+		this.x += 3*this.direction;
 	}
 	public int getDiameter(){
 		return diameter;

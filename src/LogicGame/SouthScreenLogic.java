@@ -1,29 +1,66 @@
 package LogicGame;
 
-import java.util.*;
-
-import Minigame.MiniGameSpacebarTab;
+import Minigame.OpenGatewayZero;
+import Minigame.SpacebarTab;
+import entity.Coin;
+import entity.SpacebarGap;
 import render.RenderableHolder;
 import utility.ConfigurableOption;
 
 public class SouthScreenLogic implements Logic{
-	protected MiniGameSpacebarTab miniGameSpacebarTab;
+	protected OpenGatewayZero openGatewayZero;
+	protected SpacebarTab spacebarTab;
 	private NorthScreenLogic northScreenLogic;
+	private boolean startStage;
 	
 	public SouthScreenLogic(){
-		this.miniGameSpacebarTab = new MiniGameSpacebarTab();
-		
-		RenderableHolder.getInstance().addSouthEntity(miniGameSpacebarTab);
+		this.startStage = true;
 	}
 	
 	public void logicUpdate() {
 		// TODO Auto-generated method stub
-		miniGameSpacebarTab.update();
+		
+		if(startStage){
+			startStage = false;
+			if(ConfigurableOption.stageNow == 0){
+				this.openGatewayZero = new OpenGatewayZero();
+				RenderableHolder.getInstance().addSouthEntity(openGatewayZero);
+			}else if(ConfigurableOption.stageNow == 1){
+				this.spacebarTab = new SpacebarTab();
+				RenderableHolder.getInstance().addSouthEntity(spacebarTab);
+			}
+		}
+		if(RenderableHolder.getInstance().getSouthRenderableList().contains(spacebarTab)){
+			spacebarTab.setPlayerStatus(northScreenLogic.playerStatus);
+		}
+		
+		if(ConfigurableOption.stageNow == 1 && RenderableHolder.getInstance().getSouthRenderableList().contains(openGatewayZero)){
+			RenderableHolder.getInstance().getSouthRenderableList().remove(openGatewayZero.getGap());
+			RenderableHolder.getInstance().getSouthRenderableList().remove(openGatewayZero.getRunningBall());
+			RenderableHolder.getInstance().getSouthRenderableList().remove(openGatewayZero);
+			openGatewayZero = null;
+			startStage = true;
+		}else if(ConfigurableOption.stageNow == 2 && RenderableHolder.getInstance().getSouthRenderableList().contains(spacebarTab)){
+			for(Coin coin : spacebarTab.getCoin()){
+				RenderableHolder.getInstance().getSouthRenderableList().remove(coin);
+			}
+			for(SpacebarGap gap : spacebarTab.getGap()){
+				RenderableHolder.getInstance().getSouthRenderableList().remove(gap);
+			}
+			RenderableHolder.getInstance().getSouthRenderableList().remove(spacebarTab.getRunningBall());
+			RenderableHolder.getInstance().getSouthRenderableList().remove(spacebarTab);
+		}
+		
+		if(ConfigurableOption.stageNow==0){
+			openGatewayZero.update();
+		}else if(ConfigurableOption.stageNow == 1 && spacebarTab != null){
+			spacebarTab.update();
+		}
 	}
 
 	public void setNorthScreenLogic(NorthScreenLogic northScreenLogic) {
 		// TODO Auto-generated method stub
 		this.northScreenLogic = northScreenLogic;
-		miniGameSpacebarTab.setPlayerStatus(northScreenLogic.playerStatus);
+		//spacebarTab.setPlayerStatus(northScreenLogic.playerStatus);
 	}
 }
