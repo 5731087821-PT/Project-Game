@@ -16,7 +16,7 @@ import utility.InputUtility;
 import utility.Resource;;
 
 @SuppressWarnings("serial")
-public class GameWindow extends JFrame{
+public class ScreenManager extends JFrame{
 	
 	public static final int INTROSCREEN = 1;
 	public static final int SELECTSCREEN = 2;
@@ -34,7 +34,7 @@ public class GameWindow extends JFrame{
 	private static ArrayList<JComponent> currentScreen = new ArrayList<>();
 	private static ArrayList<Logic> currentLogic = new ArrayList<>();
 	
-	public GameWindow(){
+	public ScreenManager(){
 		new Resource();
 
 		northScreen = new NorthScreen();

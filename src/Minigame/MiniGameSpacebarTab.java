@@ -1,4 +1,4 @@
-package LogicGame;
+package Minigame;
 
 import java.applet.AudioClip;
 import java.awt.BasicStroke;
@@ -9,6 +9,7 @@ import java.util.function.Predicate;
 
 import com.sun.glass.events.KeyEvent;
 
+import LogicGame.NorthScreenLogic;
 import entity.Coin;
 import entity.Gateway;
 import entity.Player;
