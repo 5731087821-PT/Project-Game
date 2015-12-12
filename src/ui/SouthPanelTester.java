@@ -21,14 +21,14 @@ public class SouthPanelTester extends JPanel{
 	private JButton nextStage;
 	private JButton mistake;
 	private SouthScreen southScreen;
-	private int count,countTester;
+	private int count,threadCounter;
 	private boolean threadStart = false;
 	
 	public SouthPanelTester(SouthScreen SouthScreen){
 		setLayout(new BorderLayout());
 		
 		this.count = 0;
-		this.countTester = 0;
+		this.threadCounter = 0;
 		nextStage = new JButton("Next Stage");
 		mistake = new JButton("Mistake");
 		this.southScreen = SouthScreen;
@@ -68,7 +68,7 @@ public class SouthPanelTester extends JPanel{
 				// TODO Auto-generated method stub
 				NorthScreenLogic.spawnZombie = true;
 				
-				countTester = 0;//Count up
+				threadCounter = 0;//Count up
 				if(!threadStart){
 					new Thread(new Runnable() {
 						public void run() {
@@ -89,18 +89,18 @@ public class SouthPanelTester extends JPanel{
 									Thread.sleep(utility.ConfigurableOption.sleepTime);
 								} catch (InterruptedException e) {}
 								
-								if(countTester==0){
+								if(threadCounter==0){
 									AudioClip bgm = Resource.getAudio("zombiedeath");
 									bgm.play();	
-								}else if(countTester==5){
+								}else if(threadCounter==5){
 									player.animationCurrent.setFlip(true);
-								}else if(countTester==30){
+								}else if(threadCounter==30){
 									player.animationCurrent.setFlip(false);
 									threadStart = false;
 									break;
 								}
 								
-								countTester++;
+								threadCounter++;
 							}
 							
 						}
