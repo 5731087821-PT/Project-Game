@@ -12,7 +12,6 @@ public class GameBackground implements IRenderable{
 	private int imageWidth;
 	
 	public GameBackground(){
-//		bgImage = DrawingUtility.bg;
 		if(bgImage != null){
 			imageWidth = bgImage.getWidth();
 		}else{
