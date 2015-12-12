@@ -3,12 +3,16 @@ package ui;
 import java.applet.AudioClip;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import LogicGame.Logic;
 import LogicGame.NorthScreenLogic;
@@ -104,6 +108,33 @@ public class ScreenManager extends JFrame{
 				}
 			}
 		});
+		
+		frame.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				InputUtility.setMouseLeftDown(false);
+				InputUtility.setMouseLeftTriggered(false);
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				InputUtility.setMouseLeftTriggered(true);
+				InputUtility.setMouseLeftDown(true);
+				InputUtility.setMouseX(e.getX());
+				InputUtility.setMouseY(e.getY());
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {}
+		});
+
 		frame.setFocusable(true);
 	}
 	
