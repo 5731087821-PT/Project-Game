@@ -68,7 +68,7 @@ public class SouthPanelTester extends JPanel{
 				// TODO Auto-generated method stub
 				NorthScreenLogic.spawnZombie = true;
 				
-				countTester = 30;
+				countTester = 0;//Count up
 				if(!threadStart){
 					new Thread(new Runnable() {
 						public void run() {
@@ -83,24 +83,24 @@ public class SouthPanelTester extends JPanel{
 								}
 							}
 
-							player.animationCurrent.setFlip(true);
 							
 							while(true){
 								try {
 									Thread.sleep(utility.ConfigurableOption.sleepTime);
 								} catch (InterruptedException e) {}
 								
-								if(countTester==30){
+								if(countTester==0){
 									AudioClip bgm = Resource.getAudio("zombiedeath");
 									bgm.play();	
-									countTester--;
-								}else if(countTester>0){
-									countTester--;
-								}else{
+								}else if(countTester==5){
+									player.animationCurrent.setFlip(true);
+								}else if(countTester==30){
 									player.animationCurrent.setFlip(false);
 									threadStart = false;
 									break;
 								}
+								
+								countTester++;
 							}
 							
 						}
