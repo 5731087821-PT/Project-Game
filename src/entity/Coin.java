@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import render.IRenderable;
 import render.RenderableHolder;
 import utility.ConfigurableOption;
+import utility.RandomUtility;
 
 public class Coin implements IRenderable{
 	protected int x;
@@ -18,7 +19,7 @@ public class Coin implements IRenderable{
 	public Coin(){
 		this.radius = 10;
 		this.x = RandomUtility.random(275, 425);
-		this.y = ConfigurableOption.gameScreenHeight-radius*2;
+		this.y = ConfigurableOption.northScreenHeight-radius*2;
 		this.disappearCounter = RandomUtility.random(100, 300);
 		this.destroyed = false;
 	}
@@ -56,7 +57,8 @@ public class Coin implements IRenderable{
 			g2d.fillOval(x, y, radius * 2, radius * 2);
 			
 			if(deadCounter == 0)
-				RenderableHolder.getInstance().getNorthRenderableList().remove(this);
+				destroyed = true;
+//				RenderableHolder.getInstance().getNorthRenderableList().remove(this);
 		}
 	}
 

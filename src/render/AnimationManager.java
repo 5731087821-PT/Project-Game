@@ -10,8 +10,10 @@ public class AnimationManager {
 	private ImageData[] img;
 	private int width, height;
 	private int speed;
+	private int charWidth;
+	private int setX,setY;
 
-	public AnimationManager(ImageData[] img) {
+	public AnimationManager(ImageData[] img,int setX,int setY,int charWidth) {
 		frame = 0;
 		speed = 0;
 		isPlay = isFinish = false;
@@ -20,6 +22,23 @@ public class AnimationManager {
 			width = Math.max(width, img[i].getWidth());
 			height = Math.max(height, img[i].getHeight());
 		}
+		
+		this.setX = setX;
+		this.setY = setY;
+		this.charWidth = charWidth;
+		
+	}
+	
+	public int getCharWidth(){
+		return charWidth;
+	}
+
+	public int getSetX() {
+		return setX;
+	}
+
+	public int getSetY() {
+		return setY;
 	}
 
 	public int getWidth() {
@@ -58,7 +77,7 @@ public class AnimationManager {
 	}
 
 	public synchronized void update() {
-		if(++speed < 3) return ;
+		if(++speed < 4) return ;
 		speed = 0;
 		if (isLoop || isPlay) {
 			frame++;

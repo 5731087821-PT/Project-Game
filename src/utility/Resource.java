@@ -3,20 +3,9 @@ package utility;
 import java.applet.Applet;
 import java.applet.AudioClip;
 import java.awt.Font;
-import java.awt.FontFormatException;
-import java.awt.GraphicsEnvironment;
-import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.HashMap;
 
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import render.AnimationManager;
-import render.ImageData;
 import render.ImageReader;
 
 public class Resource {
@@ -25,8 +14,8 @@ public class Resource {
 
 	public static final Font standardFont = new Font("Tahoma",Font.BOLD,30);
 	
-	public AnimationManager read(String url){
-		return new AnimationManager(ImageReader.get(url));
+	public AnimationManager read(String url,int setX,int setY,int setCharWidth){
+		return new AnimationManager(ImageReader.get(url),setX,setY,setCharWidth);
 	}
 	public AudioClip AudioRead(String url){
 		return Applet.newAudioClip(Resource.class.getClassLoader().getResource(url));
@@ -39,8 +28,9 @@ public class Resource {
 		audio.put("gamebgm", AudioRead("res/sound/Intense Battle Music.wav"));
 		audio.put("zombiedeath", AudioRead("res/sound/zombiedeath.wav"));
 		
-		rs.put("batman", read("pic/character/batman.gif"));
-		rs.put("boy", read("pic/character/boy.gif"));
+		rs.put("batman-walking", read("res/character/batman-walking.gif",180,255,140));
+		rs.put("batman-standing", read("res/character/batman-standing.gif",180,255,140));
+		rs.put("boy", read("res/character/boy.gif",180,255,140));
 		
 	}
 	

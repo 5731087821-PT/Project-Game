@@ -1,18 +1,21 @@
-package render;
+package ui;
 
 import java.awt.*;
 import java.util.ArrayList;
 
 import javax.swing.*;
 
+import render.IRenderable;
+import render.RenderableHolder;
 import utility.ConfigurableOption;
 
-public class GameScreen extends JComponent {
+@SuppressWarnings("serial")
+public class NorthScreen extends JComponent {
 	private int width, height;
-	public GameScreen(){
+	public NorthScreen(){
 		super();
 		this.width = ConfigurableOption.screenWidth;
-		this.height = ConfigurableOption.gameScreenHeight;
+		this.height = ConfigurableOption.northScreenHeight;
 		
 		setDoubleBuffered(true);
 		setPreferredSize(new Dimension(width, height));
@@ -28,6 +31,7 @@ public class GameScreen extends JComponent {
 		
 		ArrayList<IRenderable> entity = (ArrayList<IRenderable>) RenderableHolder.getInstance().getNorthRenderableList();
 		for(int i = 0 ; i<entity.size();i++){
+			if(!entity.get(i).isVisible()) continue;
 			entity.get(i).draw(g2d);
 		}
 	}

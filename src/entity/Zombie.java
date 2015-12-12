@@ -16,7 +16,7 @@ public class Zombie implements IRenderable{
 
 	public Zombie(int speed) {
 		this.x = -40;
-		this.y = ConfigurableOption.gameScreenHeight-40;
+		this.y = ConfigurableOption.northScreenHeight-40;
 		this.speed = speed;
 		this.moving = true;
 	}
@@ -54,7 +54,8 @@ public class Zombie implements IRenderable{
 			g2d.fillRect(x, y, 40, 40);
 			
 			if(deadCounter == 0){
-				RenderableHolder.getInstance().getNorthRenderableList().remove(this);
+				destroyed = true;
+//				RenderableHolder.getInstance().getNorthRenderableList().remove(this);
 			}
 		}
 	}
@@ -75,6 +76,11 @@ public class Zombie implements IRenderable{
 	public int getY() {
 		// TODO Auto-generated method stub
 		return this.y;
+	}
+
+	public boolean isDestroyed() {
+		// TODO Auto-generated method stub
+		return this.destroyed;
 	}
 
 }

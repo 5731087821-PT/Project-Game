@@ -182,4 +182,9 @@ public class GameAnimation implements IRenderable {
 		
 	}
 
+	public boolean isDestroyed() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

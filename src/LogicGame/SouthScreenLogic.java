@@ -3,16 +3,14 @@ package LogicGame;
 import java.util.*;
 import java.util.function.Predicate;
 
-import entity.SpacebarTab;
 import render.RenderableHolder;
-import render.Resource;
 import utility.ConfigurableOption;
 
-public class MainGameLogic {
-	protected SpacebarTab spacebarTab;
+public class SouthScreenLogic implements Logic{
+	protected MiniGameSpacebarTab spacebarTab;
 	
-	public MainGameLogic(){
-		this.spacebarTab = new SpacebarTab();
+	public SouthScreenLogic(){
+		this.spacebarTab = new MiniGameSpacebarTab();
 		
 		RenderableHolder.getInstance().addSouthEntity(spacebarTab);
 	}

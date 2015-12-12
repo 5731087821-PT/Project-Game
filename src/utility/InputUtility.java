@@ -94,5 +94,9 @@ public class InputUtility {
 		for(int i=0;i<keyTriggered.length;i++){
 			keyTriggered[i] = false;
 		}
+		mouseLeftDown=false;
+		mouseRightDown=false;
+		mouseLeftTriggered=false;
+		mouseRightTriggered=false;
 	}
 }

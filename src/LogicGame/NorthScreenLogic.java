@@ -9,10 +9,9 @@ import entity.Player;
 import entity.PlayerStatus;
 import entity.Zombie;
 import render.RenderableHolder;
-import render.Resource;
 import utility.ConfigurableOption;
 
-public class GameScreenLogic {
+public class NorthScreenLogic implements Logic{
 	protected Player player;
 	protected PlayerStatus playerStatus;
 	protected Gateway gateIn, gateOut;
@@ -22,10 +21,9 @@ public class GameScreenLogic {
 	private static final int MOVING_DELAY = 20;
 	private int spawnDelayCounter;
 	private int movingDelayCounter;
-	private Resource resource;
 	public static boolean spawnZombie;
 	
-	public GameScreenLogic(){
+	public NorthScreenLogic(){
 		this.player = new Player();
 		this.playerStatus = new PlayerStatus();
 		this.gateIn = new Gateway(ConfigurableOption.xGateway1, ConfigurableOption.yGateway1);
@@ -34,7 +32,6 @@ public class GameScreenLogic {
 		this.coins = new ArrayList<Coin>();
 		this.spawnDelayCounter = 0;
 		this.movingDelayCounter = 0;
-		this.resource = new Resource();
 		this.spawnZombie = true;
 		
 		RenderableHolder.getInstance().addNorthEntity(player);

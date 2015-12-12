@@ -9,11 +9,12 @@ import render.IRenderable;
 import render.RenderableHolder;
 import utility.ConfigurableOption;
 import utility.InputUtility;
+import utility.RandomUtility;
 
 public class SpacebarGap implements IRenderable{
 	protected int x;
 	protected int width;
-	protected boolean destroyed;
+	public boolean destroyed;
 	
 	public SpacebarGap(){
 		width = ConfigurableOption.gapWidth;
@@ -35,7 +36,7 @@ public class SpacebarGap implements IRenderable{
 	@Override
 	public boolean isVisible() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
@@ -62,6 +63,11 @@ public class SpacebarGap implements IRenderable{
 	public int getZ() {
 		// TODO Auto-generated method stub
 		return 1;
+	}
+
+	public boolean isDestroyed() {
+		// TODO Auto-generated method stub
+		return destroyed;
 	}
 	
 }

@@ -49,7 +49,7 @@ public class Gateway implements IRenderable{
 	public void draw(Graphics2D g2d) {
 		// TODO Auto-generated method stub
 		g2d.setColor(new Color(0, 0, 0, 100));
-		g2d.fillRect(x, y, 10, ConfigurableOption.gameScreenHeight);
+		g2d.fillRect(x, y, 10, ConfigurableOption.northScreenHeight);
 	}
 
 	@Override

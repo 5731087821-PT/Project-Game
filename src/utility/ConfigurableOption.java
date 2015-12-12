@@ -2,11 +2,14 @@ package utility;
 
 
 public class ConfigurableOption {
-	public static int screenWidth = 720;
-	public static int screenHeight = 480;
-	public static int gameScreenHeight = 200;
-	public static int mainGameWidth = 515;
-	public static int mainGameHeight = 280;
+	public static final boolean debugGraphic = false;
+	
+	public static final int sleepTime = 15;
+	public static final int screenWidth = 720;
+	public static final int screenHeight = 480;
+	public static final int northScreenHeight = 200;
+	public static final int mainGameWidth = 515;
+	public static final int mainGameHeight = 280;
 	
 	public static int xGateway1 = 260;
 	public static int yGateway1 = 0;

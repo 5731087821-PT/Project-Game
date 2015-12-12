@@ -1,4 +1,4 @@
-package render;
+package ui;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -7,27 +7,29 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import LogicGame.GameScreenLogic;
+import LogicGame.NorthScreenLogic;
 import entity.Gateway;
+import render.IRenderable;
+import render.RenderableHolder;
 import utility.ConfigurableOption;
 
-public class SouthPanel extends JPanel{
+public class SouthPanelTester extends JPanel{
 	private JButton nextStage;
 	private JButton mistake;
-	private MainGame mainGame;
+	private SouthScreen southScreen;
 	private int count;
 	
-	public SouthPanel(MainGame mainGame){
+	public SouthPanelTester(SouthScreen SouthScreen){
 		setLayout(new BorderLayout());
 		
 		this.count = 0;
 		nextStage = new JButton("Next Stage");
 		mistake = new JButton("Mistake");
-		this.mainGame = mainGame;
+		this.southScreen = SouthScreen;
 		
 		this.add(nextStage, BorderLayout.WEST);
 		this.add(mistake, BorderLayout.EAST);
-		this.add(mainGame, BorderLayout.CENTER);
+		this.add(SouthScreen, BorderLayout.CENTER);
 		
 		nextStage.addActionListener(new ActionListener() {
 			
@@ -58,7 +60,7 @@ public class SouthPanel extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				GameScreenLogic.spawnZombie = true;
+				NorthScreenLogic.spawnZombie = true;
 			}
 		});
 	}

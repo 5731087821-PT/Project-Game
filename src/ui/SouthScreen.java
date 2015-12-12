@@ -1,4 +1,4 @@
-package render;
+package ui;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -9,13 +9,16 @@ import javax.swing.JComponent;
 
 import com.sun.corba.se.spi.orbutil.fsm.Input;
 
+import render.IRenderable;
+import render.RenderableHolder;
 import utility.ConfigurableOption;
 import utility.InputUtility;
 
-public class MainGame extends JComponent {
+@SuppressWarnings("serial")
+public class SouthScreen extends JComponent {
 	private int width, height;
 	
-	public MainGame(){
+	public SouthScreen(){
 		super();
 		this.width = ConfigurableOption.screenWidth;
 		this.height = ConfigurableOption.mainGameHeight;
@@ -26,29 +29,6 @@ public class MainGame extends JComponent {
 		setVisible(true);
 		setFocusable(true);
 		
-		this.addKeyListener(new KeyListener() {
-			
-			@Override
-			public void keyTyped(KeyEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void keyReleased(KeyEvent e) {
-				// TODO Auto-generated method stub
-				InputUtility.setKeyPressed(e.getKeyCode(), false);
-			}
-			
-			@Override
-			public void keyPressed(KeyEvent e) {
-				// TODO Auto-generated method stub
-				if(!InputUtility.getKeyPressed(e.getKeyCode()) || InputUtility.getKeyTriggered(e.getKeyCode())){
-					InputUtility.setKeyPressed(e.getKeyCode(), true);
-					InputUtility.setKeyTriggered(e.getKeyCode(), true);
-				}
-			}
-		});
 	}
 	
 	public void paintComponent(Graphics g){
@@ -59,6 +39,7 @@ public class MainGame extends JComponent {
 		
 		ArrayList<IRenderable> entity = (ArrayList<IRenderable>) RenderableHolder.getInstance().getSouthRenderableList();
 		for(int i = 0 ; i<entity.size();i++){
+			if(!entity.get(i).isVisible()) continue;
 			entity.get(i).draw(g2d);
 		}
 	}

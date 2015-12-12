@@ -1,4 +1,4 @@
-package entity;
+package LogicGame;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -8,12 +8,14 @@ import java.util.function.Predicate;
 
 import com.sun.glass.events.KeyEvent;
 
+import entity.RunningBall;
+import entity.SpacebarGap;
 import render.IRenderable;
 import render.RenderableHolder;
 import utility.ConfigurableOption;
 import utility.InputUtility;
 
-public class SpacebarTab implements IRenderable{
+public class MiniGameSpacebarTab implements IRenderable{
 	protected int xTab, yTab;
 	protected int distance;
 	protected int direction;
@@ -22,7 +24,7 @@ public class SpacebarTab implements IRenderable{
 	private static final int SPAWN_DELAY = 50;
 	private int spawnDelayCounter;
 	
-	public SpacebarTab(){
+	public MiniGameSpacebarTab(){
 		this.xTab = ConfigurableOption.xSpacebarTab;
 		this.yTab = ConfigurableOption.ySpacebarTab;
 		this.distance = ConfigurableOption.tabDistance;
@@ -45,7 +47,7 @@ public class SpacebarTab implements IRenderable{
 	@Override
 	public boolean isVisible() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
@@ -59,7 +61,6 @@ public class SpacebarTab implements IRenderable{
 			runningBalls.add(runningBall);
 		}else{
 			if (InputUtility.getKeyTriggered(KeyEvent.VK_SPACE)) {
-				InputUtility.postUpdate();
 				for(SpacebarGap gap : gaps){
 					if((runningBalls.get(0).getX()+runningBalls.get(0).getDiameter() - gap.getX()) > 10 && (gap.getX() + ConfigurableOption.gapWidth - runningBalls.get(0).getX() > 10) ){
 						gap.destroyed = true;
