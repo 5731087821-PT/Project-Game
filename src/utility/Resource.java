@@ -14,8 +14,8 @@ public class Resource {
 
 	public static final Font standardFont = new Font("Tahoma",Font.BOLD,30);
 	
-	public AnimationManager read(String url,int setX,int setY,int setCharWidth){
-		return new AnimationManager(ImageReader.get(url),setX,setY,setCharWidth);
+	public AnimationManager read(String url,int setX,int setY,int setCharWidth,boolean initialFlip){
+		return new AnimationManager(ImageReader.get(url),setX,setY,setCharWidth,initialFlip);
 	}
 	public AudioClip AudioRead(String url){
 		return Applet.newAudioClip(Resource.class.getClassLoader().getResource(url));
@@ -28,9 +28,9 @@ public class Resource {
 		audio.put("gamebgm", AudioRead("res/sound/Intense Battle Music.wav"));
 		audio.put("zombiedeath", AudioRead("res/sound/zombiedeath.wav"));
 		
-		rs.put("batman-walking", read("res/character/batman-walking.gif",180,255,140));
-		rs.put("batman-standing", read("res/character/batman-standing.gif",180,255,140));
-		rs.put("boy", read("res/character/boy.gif",180,255,140));
+		rs.put("batman-walking", read("res/character/batman-walking.gif",180,255,140,false));
+		rs.put("batman-standing", read("res/character/batman-standing.gif",180,255,140,false));
+		rs.put("boy", read("res/character/boy.gif",180,255,140,false));
 		
 	}
 	

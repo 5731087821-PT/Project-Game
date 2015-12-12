@@ -30,13 +30,6 @@ public class RenderAnimationHelper {
 				null
 			);
 		
-//		g2d.drawImage(
-//				img, 
-//				x-(animation.getSetX()*userCharWidth/animation.getWidth()), y-(animation.getSetY()*userCharWidth/animation.getWidth()), 
-//				userCharWidth, (animation.getHeight()*userCharWidth)/animation.getWidth(), 
-//				null
-//			);
-		
 	}
 
 }

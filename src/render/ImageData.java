@@ -1,5 +1,7 @@
 package render;
 
+import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
 public class ImageData {
@@ -9,6 +11,21 @@ public class ImageData {
 	public ImageData(BufferedImage img){
 		this.img = img;
 		this.offsetX = this.offsetY = 0;
+	}
+	public void flipImage(){
+        BufferedImage flipped = new BufferedImage(
+                img.getWidth(),
+                img.getHeight(),
+                BufferedImage.TYPE_INT_ARGB);
+        AffineTransform tran = AffineTransform.getTranslateInstance(img.getWidth(), 0);
+        AffineTransform flip = AffineTransform.getScaleInstance(-1d, 1d);
+        tran.concatenate(flip);
+
+        Graphics2D g = flipped.createGraphics();
+        g.setTransform(tran);
+        g.drawImage(img, 0, 0, null);
+        g.dispose();
+        this.img = flipped;
 	}
 	public void setOffset(int x,int y){
 		this.offsetX = x;

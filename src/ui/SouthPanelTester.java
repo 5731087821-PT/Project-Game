@@ -3,12 +3,14 @@ package ui;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import LogicGame.NorthScreenLogic;
 import entity.Gateway;
+import entity.Player;
 import render.IRenderable;
 import render.RenderableHolder;
 import utility.ConfigurableOption;
@@ -17,12 +19,14 @@ public class SouthPanelTester extends JPanel{
 	private JButton nextStage;
 	private JButton mistake;
 	private SouthScreen southScreen;
-	private int count;
+	private int count,countTester;
+	private boolean threadStart = false;
 	
 	public SouthPanelTester(SouthScreen SouthScreen){
 		setLayout(new BorderLayout());
 		
 		this.count = 0;
+		this.countTester = 0;
 		nextStage = new JButton("Next Stage");
 		mistake = new JButton("Mistake");
 		this.southScreen = SouthScreen;
@@ -61,7 +65,45 @@ public class SouthPanelTester extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				NorthScreenLogic.spawnZombie = true;
+				
+				countTester = 30;
+				if(!threadStart){
+					new Thread(new Runnable() {
+						public void run() {
+							threadStart = true;
+							
+							Player player = null;
+							
+							ArrayList<IRenderable> list = (ArrayList<IRenderable>) RenderableHolder.getInstance().getNorthRenderableList();
+							for(IRenderable thisOne : list){
+								if(thisOne instanceof Player){
+									player = (Player) thisOne;
+								}
+							}
+
+							player.animationCurrent.setFlip(true);
+							
+							while(true){
+								try {
+									Thread.sleep(utility.ConfigurableOption.sleepTime);
+								} catch (InterruptedException e) {}
+								
+								if(countTester>0){
+									countTester--;
+								}else{
+									player.animationCurrent.setFlip(false);
+									threadStart = false;
+									break;
+								}
+							}
+							
+						}
+					}).start();
+
+				}
+
 			}
 		});
 	}
+
 }

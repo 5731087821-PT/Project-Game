@@ -12,21 +12,42 @@ public class AnimationManager {
 	private int speed;
 	private int charWidth;
 	private int setX,setY;
+	private boolean flip;
 
-	public AnimationManager(ImageData[] img,int setX,int setY,int charWidth) {
+	public AnimationManager(ImageData[] img,int setX,int setY,int charWidth,boolean initialFlip) {
 		frame = 0;
 		speed = 0;
 		isPlay = isFinish = false;
+		this.setX = setX;
+		this.setY = setY;
+		this.charWidth = charWidth;
 		this.img = img;
 		for (int i = 0; i < img.length; i++) {
 			width = Math.max(width, img[i].getWidth());
 			height = Math.max(height, img[i].getHeight());
 		}
 		
-		this.setX = setX;
-		this.setY = setY;
-		this.charWidth = charWidth;
-		
+		if(initialFlip){
+			flip();
+		}
+	}
+	
+	public boolean getFlip() {
+		return flip;
+	}
+
+	public void setFlip(boolean flip) {
+		if(this.flip ^ flip){
+			flip();
+			this.flip = flip;
+		}
+	}
+
+	public void flip(){
+		for (int i = 0; i < img.length; i++) {
+			img[i].flipImage();
+		}
+		setX = width-setX;
 	}
 	
 	public int getCharWidth(){
