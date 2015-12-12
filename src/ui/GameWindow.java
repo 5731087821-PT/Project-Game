@@ -29,7 +29,7 @@ public class GameWindow extends JFrame{
 	private NorthScreen northScreen;
 	private SouthScreen southScreen;
 	private NorthScreenLogic northScreenLogic;
-	private SouthScreenLogic southGameLogic;
+	private SouthScreenLogic southScreenLogic;
 	
 	private static ArrayList<JComponent> currentScreen = new ArrayList<>();
 	private static ArrayList<Logic> currentLogic = new ArrayList<>();
@@ -40,7 +40,10 @@ public class GameWindow extends JFrame{
 		northScreen = new NorthScreen();
 		southScreen = new SouthScreen();
 		northScreenLogic = new NorthScreenLogic();
-		southGameLogic = new SouthScreenLogic();
+		southScreenLogic = new SouthScreenLogic();
+		
+		northScreenLogic.setSouthScreenLogic(southScreenLogic);
+		southScreenLogic.setNorthScreenLogic(northScreenLogic);
 		
 		this.setPreferredSize(new Dimension(ConfigurableOption.screenWidth, ConfigurableOption.screenHeight));
 		this.setLayout(new BorderLayout());
@@ -114,7 +117,7 @@ public class GameWindow extends JFrame{
 				currentScreen.add(northScreen);
 				currentScreen.add(southScreen);
 				currentLogic.add(northScreenLogic);
-				currentLogic.add(southGameLogic);
+				currentLogic.add(southScreenLogic);
 				this.add(northScreen, BorderLayout.NORTH);
 				this.add(southScreen, BorderLayout.SOUTH);
 				bgm = Resource.getAudio("gamebgm");

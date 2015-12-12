@@ -13,15 +13,17 @@ import utility.ConfigurableOption;
 
 public class NorthScreenLogic implements Logic{
 	protected Player player;
-	
+	protected PlayerStatus playerStatus;
 	protected Gateway gateIn, gateOut;
 	protected ArrayList<Zombie> zombies;
 	private static final int MOVING_DELAY = 20;
 	private int movingDelayCounter;
+	private SouthScreenLogic southScreenLogic;
 	public static boolean spawnZombie;
 	
 	public NorthScreenLogic(){
 		this.player = new Player();
+		this.playerStatus = new PlayerStatus();
 		this.gateIn = new Gateway(ConfigurableOption.xGateway1, ConfigurableOption.yGateway1);
 		this.gateOut = new Gateway(ConfigurableOption.xGateway2, ConfigurableOption.yGateway2);
 		this.zombies = new ArrayList<Zombie>();
@@ -29,6 +31,7 @@ public class NorthScreenLogic implements Logic{
 		spawnZombie = true;
 		
 		RenderableHolder.getInstance().addNorthEntity(player);
+		RenderableHolder.getInstance().addNorthEntity(playerStatus);
 		RenderableHolder.getInstance().addNorthEntity(gateIn);
 		RenderableHolder.getInstance().addNorthEntity(gateOut);
 	}
@@ -38,6 +41,7 @@ public class NorthScreenLogic implements Logic{
 		gateIn.update();
 		gateOut.update();
 		player.update();
+		playerStatus.update();
 		movingDelayCounter++;
 		
 		if(spawnZombie){
@@ -74,5 +78,10 @@ public class NorthScreenLogic implements Logic{
 				zombie.moving = false;
 			}
 		}
+	}
+
+	public void setSouthScreenLogic(SouthScreenLogic southScreenLogic) {
+		// TODO Auto-generated method stub
+		this.southScreenLogic = southScreenLogic;
 	}
 }

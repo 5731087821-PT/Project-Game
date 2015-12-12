@@ -7,16 +7,23 @@ import render.RenderableHolder;
 import utility.ConfigurableOption;
 
 public class SouthScreenLogic implements Logic{
-	protected MiniGameSpacebarTab spacebarTab;
+	protected MiniGameSpacebarTab miniGameSpacebarTab;
+	private NorthScreenLogic northScreenLogic;
 	
 	public SouthScreenLogic(){
-		this.spacebarTab = new MiniGameSpacebarTab();
+		this.miniGameSpacebarTab = new MiniGameSpacebarTab();
 		
-		RenderableHolder.getInstance().addSouthEntity(spacebarTab);
+		RenderableHolder.getInstance().addSouthEntity(miniGameSpacebarTab);
 	}
 	
 	public void logicUpdate() {
 		// TODO Auto-generated method stub
-		spacebarTab.update();
+		miniGameSpacebarTab.update();
+	}
+
+	public void setNorthScreenLogic(NorthScreenLogic northScreenLogic) {
+		// TODO Auto-generated method stub
+		this.northScreenLogic = northScreenLogic;
+		miniGameSpacebarTab.setPlayerStatus(northScreenLogic.playerStatus);
 	}
 }
