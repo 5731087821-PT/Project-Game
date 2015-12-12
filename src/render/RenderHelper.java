@@ -12,6 +12,16 @@ public class RenderHelper {
 	public static final int BOTTOM = 8;
 	
 	public static void draw(Graphics2D g, BufferedImage img, int x, int y, int width, int height, int position) {
+		
+		if(width==0&&height==0){
+			width = img.getWidth();
+			height = img.getHeight();
+		}else if(height==0){
+			height = (img.getHeight()*width)/img.getWidth();
+		}else if(width==0){
+			width = (img.getWidth()*height)/img.getHeight();
+		}
+		
 		if((position & CENTER) != 0) {
 			x -= width / 2;
 		} else if((position & RIGHT) != 0) {
@@ -23,13 +33,6 @@ public class RenderHelper {
 			y -= height;
 		}
 		
-		if(width==0&&height==0){
-			g.drawImage(img, x, y, null);
-		}else if(height==0){
-			System.out.println((img.getHeight()*width)/img.getWidth());
-			g.drawImage(img, x, y, width, (img.getHeight()*width)/img.getWidth(), null);
-		}else{
-			g.drawImage(img, x, y, width, height, null);
-		}
+		g.drawImage(img, x, y, width, height, null);
 	}
 }

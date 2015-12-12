@@ -36,6 +36,7 @@ public class SouthScreen extends JComponent {
 		setFocusable(true);
 		
 		bgAnimation = Resource.get("batman-intro");
+//		bgAnimation = Resource.get("zombie-imps");
 		bgAnimation.loop();
 	}
 	
@@ -44,20 +45,18 @@ public class SouthScreen extends JComponent {
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.setColor(Color.BLACK);
 		g2d.fillRect(0, 0, width, height);
-		g2d.setColor(Color.GRAY);
-		g2d.fillRect(0, 0, width-10, height-10);
-		System.out.println(height);
 		
-//		img = bgAnimation.getCurrentBufferedImage();
-		img = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-		Graphics2D gg = (Graphics2D) img.getGraphics();
+		img = bgAnimation.getCurrentBufferedImage(2);
+//		img = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+//		Graphics2D gg = (Graphics2D) img.getGraphics();
 //		gg.setColor(Color.WHITE);
 //		gg.fillRect(0, 0, width-10, height-10);
 //		g.drawImage(img, 0, 0, width, height, null);
 //		RenderHelper.draw(g2d, img,  0, 0,  width, height, RenderHelper.CENTER|RenderHelper.TOP);
 //		RenderHelper.draw(g2d, img, 0, 0, 0, 0, RenderHelper.LEFT | RenderHelper.TOP);
-//		RenderHelper.draw(g2d, img, width, height, 0, 0, RenderHelper.BOTTOM | RenderHelper.RIGHT);
-//		bgAnimation.update();
+//		RenderHelper.draw(g2d, img, width/2, height/2, 0, 0, RenderHelper.LEFT | RenderHelper.TOP);
+		RenderHelper.draw(g2d, img, width/2, height, 0, height, RenderHelper.CENTER | RenderHelper.BOTTOM);
+		bgAnimation.update();
 		
 		ArrayList<IRenderable> entity = (ArrayList<IRenderable>) RenderableHolder.getInstance().getSouthRenderableList();
 		for(int i = 0 ; i<entity.size();i++){

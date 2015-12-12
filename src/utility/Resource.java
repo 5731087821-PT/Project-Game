@@ -17,6 +17,9 @@ public class Resource {
 	public AnimationManager read(String url,int setX,int setY,int setCharWidth,boolean initialFlip){
 		return new AnimationManager(ImageReader.get(url),setX,setY,setCharWidth,initialFlip);
 	}
+	public AnimationManager read(String url,boolean initialFlip){
+		return new AnimationManager(ImageReader.get(url),0,0,0,initialFlip);
+	}
 	public AudioClip AudioRead(String url){
 		return Applet.newAudioClip(Resource.class.getClassLoader().getResource(url));
 	}
@@ -33,6 +36,8 @@ public class Resource {
 		rs.put("batman-standing", read("res/character/batman-standing.gif",180,255,140,false));
 		rs.put("boy", read("res/character/boy.gif",180,255,140,false));
 		rs.put("batman-intro", read("res/bg/batman-intro.gif",0,0,0,false));
+		rs.put("BMDP", read("res/bg/BMDP.gif",0,0,0,false));
+		rs.put("zombie-imps", read("res/character/imps.gif",0,0,0,false));
 		
 	}
 	
