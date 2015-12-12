@@ -32,6 +32,7 @@ public class Resource {
 		rs.put("batman-walking", read("res/character/batman-walking.gif",180,255,140,false));
 		rs.put("batman-standing", read("res/character/batman-standing.gif",180,255,140,false));
 		rs.put("boy", read("res/character/boy.gif",180,255,140,false));
+		rs.put("batman-intro", read("res/bg/batman-intro.gif",0,0,0,false));
 		
 	}
 	

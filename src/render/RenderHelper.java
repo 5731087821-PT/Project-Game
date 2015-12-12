@@ -23,6 +23,13 @@ public class RenderHelper {
 			y -= height;
 		}
 		
-		g.drawImage(img, x, y, width, height, null);
+		if(width==0&&height==0){
+			g.drawImage(img, x, y, null);
+		}else if(height==0){
+			System.out.println((img.getHeight()*width)/img.getWidth());
+			g.drawImage(img, x, y, width, (img.getHeight()*width)/img.getWidth(), null);
+		}else{
+			g.drawImage(img, x, y, width, height, null);
+		}
 	}
 }

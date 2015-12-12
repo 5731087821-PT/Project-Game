@@ -27,6 +27,12 @@ public class AnimationManager {
 			height = Math.max(height, img[i].getHeight());
 		}
 		
+		if(setX==0||setY==0||charWidth==0){
+			this.setX = width;
+			this.setY = height;
+			this.charWidth = width;
+		}
+		
 		if(initialFlip){
 			flip();
 		}

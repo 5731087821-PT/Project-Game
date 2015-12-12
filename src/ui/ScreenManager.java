@@ -33,28 +33,33 @@ public class ScreenManager extends JFrame{
 	private NorthScreenLogic northScreenLogic;
 	private SouthScreenLogic southScreenLogic;
 	
+	private JPanel panel;
+	
 	private static ArrayList<JComponent> currentScreen = new ArrayList<>();
 	private static ArrayList<Logic> currentLogic = new ArrayList<>();
 	
 	public ScreenManager(){
-		new Resource();
-
+		
+		new Resource();		
 		northScreen = new NorthScreen();
 		southScreen = new SouthScreen();
 		northScreenLogic = new NorthScreenLogic();
 		southScreenLogic = new SouthScreenLogic();
+
+		
+		panel = new JPanel();
+		panel.setPreferredSize(new Dimension(ConfigurableOption.screenWidth, ConfigurableOption.screenHeight));
+		panel.setLayout(new FlowLayout(FlowLayout.LEADING, 0, 0));southScreenLogic = new SouthScreenLogic();
 		
 		northScreenLogic.setSouthScreenLogic(southScreenLogic);
 		southScreenLogic.setNorthScreenLogic(northScreenLogic);
 		
-		this.setPreferredSize(new Dimension(ConfigurableOption.screenWidth, ConfigurableOption.screenHeight));
-		this.setLayout(new BorderLayout());
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.addListener(this);
 		
 		bgm = Resource.getAudio("gamebgm");
 		changeScreen(GAMESCREEN);
-		
+
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.addListener(this);
 		this.pack();
 		this.setResizable(false);
 		this.setVisible(true);
@@ -107,7 +112,7 @@ public class ScreenManager extends JFrame{
 		bgm.stop();
 		
 		for(JComponent component:currentScreen){
-			this.remove(component);
+			panel.remove(component);
 		}
 		currentScreen.clear();
 		currentLogic.clear();
@@ -132,8 +137,13 @@ public class ScreenManager extends JFrame{
 				throw new RuntimeException("Error Screen not found : "+screen);
 			}
 		}
-		
+
+		for(JComponent comp : currentScreen){
+			panel.add(comp);
+		}
+		this.add(panel);
 		this.pack();
+		this.setResizable(false);
 		
 	}
 }
