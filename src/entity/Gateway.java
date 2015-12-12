@@ -9,11 +9,13 @@ import utility.ConfigurableOption;
 public class Gateway implements IRenderable{
 	protected int x;
 	protected int y;
+	protected boolean destroyed;
 	protected boolean gateClose;
 
 	public Gateway(int x, int y) {
 		this.x = x;
 		this.y = y;
+		this.destroyed = false;
 		this.gateClose = true;
 	}
 
@@ -56,5 +58,16 @@ public class Gateway implements IRenderable{
 	public boolean isVisible() {
 		// TODO Auto-generated method stub
 		return true;
+	}
+
+	@Override
+	public boolean isDestroyed() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void setDestroyed(boolean destroyed) {
+		this.destroyed = destroyed;
 	}
 }

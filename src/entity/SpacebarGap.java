@@ -11,7 +11,7 @@ public class SpacebarGap implements IRenderable{
 	protected int x;
 	protected int width;
 	protected int disappearCounter;
-	public boolean destroyed;
+	protected boolean destroyed;
 	public int seed;
 	
 	public SpacebarGap(int disappearCounter, int x){
@@ -76,6 +76,11 @@ public class SpacebarGap implements IRenderable{
 	public boolean isDestroyed() {
 		// TODO Auto-generated method stub
 		return destroyed;
+	}
+
+	@Override
+	public void setDestroyed(boolean destroyed) {
+		this.destroyed = destroyed;
 	}
 	
 }

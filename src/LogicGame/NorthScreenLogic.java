@@ -61,10 +61,10 @@ public class NorthScreenLogic implements Logic{
 			for(Zombie zombie : zombies){
 				zombie.update();
 				if(player.collideWith(zombie)){
-					player.destroyed= true;
+					player.setDestroyed(true);
 				}
 				
-				if(player.destroyed){
+				if(player.isDestroying()){
 					zombie.moving = false;
 				}
 			}
@@ -74,7 +74,7 @@ public class NorthScreenLogic implements Logic{
 		
 		if(player.getDoorOpen()==2){
 			for(Zombie zombie : zombies){
-				zombie.destroyed = true;
+				zombie.setDestroyed(true);
 				zombie.moving = false;
 			}
 		}

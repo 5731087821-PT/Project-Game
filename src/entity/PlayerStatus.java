@@ -85,5 +85,17 @@ public class PlayerStatus implements IRenderable{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public boolean isDestroyed() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void setDestroyed(boolean destroyed) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

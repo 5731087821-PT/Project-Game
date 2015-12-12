@@ -11,7 +11,8 @@ public class Zombie implements IRenderable{
 	protected int y;
 	public int speed;
 	public boolean moving; 
-	public boolean destroyed;
+	protected boolean destroyed;
+	protected boolean destroying;
 	private int deadCounter;
 
 	public Zombie(int speed) {
@@ -19,6 +20,8 @@ public class Zombie implements IRenderable{
 		this.y = ConfigurableOption.northScreenHeight-40;
 		this.speed = speed;
 		this.moving = true;
+		this.destroyed = false;
+		this.destroying = false;
 	}
 
 	public void update() {
@@ -36,7 +39,7 @@ public class Zombie implements IRenderable{
 	@Override
 	public void draw(Graphics2D g2d) {
 		// TODO Auto-generated method stub
-		if(!destroyed){
+		if(!destroying){
 			g2d.setColor(Color.DARK_GRAY);
 			g2d.fillRect(x, y, 40, 40);
 		}else{
@@ -55,7 +58,6 @@ public class Zombie implements IRenderable{
 			
 			if(deadCounter == 0){
 				destroyed = true;
-				RenderableHolder.getInstance().getNorthRenderableList().remove(this);
 			}
 		}
 	}
@@ -81,6 +83,11 @@ public class Zombie implements IRenderable{
 	public boolean isDestroyed() {
 		// TODO Auto-generated method stub
 		return this.destroyed;
+	}
+
+	@Override
+	public void setDestroyed(boolean destroyed) {
+		this.destroying = destroyed;
 	}
 
 }

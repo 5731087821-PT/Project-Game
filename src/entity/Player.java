@@ -17,7 +17,8 @@ public class Player implements IRenderable {
 	protected int x;
 	protected int y;
 	protected int width;
-	public boolean destroyed;
+	protected boolean destroyed;
+	protected boolean destroying;
 	private int doorOpen;
 	private int deadCounter;
 	public AnimationManager animationCurrent;
@@ -37,7 +38,10 @@ public class Player implements IRenderable {
 		this.destroyed = false;
 		this.doorOpen = 0;
 		this.visible = true;
-		this.threadStart = false;
+		this.deadCounter = 0;
+		this.threadCounter = 0;
+		this.destroyed = false;
+		this.destroying = false;
 		animationWalking = Resource.get("batman-walking");
 		animationStanding = Resource.get("batman-standing");
 		setWalking(true);
@@ -102,7 +106,7 @@ public class Player implements IRenderable {
 	public synchronized void draw(Graphics2D g2d) {
 		
 		
-		if(!destroyed){
+		if(!destroying){
 			RenderAnimationHelper.draw(g2d, animationCurrent, x, y, width);
 		}else{
 			if(deadCounter == 0){
@@ -118,10 +122,10 @@ public class Player implements IRenderable {
 //					g2d.setColor(new Color(255,0,0,0));
 				}
 //				g2d.fillOval(x, y, radius * 2, radius * 2);
-				
-			if(deadCounter == 0)
+
+			if(deadCounter == 0){
 				destroyed = true;
-				RenderableHolder.getInstance().getNorthRenderableList().remove(this);
+			}
 		}
 	}
 	
@@ -133,28 +137,18 @@ public class Player implements IRenderable {
 				public void run() {
 					threadStart = true;
 					
-					Player player = null;
-					
-					ArrayList<IRenderable> list = (ArrayList<IRenderable>) RenderableHolder.getInstance().getNorthRenderableList();
-					for(IRenderable thisOne : list){
-						if(thisOne instanceof Player){
-							player = (Player) thisOne;
-						}
-					}
-
-					
 					while(true){
 						try {
 							Thread.sleep(utility.ConfigurableOption.sleepTime);
 						} catch (InterruptedException e) {}
 						
 						if(threadCounter==0){
-							AudioClip bgm = Resource.getAudio("zombiedeath");
-							bgm.play();	
+							AudioClip zombie = Resource.getAudio("zombiedeath");
+							zombie.play();	
 						}else if(threadCounter==5){
-							player.animationCurrent.setFlip(true);
+							animationCurrent.flip(AnimationManager.FLIP);
 						}else if(threadCounter==30){
-							player.animationCurrent.setFlip(false);
+							animationCurrent.flip(AnimationManager.FLIP);
 							threadStart = false;
 							break;
 						}
@@ -183,5 +177,14 @@ public class Player implements IRenderable {
 	public int getY() {
 		// TODO Auto-generated method stub
 		return this.y;
+	}
+
+	@Override
+	public void setDestroyed(boolean destroyed) {
+		this.destroying = destroyed;
+	}
+
+	public boolean isDestroying() {
+		return this.destroying;
 	}
 }

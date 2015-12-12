@@ -67,13 +67,12 @@ public class ImageReader {
 			}
 			
 			return frame;
-			
-		} else if(extension.equals("png")) {
+
+		} else if(extension.equals("png") || extension.equals("jpg")) {
 			
 			int frameCounterIndex = url.lastIndexOf(".",url.lastIndexOf(".")-1);
 
-			if(frameCounterIndex>-1){	
-				
+			if(frameCounterIndex>-1){
 				int frameCount = Integer.parseInt(url.substring(frameCounterIndex+1,url.length()-4));
 				ImageData[] frame = null;
 				try {
@@ -93,19 +92,19 @@ public class ImageReader {
 					e.printStackTrace();
 				}
 				return frame;
+			}else{
+				ImageData[] image = new ImageData[1];
+				
+				try {
+					image[0] = new ImageData(ImageIO.read(cl.getResource(url)));
+					return image;
+				} catch(IOException e) {
+					e.printStackTrace();
+					return null;
+				}
 			}
 			
-		} else if(extension.equals("jpg")) {
-			ImageData[] image = new ImageData[1];
-			
-			try {
-				image[0] = new ImageData(ImageIO.read(cl.getResource(url)));
-				return image;
-			} catch(IOException e) {
-				e.printStackTrace();
-				return null;
-			}
-		}
+		} 
 		
 		return null;
 	}

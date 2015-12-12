@@ -6,8 +6,12 @@ import utility.ConfigurableOption;
 
 public class AnimationManager {
 	public static final int DONOTTHING = 0;
-	public static final int FLIP = 1;
-	public static final int BufferSpecial = 2;
+	public static final int FlipToUsual = 1;
+	public static final int FlipToUnUsual = 2;
+	public static final int FLIP = 4;
+	public static final int RotateRight = 8;
+	public static final int RotateLeft = 16;
+	public static final int BufferSpecial = 32;
 	
 	
 	private boolean isPlay;
@@ -19,7 +23,7 @@ public class AnimationManager {
 	private int delayTime,delayCounter;
 	private int charWidth;
 	private int setX,setY;
-	private boolean flip;
+	private int flipInfo;
 
 	public AnimationManager(ImageData[] img,int setX,int setY,int charWidth,int special) {
 		frame = 0;
@@ -29,6 +33,7 @@ public class AnimationManager {
 		this.setY = setY;
 		this.charWidth = charWidth;
 		this.img = img;
+		this.flipInfo = FlipToUsual;
 		for (int i = 0; i < img.length; i++) {
 			width = Math.max(width, img[i].getWidth());
 			height = Math.max(height, img[i].getHeight());
@@ -39,27 +44,48 @@ public class AnimationManager {
 			this.charWidth = width;
 		}
 		if((special & FLIP) != 0)
-			flip();
+			flipImage();
 		
 	}
-	
-	public boolean getFlip() {
-		return flip;
-	}
 
-	public void setFlip(boolean flip) {
-		if(this.flip ^ flip){
+	public void flip(int flipMode) {
+		if((flipMode & FlipToUsual) != 0){
+			flipToUsual();
+		}else if((flipMode & FlipToUnUsual) != 0){
+			flipToUnUsual();
+		}else if((flipMode & FLIP) != 0){
 			flip();
-			this.flip = flip;
+		}
+	}
+	public void flip() {
+		if((flipInfo & FlipToUsual) != 0){
+			flipToUnUsual();
+		}else{
+			flipToUsual();
+		}
+	}
+	public void flipToUnUsual(){
+		if((flipInfo & FlipToUsual) != 0){
+			flipImage();
+			flipInfo += FlipToUnUsual;
+			flipInfo -= FlipToUsual;
+		}
+	}
+	public void flipToUsual(){
+		if((flipInfo & FlipToUnUsual) != 0){
+			flipImage();
+			flipInfo += FlipToUsual;
+			flipInfo -= FlipToUnUsual;
 		}
 	}
 
-	public void flip(){
+	public void flipImage(){
 		for (int i = 0; i < img.length; i++) {
 			img[i].flipImage();
 		}
 		setX = width-setX;
 	}
+	
 	
 	public int getCharWidth(){
 		return charWidth;

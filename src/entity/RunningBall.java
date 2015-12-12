@@ -13,7 +13,7 @@ public class RunningBall implements IRenderable{
 	protected int diameter;
 	protected int distance;
 	protected int direction;
-	public boolean destroyed;
+	protected boolean destroyed;
 	
 	public RunningBall(){
 		this.diameter = ConfigurableOption.spacebarTabHeight;
@@ -72,6 +72,17 @@ public class RunningBall implements IRenderable{
 	public int getZ() {
 		// TODO Auto-generated method stub
 		return 10;
+	}
+
+	@Override
+	public boolean isDestroyed() {
+		// TODO Auto-generated method stub
+		return destroyed;
+	}
+
+	@Override
+	public void setDestroyed(boolean destroyed) {
+		this.destroyed = destroyed;
 	}
 
 

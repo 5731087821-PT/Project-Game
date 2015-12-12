@@ -86,5 +86,11 @@ public class GameBackground implements IRenderable{
 		return false;
 	}
 
+	@Override
+	public void setDestroyed(boolean destroyed) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 }

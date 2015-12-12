@@ -46,6 +46,10 @@ public class NorthScreen extends JComponent {
 		ArrayList<IRenderable> entity = (ArrayList<IRenderable>) RenderableHolder.getInstance().getNorthRenderableList();
 		for(int i = 0 ; i<entity.size();i++){
 			if(!entity.get(i).isVisible()) continue;
+			if(entity.get(i).isDestroyed()){
+				entity.remove(i);
+				continue;
+			}
 			entity.get(i).draw(g2d);
 		}
 	}

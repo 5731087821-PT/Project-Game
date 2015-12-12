@@ -57,8 +57,7 @@ public class ScreenManager extends JFrame{
 		
 		northScreenLogic.setSouthScreenLogic(southScreenLogic);
 		southScreenLogic.setNorthScreenLogic(northScreenLogic);
-		
-		
+
 		bgm = Resource.getAudio("gamebgm");
 		changeScreen(GAMESCREEN);
 
@@ -72,18 +71,14 @@ public class ScreenManager extends JFrame{
 			try{
 				Thread.sleep(ConfigurableOption.sleepTime);
 			}catch (InterruptedException e){}
-			
 
-			for(JComponent part:currentScreen){
-				part.repaint();
+			for(JComponent component:currentScreen){
+				component.repaint();
 			}
-			
-			for(Logic part:currentLogic){
-				part.logicUpdate();
+			for(Logic component:currentLogic){
+				component.logicUpdate();
 			}
-			
 			InputUtility.postUpdate();
-			
 			this.requestFocus();
 		}
 	}
@@ -141,10 +136,8 @@ public class ScreenManager extends JFrame{
 	public void changeScreen(int screen){
 		
 		bgm.stop();
-		
-		for(JComponent component:currentScreen){
-			panel.remove(component);
-		}
+
+		panel.removeAll();
 		currentScreen.clear();
 		currentLogic.clear();
 		
@@ -156,8 +149,6 @@ public class ScreenManager extends JFrame{
 				currentScreen.add(southScreen);
 				currentLogic.add(northScreenLogic);
 				currentLogic.add(southScreenLogic);
-				this.add(northScreen, BorderLayout.NORTH);
-				this.add(southScreen, BorderLayout.SOUTH);
 				bgm = Resource.getAudio("gamebgm");
 				bgm.play();
 				break;
