@@ -1,8 +1,8 @@
 package LogicGame;
 
 import java.util.*;
-import java.util.function.Predicate;
 
+import Minigame.MiniGameSpacebarTab;
 import render.RenderableHolder;
 import utility.ConfigurableOption;
 

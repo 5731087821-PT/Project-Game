@@ -3,7 +3,7 @@ package entity;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-import LogicGame.MiniGameSpacebarTab;
+import Minigame.MiniGameSpacebarTab;
 import render.IRenderable;
 import render.RenderableHolder;
 import utility.ConfigurableOption;
