@@ -2,21 +2,28 @@ package render;
 
 import java.awt.image.BufferedImage;
 
+import utility.ConfigurableOption;
+
 public class AnimationManager {
+	public static final int DONOTTHING = 0;
+	public static final int FLIP = 1;
+	public static final int BufferSpecial = 2;
+	
+	
 	private boolean isPlay;
 	private boolean isLoop;
 	private boolean isFinish;
 	private int frame;
 	private ImageData[] img;
 	private int width, height;
-	private int speed;
+	private int delayTime,delayCounter;
 	private int charWidth;
 	private int setX,setY;
 	private boolean flip;
 
-	public AnimationManager(ImageData[] img,int setX,int setY,int charWidth,boolean initialFlip) {
+	public AnimationManager(ImageData[] img,int setX,int setY,int charWidth,int special) {
 		frame = 0;
-		speed = 0;
+		delayCounter = delayTime = 0;
 		isPlay = isFinish = false;
 		this.setX = setX;
 		this.setY = setY;
@@ -26,16 +33,14 @@ public class AnimationManager {
 			width = Math.max(width, img[i].getWidth());
 			height = Math.max(height, img[i].getHeight());
 		}
-		
 		if(setX==0||setY==0||charWidth==0){
 			this.setX = width;
 			this.setY = height;
 			this.charWidth = width;
 		}
-		
-		if(initialFlip){
+		if((special & FLIP) != 0)
 			flip();
-		}
+		
 	}
 	
 	public boolean getFlip() {
@@ -104,8 +109,10 @@ public class AnimationManager {
 	}
 
 	public synchronized void update() {
-		if(++speed < 4) return ;
-		speed = 0;
+		delayTime = (img[frame].getDelay()-10)/ConfigurableOption.sleepTime;
+		
+		if(delayCounter++ < delayTime) return ;
+		delayCounter = 0;
 		if (isLoop || isPlay) {
 			frame++;
 			if (frame >= img.length) {

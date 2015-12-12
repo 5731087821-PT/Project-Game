@@ -33,8 +33,6 @@ public class SpacebarTab implements IRenderable {
 	protected RunningBall runningBall;
 	protected ArrayList<SpacebarGap> gaps;
 	protected ArrayList<Coin> coins;
-	private int threadCounter;
-	private boolean threadStart;
 	private int spawnDelayCounter;
 	private static final int SPAWN_DELAY = 50;
 	
@@ -49,7 +47,6 @@ public class SpacebarTab implements IRenderable {
 		this.runningBall = new RunningBall();
 		this.coins = new ArrayList<Coin>();
 		gaps = new ArrayList<SpacebarGap>();
-		this.threadStart = false;
 		
 		RenderableHolder.getInstance().addSouthEntity(this.runningBall);
 	}
@@ -78,44 +75,12 @@ public class SpacebarTab implements IRenderable {
 	
 	public void zombieAppear(){
 		NorthScreenLogic.spawnZombie = true;
-		threadCounter = 0;//Count up
 		
-		if(!threadStart){
-			new Thread(new Runnable() {
-				public void run() {
-					threadStart = true;
-					
-					Player player = null;
-					
-					ArrayList<IRenderable> list = (ArrayList<IRenderable>) RenderableHolder.getInstance().getNorthRenderableList();
-					for(IRenderable thisOne : list){
-						if(thisOne instanceof Player){
-							player = (Player) thisOne;
-						}
-					}
-
-					
-					while(true){
-						try {
-							Thread.sleep(utility.ConfigurableOption.sleepTime);
-						} catch (InterruptedException e) {}
-						
-						if(threadCounter==0){
-							AudioClip bgm = Resource.getAudio("zombiedeath");
-							bgm.play();	
-						}else if(threadCounter==5){
-							player.animationCurrent.setFlip(true);
-						}else if(threadCounter==30){
-							player.animationCurrent.setFlip(false);
-							threadStart = false;
-							break;
-						}
-						
-						threadCounter++;
-					}
-					
-				}
-			}).start();
+		for(IRenderable rend : RenderableHolder.getInstance().getNorthRenderableList()){
+			if(rend instanceof Player){
+				((Player) rend).zombieIsComming();
+				break;
+			}
 		}
 	}
 

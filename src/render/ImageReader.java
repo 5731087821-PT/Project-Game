@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.imageio.metadata.IIOMetadataNode;
 import javax.imageio.stream.ImageInputStream;
 
 import org.w3c.dom.Node;
@@ -45,6 +46,18 @@ public class ImageReader {
 							break;
 						}
 					}
+					
+					for (int j = 0; j < child.getLength(); j++) {
+						Node nodeItem = child.item(j);
+						if(nodeItem.getNodeName().equalsIgnoreCase("GraphicControlExtension")){
+							int delayTime = Integer
+									.parseInt(((IIOMetadataNode)nodeItem).getAttribute("delayTime"));
+							if(delayTime == 0) 
+								((IIOMetadataNode)nodeItem).setAttribute("delayTime", "10");
+							frame[i].setDelay(delayTime*10);
+							break;
+						}
+					}
 	
 				}
 
@@ -52,22 +65,6 @@ public class ImageReader {
 			} catch (IOException ex) {
 				ex.printStackTrace();
 			}
-			
-//			try {
-//				javax.imageio.ImageReader reader = ImageIO.getImageReadersByFormatName("gif").next();
-//				ImageInputStream stream = ImageIO.createImageInputStream(cl.getResourceAsStream(url));
-//				reader.setInput(stream);
-//				int count = reader.getNumImages(true);
-//				frame = new ImageData[count];
-//				System.out.println(url+" : "+count);
-//			    
-//			    for (int index = 0; index < count; index++) {
-//			        frame[index] = new ImageData(reader.read(index));
-//			    }
-//				
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
 			
 			return frame;
 			
@@ -80,15 +77,22 @@ public class ImageReader {
 				int frameCount = Integer.parseInt(url.substring(frameCounterIndex+1,url.length()-4));
 				ImageData[] frame = null;
 				try {
+					int frameWidth;
+					int frameHeight;
 					BufferedImage image;
 					image = ImageIO.read(cl.getResource(url));
-					int frameWidth = image.getWidth()/frameCount;
-					int frameHeight = image.getHeight();
 					
+					frameWidth = image.getWidth()/frameCount;
+					frameHeight = image.getHeight();
+					frame = new ImageData[frameCount];
 					
+					for(int i=0;i<frameCount;i++){
+						frame[i] = new ImageData(image.getSubimage(i*frameWidth, 0, frameWidth, frameHeight));
+					}
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
+				return frame;
 			}
 			
 		} else if(extension.equals("jpg")) {

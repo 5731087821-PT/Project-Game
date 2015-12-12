@@ -6,11 +6,13 @@ import java.awt.image.BufferedImage;
 
 public class ImageData {
 	private int offsetX,offsetY;
+	private int delay;
 	private BufferedImage img;
 	
 	public ImageData(BufferedImage img){
 		this.img = img;
 		this.offsetX = this.offsetY = 0;
+		this.delay = 100; //default delay animation
 	}
 	public void flipImage(){
         BufferedImage flipped = new BufferedImage(
@@ -56,6 +58,14 @@ public class ImageData {
 	}
 	public int getHeight(){
 		return img.getHeight();
+	}
+	public int getDelay() {
+		return delay;
+	}
+	public void setDelay(int delay) {
+		this.delay = delay;
+		if(delay<=0)
+			delay = 100; //default delay animation
 	}
 	
 

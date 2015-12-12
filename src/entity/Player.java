@@ -1,7 +1,9 @@
 package entity;
 
+import java.applet.AudioClip;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import render.AnimationManager;
 import render.IRenderable;
@@ -23,6 +25,8 @@ public class Player implements IRenderable {
 	public AnimationManager animationStanding;
 	private boolean walking;
 	private boolean visible;
+	private int threadCounter;
+	private boolean threadStart;
 
 	public Player() {
 		this.width = 50;
@@ -33,6 +37,7 @@ public class Player implements IRenderable {
 		this.destroyed = false;
 		this.doorOpen = 0;
 		this.visible = true;
+		this.threadStart = false;
 		animationWalking = Resource.get("batman-walking");
 		animationStanding = Resource.get("batman-standing");
 		setWalking(true);
@@ -117,6 +122,48 @@ public class Player implements IRenderable {
 			if(deadCounter == 0)
 				destroyed = true;
 				RenderableHolder.getInstance().getNorthRenderableList().remove(this);
+		}
+	}
+	
+	public void zombieIsComming(){
+		threadCounter = 0;//Count up
+		
+		if(!threadStart){
+			new Thread(new Runnable() {
+				public void run() {
+					threadStart = true;
+					
+					Player player = null;
+					
+					ArrayList<IRenderable> list = (ArrayList<IRenderable>) RenderableHolder.getInstance().getNorthRenderableList();
+					for(IRenderable thisOne : list){
+						if(thisOne instanceof Player){
+							player = (Player) thisOne;
+						}
+					}
+
+					
+					while(true){
+						try {
+							Thread.sleep(utility.ConfigurableOption.sleepTime);
+						} catch (InterruptedException e) {}
+						
+						if(threadCounter==0){
+							AudioClip bgm = Resource.getAudio("zombiedeath");
+							bgm.play();	
+						}else if(threadCounter==5){
+							player.animationCurrent.setFlip(true);
+						}else if(threadCounter==30){
+							player.animationCurrent.setFlip(false);
+							threadStart = false;
+							break;
+						}
+						
+						threadCounter++;
+					}
+					
+				}
+			}).start();
 		}
 	}
 

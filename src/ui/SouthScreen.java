@@ -33,10 +33,9 @@ public class SouthScreen extends JComponent {
 		setPreferredSize(new Dimension(width, height));
 		setLayout(null);
 		setVisible(true);
-		setFocusable(true);
 		
 		bgAnimation = Resource.get("batman-intro");
-//		bgAnimation = Resource.get("zombie-imps");
+//		bgAnimation = Resource.get("batman-walking");
 		bgAnimation.loop();
 	}
 	
@@ -46,7 +45,7 @@ public class SouthScreen extends JComponent {
 		g2d.setColor(Color.BLACK);
 		g2d.fillRect(0, 0, width, height);
 		
-		img = bgAnimation.getCurrentBufferedImage(2);
+		img = bgAnimation.getCurrentBufferedImage();
 //		img = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 //		Graphics2D gg = (Graphics2D) img.getGraphics();
 //		gg.setColor(Color.WHITE);
