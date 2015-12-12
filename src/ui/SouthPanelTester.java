@@ -1,5 +1,6 @@
 package ui;
 
+import java.applet.AudioClip;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,6 +15,7 @@ import entity.Player;
 import render.IRenderable;
 import render.RenderableHolder;
 import utility.ConfigurableOption;
+import utility.Resource;
 
 public class SouthPanelTester extends JPanel{
 	private JButton nextStage;
@@ -88,7 +90,11 @@ public class SouthPanelTester extends JPanel{
 									Thread.sleep(utility.ConfigurableOption.sleepTime);
 								} catch (InterruptedException e) {}
 								
-								if(countTester>0){
+								if(countTester==30){
+									AudioClip bgm = Resource.getAudio("zombiedeath");
+									bgm.play();	
+									countTester--;
+								}else if(countTester>0){
 									countTester--;
 								}else{
 									player.animationCurrent.setFlip(false);

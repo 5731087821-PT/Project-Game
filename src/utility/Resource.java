@@ -25,8 +25,9 @@ public class Resource {
 		audio.put("birdSound", AudioRead("res/sound/bird.wav"));
 		audio.put("thebeat", AudioRead("res/sound/thebeat.wav"));
 		audio.put("doorbell", AudioRead("res/sound/doorbell2.wav"));
-		audio.put("gamebgm", AudioRead("res/sound/Intense Battle Music.wav"));
+//		audio.put("gamebgm", AudioRead("res/sound/Intense Battle Music.wav"));
 		audio.put("zombiedeath", AudioRead("res/sound/zombiedeath.wav"));
+		audio.put("gamebgm", AudioRead("res/sound/05. Plants vs. Zombies Original Soundtrack - Loonboon.wav"));
 		
 		rs.put("batman-walking", read("res/character/batman-walking.gif",180,255,140,false));
 		rs.put("batman-standing", read("res/character/batman-standing.gif",180,255,140,false));

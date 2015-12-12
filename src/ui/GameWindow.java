@@ -49,7 +49,7 @@ public class GameWindow extends JFrame{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.addListener(this);
 		
-		bgm = Resource.getAudio("birdSound");
+		bgm = Resource.getAudio("gamebgm");
 		changeScreen(GAMESCREEN);
 		
 		this.pack();
@@ -119,7 +119,7 @@ public class GameWindow extends JFrame{
 				currentLogic.add(southGameLogic);
 				this.add(northScreen, BorderLayout.NORTH);
 				this.add(southPanelTester, BorderLayout.CENTER);
-				bgm = Resource.getAudio("birdSound");
+				bgm = Resource.getAudio("gamebgm");
 				bgm.play();
 				break;
 			}case INTROSCREEN:{
