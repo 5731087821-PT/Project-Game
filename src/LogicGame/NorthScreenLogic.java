@@ -6,7 +6,7 @@ import entity.Player;
 import entity.PlayerStatus;
 import entity.Zombie;
 import render.RenderableHolder;
-import utility.TimeCounter;
+import utility.TimeToCounter;
 import utility.ConfigurableOption;
 
 public class NorthScreenLogic implements Logic{
@@ -51,7 +51,7 @@ public class NorthScreenLogic implements Logic{
 					zombie.speed++;
 				}
 			}
-			if(spawnZombieCounter >= TimeCounter.getTimeCounter(10000)){
+			if(spawnZombieCounter >= TimeToCounter.getCounter(10000)){
 				spawnZombieCounter = 0;
 				Zombie zombie = new Zombie(zombies.size()+1);
 				RenderableHolder.getInstance().addNorthEntity(zombie);
@@ -59,7 +59,7 @@ public class NorthScreenLogic implements Logic{
 			}
 		}
 		
-		if(movingDelayCounter >= TimeCounter.getTimeCounter(500)){
+		if(movingDelayCounter >= TimeToCounter.getCounter(500)){
 			movingDelayCounter = 0;
 			for(Zombie zombie : zombies){
 				zombie.update();

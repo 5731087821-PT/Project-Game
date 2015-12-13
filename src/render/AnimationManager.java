@@ -3,7 +3,7 @@ package render;
 import java.awt.image.BufferedImage;
 
 import utility.ConfigurableOption;
-import utility.TimeCounter;
+import utility.TimeToCounter;
 
 public class AnimationManager {
 	public static final int DONOTTHING = 0;
@@ -152,7 +152,7 @@ public class AnimationManager {
 	}
 
 	public synchronized void update() {
-		delayTime = TimeCounter.getTimeCounter(img[frame].getDelay());
+		delayTime = TimeToCounter.getCounter(img[frame].getDelay());
 		
 		if(delayCounter++ < delayTime) return ;
 		delayCounter = 0;
