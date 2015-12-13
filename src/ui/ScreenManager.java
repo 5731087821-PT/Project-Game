@@ -3,12 +3,14 @@ package ui;
 import java.applet.AudioClip;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import LogicGame.Logic;
 import LogicGame.NorthScreenLogic;
