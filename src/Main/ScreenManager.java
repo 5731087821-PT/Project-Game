@@ -1,8 +1,6 @@
 package Main;
 
 import java.applet.AudioClip;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -25,7 +23,6 @@ import utility.ConfigurableOption;
 import utility.InputUtility;
 import utility.Resource;;
 
-@SuppressWarnings("serial")
 public class ScreenManager{
 	public static final int INTROSCREEN = 1;
 	public static final int SELECTSCREEN = 2;
