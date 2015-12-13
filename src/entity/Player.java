@@ -94,8 +94,10 @@ public class Player implements IRenderable {
 			if(deadCounter%25<12)
 				RenderAnimationHelper.draw(g2d, animation, x, y,0, charHeight);
 			
-			if(--deadCounter == 0)
+			if(--deadCounter == 0){
 				destroyed = true;
+				ConfigurableOption.gameOver = true;
+			}
 		}
 		if(ConfigurableOption.PAUSE) return;
 			animation.update();

@@ -85,7 +85,7 @@ public class SouthScreen extends JComponent {
 			if(!entity.get(i).isVisible()) continue;
 			entity.get(i).draw(g2d);
 		}
-		if(ConfigurableOption.PAUSE) return;
+		if(ConfigurableOption.PAUSE || ConfigurableOption.gameOver) return;
 			bgAnimation.update();
 	}
 

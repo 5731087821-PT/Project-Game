@@ -29,6 +29,8 @@ public class ConfigurableOption {
 	
 	public static int stageNow = 0;
 	public static int seedCoin = 0;
-	public static int coinLimit = 5;
+	public static int coinLimit = 10;
 	public static int coinCounter = 0;
+	
+	public static boolean gameOver = false;
 }

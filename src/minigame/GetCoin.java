@@ -99,6 +99,7 @@ public class GetCoin implements IRenderable {
 			int randomX = 0;
 			
 			boolean overlap = false;
+			int counter = 0;
 			do{
 				randomX = RandomUtility.random(ConfigurableOption.xSpacebarTab,
 							ConfigurableOption.xSpacebarTab+ConfigurableOption.tabDistance-ConfigurableOption.gapWidth);
@@ -109,6 +110,7 @@ public class GetCoin implements IRenderable {
 						break;
 					}
 				}
+				if(counter++ >= 100) break;
 			}while(overlap);
 			Coin coin = new Coin(disappearCounter);
 			RenderableHolder.getInstance().addNorthEntity(coin);

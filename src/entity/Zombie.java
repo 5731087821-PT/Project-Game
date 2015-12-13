@@ -6,6 +6,7 @@ import render.AnimationManager;
 import render.IRenderable;
 import render.RenderAnimationHelper;
 import utility.ConfigurableOption;
+import utility.RandomUtility;
 import utility.Resource;
 
 public class Zombie implements IRenderable{
@@ -29,8 +30,13 @@ public class Zombie implements IRenderable{
 		this.moving = true;
 		this.destroyed = false;
 		this.destroying = false;
+		String[] zombieName = {"zombie-ballon",
+							"zombie-helmet",
+							"zombie-imps",
+							"zombie-moonwalk",
+							"zombie-running"};
 		
-		animation = Resource.get("zombie-running");
+		animation = Resource.get(zombieName[RandomUtility.random(0, 4)]);
 		animation.loop();
 		
 		this.charHeight = 80;
@@ -62,7 +68,7 @@ public class Zombie implements IRenderable{
 			if(--deadCounter == 0)
 				destroyed = true;
 		}
-		if(ConfigurableOption.PAUSE) return;
+		if(ConfigurableOption.PAUSE||ConfigurableOption.gameOver) return;
 			animation.update();
 	}
 

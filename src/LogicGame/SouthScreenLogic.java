@@ -1,6 +1,8 @@
 package LogicGame;
 
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import entity.AlphabetBox;
 import entity.Coin;
@@ -10,9 +12,11 @@ import minigame.OpenGatewayZero;
 import minigame.Passcode;
 import minigame.WireCut;
 import minigame.GetCoin;
+import render.IRenderable;
 import render.RenderableHolder;
 import utility.ConfigurableOption;
 import utility.InputUtility;
+import utility.RandomUtility;
 
 public class SouthScreenLogic implements Logic{
 	protected OpenGatewayZero openGatewayZero;
@@ -28,10 +32,6 @@ public class SouthScreenLogic implements Logic{
 	
 	public void logicUpdate() {
 		// TODO Auto-generated method stub
-		if(RenderableHolder.getInstance().getSouthRenderableList().contains(getCoin)){
-			getCoin.setPlayerStatus(northScreenLogic.playerStatus);
-		}
-		
 		if(InputUtility.getKeyTriggered(KeyEvent.VK_ESCAPE)){
 			ConfigurableOption.PAUSE = true;
 			return;
@@ -44,6 +44,7 @@ public class SouthScreenLogic implements Logic{
 				RenderableHolder.getInstance().addSouthEntity(openGatewayZero);
 			}else if(ConfigurableOption.stageNow == 1){
 				this.getCoin = new GetCoin();
+				getCoin.setPlayerStatus(northScreenLogic.playerStatus);
 				RenderableHolder.getInstance().addSouthEntity(getCoin);
 			}else if(ConfigurableOption.stageNow == 2){
 				this.wireCut = new WireCut();
@@ -92,9 +93,16 @@ public class SouthScreenLogic implements Logic{
 			RenderableHolder.getInstance().getSouthRenderableList().remove(passcode);
 			passcode = null;
 			startStage = true;
+		}else if(ConfigurableOption.gameOver){
+			RenderableHolder.getInstance().getSouthRenderableList().clear();
+			
+			openGatewayZero = null;
+			getCoin = null;
+			wireCut = null;
+			passcode = null;
 		}
 		
-		if(ConfigurableOption.stageNow==0){
+		if(ConfigurableOption.stageNow==0 && openGatewayZero != null){
 			openGatewayZero.update();
 		}else if(ConfigurableOption.stageNow == 1 && getCoin != null){
 			getCoin.update();
@@ -108,6 +116,5 @@ public class SouthScreenLogic implements Logic{
 	public void setNorthScreenLogic(NorthScreenLogic northScreenLogic) {
 		// TODO Auto-generated method stub
 		this.northScreenLogic = northScreenLogic;
-//		spacebarTab.setPlayerStatus(northScreenLogic.playerStatus);
 	}
 }

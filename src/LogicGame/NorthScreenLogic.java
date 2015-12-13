@@ -6,14 +6,15 @@ import entity.Player;
 import entity.PlayerStatus;
 import entity.Zombie;
 import render.RenderableHolder;
+import utility.AA;
 import utility.ConfigurableOption;
 
 public class NorthScreenLogic implements Logic{
+	protected int spawnZombieCounter;
 	protected Player player;
 	protected PlayerStatus playerStatus;
 	protected Gateway gateway1, gateway2;
 	protected ArrayList<Zombie> zombies;
-	private static final int MOVING_DELAY = 50;
 	private int movingDelayCounter;
 	private SouthScreenLogic southScreenLogic;
 	public static boolean spawnZombie;
@@ -25,6 +26,7 @@ public class NorthScreenLogic implements Logic{
 		this.gateway2 = new Gateway(ConfigurableOption.xGateway2, ConfigurableOption.yGateway2);
 		this.zombies = new ArrayList<Zombie>();
 		this.movingDelayCounter = 0;
+		this.spawnZombieCounter = 666;
 		spawnZombie = true;
 		
 		RenderableHolder.getInstance().addNorthEntity(player);
@@ -40,6 +42,7 @@ public class NorthScreenLogic implements Logic{
 		player.update();
 		playerStatus.update();
 		movingDelayCounter++;
+		spawnZombieCounter++;
 		
 		if(spawnZombie){
 			spawnZombie = false;
@@ -48,12 +51,15 @@ public class NorthScreenLogic implements Logic{
 					zombie.speed++;
 				}
 			}
-			Zombie zombie = new Zombie(zombies.size()+1);
-			RenderableHolder.getInstance().addNorthEntity(zombie);
-			zombies.add(zombie);
+			if(spawnZombieCounter >= AA.getCounterTime(10000)){
+				spawnZombieCounter = 0;
+				Zombie zombie = new Zombie(zombies.size()+1);
+				RenderableHolder.getInstance().addNorthEntity(zombie);
+				zombies.add(zombie);
+			}
 		}
 		
-		if(movingDelayCounter >= MOVING_DELAY){
+		if(movingDelayCounter >= AA.getCounterTime(500)){
 			movingDelayCounter = 0;
 			for(Zombie zombie : zombies){
 				zombie.update();
