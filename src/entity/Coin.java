@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 import minigame.GetCoin;
+
 import render.IRenderable;
 import render.RenderableHolder;
 import utility.ConfigurableOption;
@@ -50,11 +51,8 @@ public class Coin implements IRenderable{
 		g2d.setColor(Color.YELLOW);
 		g2d.fillOval(x, y, radius*2, radius*2);
 		}else{
-			if(deadCounter == 0){
+			if(deadCounter == 0)
 				deadCounter = 150;
-			}else{
-				deadCounter--;
-			}
 			
 			if(deadCounter%25<12){
 				g2d.setColor(Color.YELLOW);
@@ -63,7 +61,7 @@ public class Coin implements IRenderable{
 			}
 			g2d.fillOval(x, y, radius * 2, radius * 2);
 			
-			if(deadCounter == 0){
+			if(--deadCounter == 0){
 				destroyed = true;
 			}
 		}

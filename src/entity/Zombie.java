@@ -18,7 +18,7 @@ public class Zombie implements IRenderable{
 	protected boolean destroyed;
 	protected boolean destroying;
 	private int deadCounter;
-	protected AnimationManager zombieAnimation; 
+	protected AnimationManager animation; 
 
 	public Zombie(int speed) {
 		this.x = -40;
@@ -30,17 +30,16 @@ public class Zombie implements IRenderable{
 		this.destroyed = false;
 		this.destroying = false;
 		
-		zombieAnimation = Resource.get("zombie-running");
-		zombieAnimation.loop();
+		animation = Resource.get("zombie-running");
+		animation.loop();
 		
 		this.charHeight = 80;
-		this.charWidth = zombieAnimation.getCharWidth(this.charHeight);
+		this.charWidth = animation.getCharWidth(this.charHeight);
 	}
 
 	public void update() {
 		if(moving){
 			x+=speed;
-			zombieAnimation.update();
 		}
 	}
 
@@ -52,17 +51,19 @@ public class Zombie implements IRenderable{
 	@Override
 	public void draw(Graphics2D g2d) {
 		if(!destroying){
-			RenderAnimationHelper.draw(g2d, zombieAnimation, x, y, 0,charHeight);
+			RenderAnimationHelper.draw(g2d, animation, x, y, 0,charHeight);
 		}else{
 			if(deadCounter == 0)
 				deadCounter = 150;
 			
 			if(deadCounter%25<12)
-				RenderAnimationHelper.draw(g2d, zombieAnimation, x, y, 0,charHeight);
+				RenderAnimationHelper.draw(g2d, animation, x, y, 0,charHeight);
 			
 			if(--deadCounter == 0)
 				destroyed = true;
 		}
+		if(ConfigurableOption.PAUSE) return;
+			animation.update();
 	}
 
 	public int getCharWidth() {

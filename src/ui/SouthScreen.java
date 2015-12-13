@@ -25,7 +25,7 @@ import utility.Resource;
 public class SouthScreen extends JComponent {
 	private int width, height;
 	private BufferedImage img;
-	private AnimationManager bgAnimation;
+	private static AnimationManager bgAnimation;
 	
 	public SouthScreen(){
 		super();
@@ -36,11 +36,13 @@ public class SouthScreen extends JComponent {
 		setPreferredSize(new Dimension(width, height));
 		setLayout(null);
 		setVisible(true);
-		
+
 //		bgAnimation = Resource.get("zombie-ballon");
 //		bgAnimation = Resource.get("batman-intro");
 		bgAnimation = Resource.get("BMDP");
 		bgAnimation.loop();
+		bgAnimation =  Resource.get("BMDP");
+		getBgAnimation().loop();
 		
 		this.addMouseListener(new MouseListener() {
 			
@@ -75,15 +77,23 @@ public class SouthScreen extends JComponent {
 		g2d.setColor(Color.BLACK);
 		g2d.fillRect(0, 0, width, height);
 		
-		img = bgAnimation.getCurrentBufferedImage();
+		img = getBgAnimation().getCurrentBufferedImage();
 		RenderHelper.draw(g2d, img, width/2, height, 0, height, RenderHelper.CENTER | RenderHelper.BOTTOM);
-//		RenderAnimationHelper.draw(g2d, bgAnimation, width/2, height, 0,200);
-		bgAnimation.update();
 		
 		ArrayList<IRenderable> entity = (ArrayList<IRenderable>) RenderableHolder.getInstance().getSouthRenderableList();
 		for(int i = 0 ; i<entity.size();i++){
 			if(!entity.get(i).isVisible()) continue;
 			entity.get(i).draw(g2d);
 		}
+		if(ConfigurableOption.PAUSE) return;
+			bgAnimation.update();
+	}
+
+	public static AnimationManager getBgAnimation() {
+		return bgAnimation;
+	}
+
+	public void setBgAnimation(AnimationManager bgAnimation) {
+		this.bgAnimation = bgAnimation;
 	}
 }

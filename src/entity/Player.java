@@ -18,7 +18,7 @@ public class Player implements IRenderable {
 	protected boolean destroying;
 	private int doorOpen;
 	private int deadCounter;
-	public AnimationManager animationCurrent;
+	public AnimationManager animation;
 	public AnimationManager animationWalking;
 	public AnimationManager animationStanding;
 	private boolean walking;
@@ -42,19 +42,18 @@ public class Player implements IRenderable {
 		setWalking(true);
 
 		this.charHeight = 120;
-		this.charWidth = animationCurrent.getCharWidth(this.charHeight);
+		this.charWidth = animation.getCharWidth(this.charHeight);
 	}
 
 	public void setWalking(boolean walking){
-		if(!((!this.walking && walking) || (this.walking && !walking))) return;
-		
+		if(!(this.walking ^ walking)) return;
 		this.walking = walking;
 		if(walking){
-			animationCurrent = animationWalking;
+			animation = animationWalking;
 		}else{
-			animationCurrent = animationStanding;
+			animation = animationStanding;
 		}
-		animationCurrent.loop();
+		animation.loop();
 	}
 
 	public synchronized void update() {
@@ -79,8 +78,6 @@ public class Player implements IRenderable {
 		}else{
 			setWalking(false);
 		}
-		if(isVisible())
-			animationCurrent.update();
 	}
 	
 	public boolean collideWith(Zombie zombie){
@@ -102,30 +99,28 @@ public class Player implements IRenderable {
 
 	@Override
 	public synchronized void draw(Graphics2D g2d) {
-		
-		
 		if(!destroying){
-			RenderAnimationHelper.draw(g2d, animationCurrent, x, y,0, charHeight);
+			RenderAnimationHelper.draw(g2d, animation, x, y,0, charHeight);
 		}else{
 			if(deadCounter == 0)
 				deadCounter = 150;
 			
 			if(deadCounter%25<12)
-				RenderAnimationHelper.draw(g2d, animationCurrent, x, y,0, charHeight);
+				RenderAnimationHelper.draw(g2d, animation, x, y,0, charHeight);
 			
 			if(--deadCounter == 0)
 				destroyed = true;
 		}
+		if(ConfigurableOption.PAUSE) return;
+			animation.update();
 	}
 	
 	public void zombieIsComming(){
 		threadCounter = 0;//Counter - counting up
-		
 		if(!threadStart){
 			new Thread(new Runnable() {
 				public void run() {
 					threadStart = true;
-					
 					while(true){
 						try {
 							Thread.sleep(utility.ConfigurableOption.sleepTime);
@@ -135,16 +130,14 @@ public class Player implements IRenderable {
 							AudioClip zombie = Resource.getAudio("zombiedeath");
 							zombie.play();	
 						}else if(threadCounter==5){
-							animationCurrent.flip(AnimationManager.FlipToUnUsual);
+							animation.flip(AnimationManager.FlipToUnUsual);
 						}else if(threadCounter==30){
-							animationCurrent.flip(AnimationManager.FlipToUsual);
+							animation.flip(AnimationManager.FlipToUsual);
 							threadStart = false;
 							break;
 						}
-						
 						threadCounter++;
 					}
-					
 				}
 			}).start();
 		}

@@ -1,5 +1,7 @@
 package LogicGame;
 
+import java.awt.event.KeyEvent;
+
 import entity.AlphabetBox;
 import entity.Coin;
 import entity.SpacebarGap;
@@ -26,6 +28,11 @@ public class SouthScreenLogic implements Logic{
 		// TODO Auto-generated method stub
 		if(RenderableHolder.getInstance().getSouthRenderableList().contains(getCoin)){
 			getCoin.setPlayerStatus(northScreenLogic.playerStatus);
+		}
+		
+		if(InputUtility.getKeyTriggered(KeyEvent.VK_ESCAPE)){
+			ConfigurableOption.PAUSE = true;
+			return;
 		}
 		
 		if(startStage){
