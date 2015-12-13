@@ -16,7 +16,6 @@ public class Player implements IRenderable {
 	protected int charWidth,charHeight;
 	protected boolean destroyed;
 	protected boolean destroying;
-	private int doorOpen;
 	private int deadCounter;
 	public AnimationManager animation;
 	public AnimationManager animationWalking;
@@ -30,7 +29,6 @@ public class Player implements IRenderable {
 		this.x = ConfigurableOption.screenWidth-(5*ConfigurableOption.screenWidth/7);
 		this.y = ConfigurableOption.northScreenHeight;
 		this.destroyed = false;
-		this.doorOpen = 0;
 		this.visible = true;
 		this.deadCounter = 0;
 		this.threadCounter = 0;
@@ -57,25 +55,17 @@ public class Player implements IRenderable {
 	}
 
 	public synchronized void update() {
-		for(IRenderable renderable : RenderableHolder.getInstance().getNorthRenderableList()){
-			if(renderable instanceof Gateway){
-				if( ((Gateway) renderable).isGateClose() ){
-					continue;
-				}else if( ((Gateway) renderable).getX() == ConfigurableOption.xGateway1 && doorOpen !=2 && ((Gateway)renderable).getY() <= -50){
-					doorOpen = 1;
-				}else if( ((Gateway) renderable).getX() == ConfigurableOption.xGateway2 && ((Gateway)renderable).getY() <= -20){
-					doorOpen = 2;
-				}
-			}
-		}
-		
-		if(doorOpen == 1 && x < ConfigurableOption.xGateway1+30){
+		if(ConfigurableOption.stageNow == 1 && x < ConfigurableOption.xGateway1+30){
 			this.x+=2;
 			setWalking(true);
-		}else if(doorOpen == 2){
-			this.x+=3;
+		}else if(ConfigurableOption.stageNow == 2 && x <ConfigurableOption.xGateway2 -30){
+			this.x+=2;
 			setWalking(true);
-		}else{
+		}else if(ConfigurableOption.stageNow == 3 && x < ConfigurableOption.xGateway2 + 70){
+			this.x+=2;
+			setWalking(true);
+		}
+		else{
 			setWalking(false);
 		}
 	}
@@ -86,10 +76,6 @@ public class Player implements IRenderable {
 	
 	public boolean isDestroyed(){
 		return this.destroyed;
-	}
-	
-	public int getDoorOpen(){
-		return this.doorOpen;
 	}
 
 	@Override

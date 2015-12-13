@@ -1,9 +1,6 @@
 package LogicGame;
 
 import java.util.*;
-import java.util.function.Predicate;
-
-import entity.Coin;
 import entity.Gateway;
 import entity.Player;
 import entity.PlayerStatus;
@@ -14,7 +11,7 @@ import utility.ConfigurableOption;
 public class NorthScreenLogic implements Logic{
 	protected Player player;
 	protected PlayerStatus playerStatus;
-	protected Gateway gateIn, gateOut;
+	protected Gateway gateway1, gateway2;
 	protected ArrayList<Zombie> zombies;
 	private static final int MOVING_DELAY = 50;
 	private int movingDelayCounter;
@@ -24,22 +21,22 @@ public class NorthScreenLogic implements Logic{
 	public NorthScreenLogic(){
 		this.player = new Player();
 		this.playerStatus = new PlayerStatus();
-		this.gateIn = new Gateway(ConfigurableOption.xGateway1, ConfigurableOption.yGateway1);
-		this.gateOut = new Gateway(ConfigurableOption.xGateway2, ConfigurableOption.yGateway2);
+		this.gateway1 = new Gateway(ConfigurableOption.xGateway1, ConfigurableOption.yGateway1);
+		this.gateway2 = new Gateway(ConfigurableOption.xGateway2, ConfigurableOption.yGateway2);
 		this.zombies = new ArrayList<Zombie>();
 		this.movingDelayCounter = 0;
 		spawnZombie = true;
 		
 		RenderableHolder.getInstance().addNorthEntity(player);
 		RenderableHolder.getInstance().addNorthEntity(playerStatus);
-		RenderableHolder.getInstance().addNorthEntity(gateIn);
-		RenderableHolder.getInstance().addNorthEntity(gateOut);
+		RenderableHolder.getInstance().addNorthEntity(gateway1);
+		RenderableHolder.getInstance().addNorthEntity(gateway2);
 	}
 	
 	public void logicUpdate() {
 		// TODO Auto-generated method stub
-		gateIn.update();
-		gateOut.update();
+		gateway1.update();
+		gateway2.update();
 		player.update();
 		playerStatus.update();
 		movingDelayCounter++;
@@ -70,9 +67,7 @@ public class NorthScreenLogic implements Logic{
 			}
 		}
 		
-		
-		
-		if(player.getDoorOpen()==2){
+		if(ConfigurableOption.stageNow==4){
 			for(Zombie zombie : zombies){
 				zombie.setDestroyed(true);
 				zombie.moving = false;

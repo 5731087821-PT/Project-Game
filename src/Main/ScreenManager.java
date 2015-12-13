@@ -60,10 +60,10 @@ public class ScreenManager{
 	public ScreenManager(){
 		new Resource();		
 		introScreen = new IntroScreen();
-//		resetScreen();
 		frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setIconImage(Resource.getImage("icon"));
+		frame.setTitle("Zombie Escape");
 		panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		addListener(panel);

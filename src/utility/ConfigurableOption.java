@@ -24,6 +24,9 @@ public class ConfigurableOption {
 	public static int gapWidth = 30;
 	public static int tabDistance = 4*screenWidth/10;
 	
+	public static int wireFrameWidth = 300;
+	public static int wireFrameHeight = 100;
+	
 	public static int stageNow = 0;
 	public static int seedCoin = 0;
 	public static int coinLimit = 5;

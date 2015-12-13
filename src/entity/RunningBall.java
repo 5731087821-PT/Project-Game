@@ -5,23 +5,27 @@ import java.awt.Graphics2D;
 
 import render.IRenderable;
 import render.RenderableHolder;
+import utility.AA;
 import utility.ConfigurableOption;
+import utility.RandomUtility;
 
 public class RunningBall implements IRenderable{
 	protected int x, y;
 	protected int xTab, yTab;
 	protected int diameter;
-	protected int distance;
+	protected int tabDistance;
 	protected int direction;
 	protected boolean destroyed;
+	private int shuffleDirectionDelay;
 	
-	public RunningBall(){
+	public RunningBall(int x, int y, int tabDistance){
 		this.diameter = ConfigurableOption.spacebarTabHeight;
-		this.x = this.xTab = ConfigurableOption.xSpacebarTab;
-		this.y = this.yTab = ConfigurableOption.ySpacebarTab;
-		this.distance = ConfigurableOption.tabDistance;
+		this.x = this.xTab = x;
+		this.y = this.yTab = y;
+		this.tabDistance = tabDistance;
 		this.direction = 1;
 		this.destroyed = false;
+		this.shuffleDirectionDelay = 0;
 	}
 	
 	@Override
@@ -48,9 +52,17 @@ public class RunningBall implements IRenderable{
 			this.direction = -1;
 		}else if (x<=ConfigurableOption.xSpacebarTab){
 			this.direction = 1;
+		}else if(ConfigurableOption.stageNow == 2 && shuffleDirectionDelay >= AA.getCounterTime(300)){
+			shuffleDirectionDelay = 0;
+			if(RandomUtility.random(1, 2)==1){
+				this.direction = -1;
+			}else{
+				this.direction = 1;
+			}
 		}
 
 		this.x += 3*this.direction;
+		shuffleDirectionDelay++;
 	}
 	public int getDiameter(){
 		return diameter;

@@ -24,7 +24,7 @@ import utility.Resource;
 
 public class GetCoin implements IRenderable {
 	protected int xTab, yTab;
-	protected int distance;
+	protected int tabDistance;
 	protected int direction;
 	protected int comboCounter;
 	protected int disappearCounter;
@@ -41,14 +41,14 @@ public class GetCoin implements IRenderable {
 	public GetCoin() {
 		this.xTab = ConfigurableOption.xSpacebarTab;
 		this.yTab = ConfigurableOption.ySpacebarTab;
-		this.distance = ConfigurableOption.tabDistance;
+		this.tabDistance = ConfigurableOption.tabDistance;
 		this.direction = 1;
 		this.comboCounter = 1;
 		this.spawnDelayCounter = 0;
 		this.destroyed = false;
-		this.runningBall = new RunningBall();
+		this.runningBall = new RunningBall(ConfigurableOption.xSpacebarTab, ConfigurableOption.ySpacebarTab, ConfigurableOption.tabDistance);
 		this.coins = new ArrayList<Coin>();
-		gaps = new ArrayList<SpacebarGap>();
+		this.gaps = new ArrayList<SpacebarGap>();
 		
 		RenderableHolder.getInstance().addSouthEntity(this.runningBall);
 	}
@@ -113,7 +113,7 @@ public class GetCoin implements IRenderable {
 			Coin coin = new Coin(disappearCounter);
 			RenderableHolder.getInstance().addNorthEntity(coin);
 			coins.add(coin);
-			SpacebarGap gap = new SpacebarGap(disappearCounter, randomX);
+			SpacebarGap gap = new SpacebarGap(-1, null, disappearCounter, randomX, ConfigurableOption.ySpacebarTab);
 			RenderableHolder.getInstance().addSouthEntity(gap);
 			gaps.add(gap);
 			ConfigurableOption.coinCounter++;
@@ -142,7 +142,11 @@ public class GetCoin implements IRenderable {
 				playerStatus.subtractionScore(2);
 				playerStatus.comboInterrupted(); ;
 			}
-		}	
+		}
+		
+		if (InputUtility.getKeyTriggered(KeyEvent.VK_ENTER)){
+			ConfigurableOption.stageNow = 2;
+		}
 
 		for (SpacebarGap gap : gaps) {
 			gap.update();
@@ -150,10 +154,6 @@ public class GetCoin implements IRenderable {
 		
 		for(Coin coin : coins){
 			coin.update();
-		}
-		
-		for(SpacebarGap gap : gaps){
-			gap.update();
 		}
 		
 		coins.removeIf(new Predicate<Coin>() {

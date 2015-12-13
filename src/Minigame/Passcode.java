@@ -119,7 +119,7 @@ public class Passcode implements IRenderable {
 			for (IRenderable renderable : RenderableHolder.getInstance().getNorthRenderableList()) {
 				if (renderable instanceof Gateway && ((Gateway) renderable).getX() == ConfigurableOption.xGateway2) {
 					((Gateway) renderable).setGateClose(false);
-					ConfigurableOption.stageNow = 3;
+					ConfigurableOption.stageNow = 4;
 					break;
 				}
 			}
@@ -138,31 +138,26 @@ public class Passcode implements IRenderable {
 
 	@Override
 	public int getX() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public int getY() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public int getZ() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public boolean isDestroyed() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public void setDestroyed(boolean destroyed) {
-		// TODO Auto-generated method stub
 		
 	}
 	

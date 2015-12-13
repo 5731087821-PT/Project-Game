@@ -43,7 +43,7 @@ public class OpenGatewayZero implements IRenderable {
 		this.distance = ConfigurableOption.tabDistance;
 		this.direction = 1;
 		this.answerCounter = 0;
-		gap = new SpacebarGap(1000000, 0);
+		gap = new SpacebarGap(-1, null, 1000000, 0, ConfigurableOption.ySpacebarTab);
 		
 		RenderableHolder.getInstance().addSouthEntity(gap);
 	}
@@ -91,7 +91,7 @@ public class OpenGatewayZero implements IRenderable {
 	public void update() {
 		// TODO Auto-generated method stub
 		if (runningBall == null) {
-			runningBall = new RunningBall();
+			runningBall = new RunningBall(ConfigurableOption.xSpacebarTab, ConfigurableOption.ySpacebarTab, ConfigurableOption.tabDistance);
 			RenderableHolder.getInstance().addSouthEntity(runningBall);
 		} else {
 			if (InputUtility.getKeyTriggered(KeyEvent.VK_SPACE)) {

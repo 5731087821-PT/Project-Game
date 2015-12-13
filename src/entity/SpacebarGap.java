@@ -8,20 +8,25 @@ import render.RenderableHolder;
 import utility.ConfigurableOption;
 
 public class SpacebarGap implements IRenderable{
-	protected int x;
+	protected int x, y;
 	protected int width;
 	protected int disappearCounter;
+	protected int primaryKey;
 	protected boolean destroyed;
+	protected Color color;
 	public int seed;
 	
-	public SpacebarGap(int disappearCounter, int x){
+	public SpacebarGap(int primaryKey, Color color,int disappearCounter, int x, int y){
 		width = ConfigurableOption.gapWidth;
 		if(ConfigurableOption.stageNow == 0){
 			this.x = ConfigurableOption.xSpacebarTab+ConfigurableOption.tabDistance-120;
-		}else if(ConfigurableOption.stageNow == 1){
+		}else{
 			this.x = x;
 		}
 		
+		this.y = y;
+		this.primaryKey = primaryKey;
+		this.color = color;
 		this.disappearCounter = disappearCounter;
 		this.destroyed = false;
 		this.seed = ConfigurableOption.seedCoin;
@@ -30,12 +35,16 @@ public class SpacebarGap implements IRenderable{
 	@Override
 	public void draw(Graphics2D g2d) {
 		// TODO Auto-generated method stub
-		if(disappearCounter > 500){
-			g2d.setColor(new Color(245, 245, 245));
+		if(primaryKey<0){
+			if(disappearCounter > 500){
+				g2d.setColor(new Color(245, 245, 245));
+			}else{
+				g2d.setColor(new Color(245, 245, 245, disappearCounter/2));
+			}
 		}else{
-			g2d.setColor(new Color(245, 245, 245, disappearCounter/2));
+			g2d.setColor(color);
 		}
-		g2d.fillRoundRect(x, ConfigurableOption.ySpacebarTab, width, 20, 6, 6);
+		g2d.fillRoundRect(x, y, width, 20, 6, 6);
 	}
 
 	@Override
@@ -81,6 +90,10 @@ public class SpacebarGap implements IRenderable{
 	@Override
 	public void setDestroyed(boolean destroyed) {
 		this.destroyed = destroyed;
+	}
+	
+	public int getPrimaryKey(){
+		return this.primaryKey;
 	}
 	
 }
