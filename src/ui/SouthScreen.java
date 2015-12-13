@@ -35,9 +35,9 @@ public class SouthScreen extends JComponent {
 		setLayout(null);
 		setVisible(true);
 		
-		bgAnimation = Resource.get("zombie-ballon");
+//		bgAnimation = Resource.get("zombie-ballon");
 //		bgAnimation = Resource.get("batman-intro");
-//		bgAnimation = Resource.get("BMDP");
+		bgAnimation = Resource.get("BMDP");
 		bgAnimation.loop();
 	}
 	
@@ -47,9 +47,9 @@ public class SouthScreen extends JComponent {
 		g2d.setColor(Color.BLACK);
 		g2d.fillRect(0, 0, width, height);
 		
-//		img = bgAnimation.getCurrentBufferedImage();
-//		RenderHelper.draw(g2d, img, width/2, height, 0, height, RenderHelper.CENTER | RenderHelper.BOTTOM);
-		RenderAnimationHelper.draw(g2d, bgAnimation, width/2, height, 0,200);
+		img = bgAnimation.getCurrentBufferedImage();
+		RenderHelper.draw(g2d, img, width/2, height, 0, height, RenderHelper.CENTER | RenderHelper.BOTTOM);
+//		RenderAnimationHelper.draw(g2d, bgAnimation, width/2, height, 0,200);
 		bgAnimation.update();
 		
 		ArrayList<IRenderable> entity = (ArrayList<IRenderable>) RenderableHolder.getInstance().getSouthRenderableList();
