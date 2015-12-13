@@ -1,4 +1,4 @@
-package Minigame;
+package minigame;
 
 import java.applet.AudioClip;
 import java.awt.BasicStroke;
@@ -28,13 +28,12 @@ public class SpacebarTab implements IRenderable {
 	protected int direction;
 	protected int comboCounter;
 	protected int disappearCounter;
+	protected boolean destroyed;
 	protected boolean answer;
 	protected PlayerStatus playerStatus;
 	protected RunningBall runningBall;
 	protected ArrayList<SpacebarGap> gaps;
 	protected ArrayList<Coin> coins;
-	private int threadCounter;
-	private boolean threadStart;
 	private int spawnDelayCounter;
 	private static final int SPAWN_DELAY = 50;
 	
@@ -46,10 +45,10 @@ public class SpacebarTab implements IRenderable {
 		this.direction = 1;
 		this.comboCounter = 1;
 		this.spawnDelayCounter = 0;
+		this.destroyed = false;
 		this.runningBall = new RunningBall();
 		this.coins = new ArrayList<Coin>();
 		gaps = new ArrayList<SpacebarGap>();
-		this.threadStart = false;
 		
 		RenderableHolder.getInstance().addSouthEntity(this.runningBall);
 	}
@@ -78,44 +77,12 @@ public class SpacebarTab implements IRenderable {
 	
 	public void zombieAppear(){
 		NorthScreenLogic.spawnZombie = true;
-		threadCounter = 0;//Count up
 		
-		if(!threadStart){
-			new Thread(new Runnable() {
-				public void run() {
-					threadStart = true;
-					
-					Player player = null;
-					
-					ArrayList<IRenderable> list = (ArrayList<IRenderable>) RenderableHolder.getInstance().getNorthRenderableList();
-					for(IRenderable thisOne : list){
-						if(thisOne instanceof Player){
-							player = (Player) thisOne;
-						}
-					}
-
-					
-					while(true){
-						try {
-							Thread.sleep(utility.ConfigurableOption.sleepTime);
-						} catch (InterruptedException e) {}
-						
-						if(threadCounter==0){
-							AudioClip bgm = Resource.getAudio("zombiedeath");
-							bgm.play();	
-						}else if(threadCounter==5){
-							player.animationCurrent.setFlip(true);
-						}else if(threadCounter==30){
-							player.animationCurrent.setFlip(false);
-							threadStart = false;
-							break;
-						}
-						
-						threadCounter++;
-					}
-					
-				}
-			}).start();
+		for(IRenderable rend : RenderableHolder.getInstance().getNorthRenderableList()){
+			if(rend instanceof Player){
+				((Player) rend).zombieIsComming();
+				break;
+			}
 		}
 	}
 
@@ -157,10 +124,10 @@ public class SpacebarTab implements IRenderable {
 			answer = false;
 			for (SpacebarGap gap : gaps) {
 				if (enterInGap(gap)) {
-					gap.destroyed = true;
+					gap.setDestroyed(true);
 					for(Coin coin : coins){
 						if(coin.seed == gap.seed){
-							coin.destroyed = true;
+							coin.setDestroyed(true);
 							break;
 						}
 					}
@@ -199,7 +166,7 @@ public class SpacebarTab implements IRenderable {
 		gaps.removeIf(new Predicate<SpacebarGap>() {
 			@Override
 			public boolean test(SpacebarGap gap) {
-				return gap.destroyed;
+				return gap.isDestroyed();
 			}
 		});
 	
@@ -237,6 +204,17 @@ public class SpacebarTab implements IRenderable {
 	public int getZ() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public boolean isDestroyed() {
+		// TODO Auto-generated method stub
+		return destroyed;
+	}
+
+	@Override
+	public void setDestroyed(boolean destroyed) {
+		this.destroyed = destroyed;
 	}
 
 }

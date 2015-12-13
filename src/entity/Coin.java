@@ -3,7 +3,7 @@ package entity;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-import Minigame.SpacebarTab;
+import minigame.SpacebarTab;
 import render.IRenderable;
 import render.RenderableHolder;
 import utility.ConfigurableOption;
@@ -14,9 +14,10 @@ public class Coin implements IRenderable{
 	protected int y;
 	protected int radius;
 	protected int disappearCounter;
-	public boolean destroyed;
+	protected boolean destroyed;
 	private int deadCounter;
 	public int seed;
+	public boolean destroying;
 	
 	public Coin(int disappearCounter){
 		this.radius = 10;
@@ -24,6 +25,7 @@ public class Coin implements IRenderable{
 		this.y = ConfigurableOption.northScreenHeight-radius*2;
 		this.disappearCounter = disappearCounter;
 		this.destroyed = false;
+		this.destroying = false;
 		this.seed = ConfigurableOption.seedCoin;
 	}
 	
@@ -44,7 +46,7 @@ public class Coin implements IRenderable{
 	@Override
 	public void draw(Graphics2D g2d) {
 		// TODO Auto-generated method stub
-		if(!destroyed){
+		if(!destroying){
 		g2d.setColor(Color.YELLOW);
 		g2d.fillOval(x, y, radius*2, radius*2);
 		}else{
@@ -76,6 +78,10 @@ public class Coin implements IRenderable{
 	public boolean isVisible() {
 		// TODO Auto-generated method stub
 		return true;
+	}
+
+	public void setDestroyed(boolean destroyed) {
+		this.destroyed = destroyed;
 	}
 
 	@Override

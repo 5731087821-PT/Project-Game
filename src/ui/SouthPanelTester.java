@@ -93,9 +93,9 @@ public class SouthPanelTester extends JPanel{
 									AudioClip bgm = Resource.getAudio("zombiedeath");
 									bgm.play();	
 								}else if(threadCounter==5){
-									player.animationCurrent.setFlip(true);
+//									player.animationCurrent.setFlip(true);
 								}else if(threadCounter==30){
-									player.animationCurrent.setFlip(false);
+//									player.animationCurrent.setFlip(false);
 									threadStart = false;
 									break;
 								}

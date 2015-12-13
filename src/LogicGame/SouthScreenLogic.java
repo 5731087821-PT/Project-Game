@@ -1,9 +1,9 @@
 package LogicGame;
 
-import Minigame.OpenGatewayZero;
-import Minigame.SpacebarTab;
 import entity.Coin;
 import entity.SpacebarGap;
+import minigame.OpenGatewayZero;
+import minigame.SpacebarTab;
 import render.RenderableHolder;
 import utility.ConfigurableOption;
 

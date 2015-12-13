@@ -55,7 +55,7 @@ public class PlayerStatus implements IRenderable{
 	public void draw(Graphics2D g2d) {
 		// TODO Auto-generated method stub
 		g2d.setColor(new Color(0, 0, 0));
-		g2d.fillRect(0, 0, ConfigurableOption.screenWidth, 40);
+		g2d.fillRect(0, 0, ConfigurableOption.screenWidth, ConfigurableOption.statusHeight);
 		g2d.setColor(Color.WHITE);
 		g2d.setFont(Resource.standardFont);
 		g2d.drawString("COIN: "+this.coins, 10, 32);
@@ -84,6 +84,18 @@ public class PlayerStatus implements IRenderable{
 	public int getY() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public boolean isDestroyed() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void setDestroyed(boolean destroyed) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

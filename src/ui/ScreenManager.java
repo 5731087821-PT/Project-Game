@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.JComponent;
@@ -55,8 +57,7 @@ public class ScreenManager extends JFrame{
 		
 		northScreenLogic.setSouthScreenLogic(southScreenLogic);
 		southScreenLogic.setNorthScreenLogic(northScreenLogic);
-		
-		
+
 		bgm = Resource.getAudio("gamebgm");
 		changeScreen(GAMESCREEN);
 
@@ -70,18 +71,14 @@ public class ScreenManager extends JFrame{
 			try{
 				Thread.sleep(ConfigurableOption.sleepTime);
 			}catch (InterruptedException e){}
-			
 
-			for(JComponent part:currentScreen){
-				part.repaint();
+			for(JComponent component:currentScreen){
+				component.repaint();
 			}
-			
-			for(Logic part:currentLogic){
-				part.logicUpdate();
+			for(Logic component:currentLogic){
+				component.logicUpdate();
 			}
-			
 			InputUtility.postUpdate();
-			
 			this.requestFocus();
 		}
 	}
@@ -106,16 +103,41 @@ public class ScreenManager extends JFrame{
 				}
 			}
 		});
+		
+		frame.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				InputUtility.setMouseLeftDown(false);
+				InputUtility.setMouseLeftTriggered(false);
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				InputUtility.setMouseLeftTriggered(true);
+				InputUtility.setMouseLeftDown(true);
+				InputUtility.setMouseX(e.getX());
+				InputUtility.setMouseY(e.getY());
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {}
+		});
+
 		frame.setFocusable(true);
 	}
 	
 	public void changeScreen(int screen){
 		
 		bgm.stop();
-		
-		for(JComponent component:currentScreen){
-			panel.remove(component);
-		}
+
+		panel.removeAll();
 		currentScreen.clear();
 		currentLogic.clear();
 		
@@ -127,8 +149,6 @@ public class ScreenManager extends JFrame{
 				currentScreen.add(southScreen);
 				currentLogic.add(northScreenLogic);
 				currentLogic.add(southScreenLogic);
-				this.add(northScreen, BorderLayout.NORTH);
-				this.add(southScreen, BorderLayout.SOUTH);
 				bgm = Resource.getAudio("gamebgm");
 				bgm.play();
 				break;
