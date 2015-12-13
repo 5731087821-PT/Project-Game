@@ -75,6 +75,7 @@ public class IntroScreen extends JComponent{
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				ScreenManager.changeScreen(ScreenManager.GAMESCREEN);
 			}
 		});
 //		continueButton = new JButton("CONTINUE");
