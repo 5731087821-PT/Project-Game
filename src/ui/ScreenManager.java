@@ -103,33 +103,6 @@ public class ScreenManager extends JFrame{
 				}
 			}
 		});
-		
-		frame.addMouseListener(new MouseListener() {
-			
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				InputUtility.setMouseLeftDown(false);
-				InputUtility.setMouseLeftTriggered(false);
-			}
-			
-			@Override
-			public void mousePressed(MouseEvent e) {
-				InputUtility.setMouseLeftTriggered(true);
-				InputUtility.setMouseLeftDown(true);
-				InputUtility.setMouseX(e.getX());
-				InputUtility.setMouseY(e.getY());
-			}
-			
-			@Override
-			public void mouseExited(MouseEvent e) {}
-			
-			@Override
-			public void mouseEntered(MouseEvent e) {}
-			
-			@Override
-			public void mouseClicked(MouseEvent e) {}
-		});
-
 		frame.setFocusable(true);
 	}
 	

@@ -3,6 +3,8 @@ package ui;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -39,6 +41,32 @@ public class SouthScreen extends JComponent {
 //		bgAnimation = Resource.get("batman-intro");
 		bgAnimation = Resource.get("BMDP");
 		bgAnimation.loop();
+		
+		this.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				InputUtility.setMouseLeftDown(false);
+				InputUtility.setMouseLeftTriggered(false);
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				InputUtility.setMouseLeftTriggered(true);
+				InputUtility.setMouseLeftDown(true);
+				InputUtility.setMouseX(e.getX());
+				InputUtility.setMouseY(e.getY());
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {}
+		});
 	}
 	
 	public void paintComponent(Graphics g){

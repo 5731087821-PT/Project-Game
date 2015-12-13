@@ -16,7 +16,7 @@ public class NorthScreenLogic implements Logic{
 	protected PlayerStatus playerStatus;
 	protected Gateway gateIn, gateOut;
 	protected ArrayList<Zombie> zombies;
-	private static final int MOVING_DELAY = 20;
+	private static final int MOVING_DELAY = 50;
 	private int movingDelayCounter;
 	private SouthScreenLogic southScreenLogic;
 	public static boolean spawnZombie;

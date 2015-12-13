@@ -22,7 +22,7 @@ import utility.InputUtility;
 import utility.RandomUtility;
 import utility.Resource;
 
-public class SpacebarTab implements IRenderable {
+public class GetCoin implements IRenderable {
 	protected int xTab, yTab;
 	protected int distance;
 	protected int direction;
@@ -38,7 +38,7 @@ public class SpacebarTab implements IRenderable {
 	private static final int SPAWN_DELAY = 50;
 	
 
-	public SpacebarTab() {
+	public GetCoin() {
 		this.xTab = ConfigurableOption.xSpacebarTab;
 		this.yTab = ConfigurableOption.ySpacebarTab;
 		this.distance = ConfigurableOption.tabDistance;
