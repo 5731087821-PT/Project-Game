@@ -17,31 +17,34 @@ import utility.Resource;
 
 @SuppressWarnings("serial")
 public class NorthScreen extends JComponent {
-	private int width, height;
+	private int width, height, statusHeight;
 	private BufferedImage img;
 	private AnimationManager bgAnimation;
 	public NorthScreen(){
 		super();
 		this.width = ConfigurableOption.screenWidth;
 		this.height = ConfigurableOption.northScreenHeight;
+		this.statusHeight = ConfigurableOption.statusHeight;
 		
 		setDoubleBuffered(true);
 		setPreferredSize(new Dimension(width, height));
 		setLayout(null);
 		setVisible(true);
 		
-		bgAnimation = Resource.get("batman-intro");
+		bgAnimation = Resource.get("city");
+		bgAnimation.loop();
 	}
 	
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
-		g2d.setColor(Color.LIGHT_GRAY);
+		g2d.setColor(Color.WHITE);
 		g2d.fillRect(0, 0, width, height);
 		
 		
-//		img = bgAnimation.getCurrentBufferedImage();
-//		RenderHelper.draw(g2d, img, ConfigurableOption.screenWidth, ConfigurableOption.screenHeight, 0, 0, RenderHelper.BOTTOM | RenderHelper.RIGHT);
+		img = bgAnimation.getCurrentBufferedImage();
+		RenderHelper.draw(g2d, img, width/2, height, 0, height-statusHeight-20, RenderHelper.BOTTOM | RenderHelper.CENTER);
+		bgAnimation.update();
 		
 		ArrayList<IRenderable> entity = (ArrayList<IRenderable>) RenderableHolder.getInstance().getNorthRenderableList();
 		for(int i = 0 ; i<entity.size();i++){

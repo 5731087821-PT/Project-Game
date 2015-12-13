@@ -2,13 +2,15 @@ package utility;
 
 
 public class ConfigurableOption {
-	public static final boolean debugGraphic = false;
+	public static final boolean debugGraphic = true;
 	
 	public static final int sleepTime = 15;
-	public static final int screenWidth = 720;
-	public static final int screenHeight = 480;
-	public static final int northScreenHeight = 200;
-	public static final int southScreenHeight = screenHeight-northScreenHeight;
+	public static final int northScreenHeight = 200;//200
+	public static final int southScreenHeight = 360;//360
+	public static final int screenWidth = 720;//720
+	public static final int screenHeight = northScreenHeight+southScreenHeight;
+	public static final int statusHeight = 40;
+
 	
 	public static int xGateway1 = 260;
 	public static int yGateway1 = 0;

@@ -10,6 +10,7 @@ public class RenderHelper {
 	public static final int TOP = 0;
 	public static final int MIDDLE = 4;
 	public static final int BOTTOM = 8;
+	public static final int REPEAT = 16;
 	
 	public static void draw(Graphics2D g, BufferedImage img, int x, int y, int width, int height, int position) {
 		
@@ -35,4 +36,11 @@ public class RenderHelper {
 		
 		g.drawImage(img, x, y, width, height, null);
 	}
+//	public static void drawRepeatHorizontal(Graphics2D g, BufferedImage img, int x, int y, int width, int height,int preferedWidth , int position) {
+//		draw(g,img,x,y,width,height,position);
+//		
+//		for(int i=0;i<preferedWidth/width;i++){
+//			draw(g,img,x,y,width,height,position);
+//		}
+//	}
 }

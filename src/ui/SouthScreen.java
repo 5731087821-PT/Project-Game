@@ -12,6 +12,7 @@ import com.sun.corba.se.spi.orbutil.fsm.Input;
 
 import render.AnimationManager;
 import render.IRenderable;
+import render.RenderAnimationHelper;
 import render.RenderHelper;
 import render.RenderableHolder;
 import utility.ConfigurableOption;
@@ -34,8 +35,9 @@ public class SouthScreen extends JComponent {
 		setLayout(null);
 		setVisible(true);
 		
-		bgAnimation = Resource.get("batman-intro");
-//		bgAnimation = Resource.get("batman-walking");
+		bgAnimation = Resource.get("zombie-ballon");
+//		bgAnimation = Resource.get("batman-intro");
+//		bgAnimation = Resource.get("BMDP");
 		bgAnimation.loop();
 	}
 	
@@ -45,16 +47,9 @@ public class SouthScreen extends JComponent {
 		g2d.setColor(Color.BLACK);
 		g2d.fillRect(0, 0, width, height);
 		
-		img = bgAnimation.getCurrentBufferedImage();
-//		img = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-//		Graphics2D gg = (Graphics2D) img.getGraphics();
-//		gg.setColor(Color.WHITE);
-//		gg.fillRect(0, 0, width-10, height-10);
-//		g.drawImage(img, 0, 0, width, height, null);
-//		RenderHelper.draw(g2d, img,  0, 0,  width, height, RenderHelper.CENTER|RenderHelper.TOP);
-//		RenderHelper.draw(g2d, img, 0, 0, 0, 0, RenderHelper.LEFT | RenderHelper.TOP);
-//		RenderHelper.draw(g2d, img, width/2, height/2, 0, 0, RenderHelper.LEFT | RenderHelper.TOP);
-		RenderHelper.draw(g2d, img, width/2, height, 0, height, RenderHelper.CENTER | RenderHelper.BOTTOM);
+//		img = bgAnimation.getCurrentBufferedImage();
+//		RenderHelper.draw(g2d, img, width/2, height, 0, height, RenderHelper.CENTER | RenderHelper.BOTTOM);
+		RenderAnimationHelper.draw(g2d, bgAnimation, width/2, height, 0,200);
 		bgAnimation.update();
 		
 		ArrayList<IRenderable> entity = (ArrayList<IRenderable>) RenderableHolder.getInstance().getSouthRenderableList();

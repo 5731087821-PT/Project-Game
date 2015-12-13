@@ -2,13 +2,10 @@ package entity;
 
 import java.applet.AudioClip;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 import render.AnimationManager;
 import render.IRenderable;
 import render.RenderAnimationHelper;
-import render.RenderHelper;
 import render.RenderableHolder;
 import utility.ConfigurableOption;
 import utility.Resource;
@@ -16,7 +13,7 @@ import utility.Resource;
 public class Player implements IRenderable {
 	protected int x;
 	protected int y;
-	protected int width;
+	protected int charWidth,charHeight;
 	protected boolean destroyed;
 	protected boolean destroying;
 	private int doorOpen;
@@ -30,9 +27,6 @@ public class Player implements IRenderable {
 	private boolean threadStart;
 
 	public Player() {
-		this.width = 50;
-//		this.x = ConfigurableOption.screenWidth-(5*ConfigurableOption.screenWidth/7);
-//		this.y = ConfigurableOption.gameScreenHeight-radius*2;
 		this.x = ConfigurableOption.screenWidth-(5*ConfigurableOption.screenWidth/7);
 		this.y = ConfigurableOption.northScreenHeight;
 		this.destroyed = false;
@@ -42,9 +36,13 @@ public class Player implements IRenderable {
 		this.threadCounter = 0;
 		this.destroyed = false;
 		this.destroying = false;
+		
 		animationWalking = Resource.get("batman-walking");
 		animationStanding = Resource.get("batman-standing");
 		setWalking(true);
+
+		this.charHeight = 120;
+		this.charWidth = animationCurrent.getCharWidth(this.charHeight);
 	}
 
 	public void setWalking(boolean walking){
@@ -86,7 +84,7 @@ public class Player implements IRenderable {
 	}
 	
 	public boolean collideWith(Zombie zombie){
-		return Math.hypot(this.x-zombie.x, this.y-zombie.y) < this.width+20;
+		return Math.hypot(this.x-zombie.x, this.y-zombie.y) < this.charWidth/2 + zombie.getCharWidth()/2;
 	}
 	
 	public boolean isDestroyed(){
@@ -107,30 +105,21 @@ public class Player implements IRenderable {
 		
 		
 		if(!destroying){
-			RenderAnimationHelper.draw(g2d, animationCurrent, x, y, width);
+			RenderAnimationHelper.draw(g2d, animationCurrent, x, y,0, charHeight);
 		}else{
-			if(deadCounter == 0){
+			if(deadCounter == 0)
 				deadCounter = 150;
-			}else{
-				deadCounter--;
-			}
 			
-			if(deadCounter%25<12){
-//					g2d.setColor(Color.RED);
-					RenderAnimationHelper.draw(g2d, animationCurrent, x, y, width);
-				}else{
-//					g2d.setColor(new Color(255,0,0,0));
-				}
-//				g2d.fillOval(x, y, radius * 2, radius * 2);
-
-			if(deadCounter == 0){
+			if(deadCounter%25<12)
+				RenderAnimationHelper.draw(g2d, animationCurrent, x, y,0, charHeight);
+			
+			if(--deadCounter == 0)
 				destroyed = true;
-			}
 		}
 	}
 	
 	public void zombieIsComming(){
-		threadCounter = 0;//Count up
+		threadCounter = 0;//Counter - counting up
 		
 		if(!threadStart){
 			new Thread(new Runnable() {
@@ -146,9 +135,9 @@ public class Player implements IRenderable {
 							AudioClip zombie = Resource.getAudio("zombiedeath");
 							zombie.play();	
 						}else if(threadCounter==5){
-							animationCurrent.flip(AnimationManager.FLIP);
+							animationCurrent.flip(AnimationManager.FlipToUnUsual);
 						}else if(threadCounter==30){
-							animationCurrent.flip(AnimationManager.FLIP);
+							animationCurrent.flip(AnimationManager.FlipToUsual);
 							threadStart = false;
 							break;
 						}

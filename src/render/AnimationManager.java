@@ -21,31 +21,36 @@ public class AnimationManager {
 	private ImageData[] img;
 	private int width, height;
 	private int delayTime,delayCounter;
-	private int charWidth;
+	private int charWidth,charHeight;
+
 	private int setX,setY;
 	private int flipInfo;
 
-	public AnimationManager(ImageData[] img,int setX,int setY,int charWidth,int special) {
+	public AnimationManager(ImageData[] img,int setXPerc,int setYPerc,int charWidthPerc,int charHeightPerc,int special) {
 		frame = 0;
 		delayCounter = delayTime = 0;
 		isPlay = isFinish = false;
-		this.setX = setX;
-		this.setY = setY;
-		this.charWidth = charWidth;
 		this.img = img;
 		this.flipInfo = FlipToUsual;
 		for (int i = 0; i < img.length; i++) {
 			width = Math.max(width, img[i].getWidth());
 			height = Math.max(height, img[i].getHeight());
 		}
-		if(setX==0||setY==0||charWidth==0){
+		this.setX = (setXPerc*width)/100;
+		this.setY = (setYPerc*height)/100;
+		this.charWidth = (charWidthPerc*width)/100;
+		this.charHeight = (charHeightPerc*height)/100;
+		
+		if(setXPerc==0||setYPerc==0||charWidthPerc==0){
 			this.setX = width;
 			this.setY = height;
 			this.charWidth = width;
 		}
-		if((special & FLIP) != 0)
+
+		if((special & FLIP) != 0){
+			this.setX = width - setX;
 			flipImage();
-		
+		}
 	}
 
 	public void flip(int flipMode) {
@@ -86,9 +91,20 @@ public class AnimationManager {
 		setX = width-setX;
 	}
 	
-	
 	public int getCharWidth(){
 		return charWidth;
+	}
+	
+	public int getCharHeight() {
+		return charHeight;
+	}
+	
+	public int getCharWidth(int userCharHeight){
+		return (charWidth*userCharHeight)/charHeight;
+	}
+	
+	public int getCharHeight(int userCharWidth) {
+		return (charHeight*userCharWidth)/charWidth;
 	}
 
 	public int getSetX() {

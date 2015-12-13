@@ -39,6 +39,7 @@ public class ImageReader {
 				
 				int count = reader.getNumImages(true);
 				int delayTime = 10 ;
+				int firstIWidth = 0, firstIHeight = 0;
 				frame = new ImageData[count];
 				BufferedImage master = null;
 				for (int i = 0; i < count; i++) {
@@ -60,8 +61,12 @@ public class ImageReader {
 								}
 								master.getGraphics().drawImage(getImage, imageAttr.get("imageLeftPosition"), imageAttr.get("imageTopPosition"), null);
 							}else{
-								master = new BufferedImage(imageAttr.get("imageWidth"), imageAttr.get("imageHeight"), BufferedImage.TYPE_INT_ARGB);
-								master.getGraphics().drawImage(getImage, 0, 0, null);
+								if(i==0){
+									firstIWidth = imageAttr.get("imageWidth");
+									firstIHeight = imageAttr.get("imageHeight");
+								}
+								master = new BufferedImage(firstIWidth, firstIHeight, BufferedImage.TYPE_INT_ARGB);
+								master.getGraphics().drawImage(getImage, imageAttr.get("imageLeftPosition"), imageAttr.get("imageTopPosition"), null);
 							}
 							
 						}
@@ -81,8 +86,8 @@ public class ImageReader {
 				}
 
 	
-			} catch (IOException ex) {
-				ex.printStackTrace();
+			} catch (Exception e) {
+				throw new RuntimeException("Error : "+ url);
 			}
 			
 			return frame;
@@ -117,8 +122,9 @@ public class ImageReader {
 					image[0] = new ImageData(ImageIO.read(cl.getResource(url)));
 					return image;
 				} catch(IOException e) {
-					e.printStackTrace();
-					return null;
+					throw new RuntimeException("Error : "+ url);
+//					e.printStackTrace();
+//					return null;
 				}
 			}
 			
