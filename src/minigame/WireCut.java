@@ -9,7 +9,6 @@ import java.util.function.Predicate;
 import com.sun.glass.events.KeyEvent;
 
 import LogicGame.NorthScreenLogic;
-import entity.Coin;
 import entity.Gateway;
 import entity.Player;
 import entity.RunningBall;

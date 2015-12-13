@@ -142,7 +142,11 @@ public class GetCoin implements IRenderable {
 				playerStatus.subtractionScore(2);
 				playerStatus.comboInterrupted(); ;
 			}
-		}	
+		}
+		
+		if (InputUtility.getKeyTriggered(KeyEvent.VK_ENTER)){
+			ConfigurableOption.stageNow = 2;
+		}
 
 		for (SpacebarGap gap : gaps) {
 			gap.update();
