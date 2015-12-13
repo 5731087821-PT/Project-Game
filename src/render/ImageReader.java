@@ -1,5 +1,6 @@
 package render;
 
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.HashMap;
@@ -58,6 +59,7 @@ public class ImageReader {
 							if((mode & OPTIMIZED) != 0){
 								if(i==0){
 									master = new BufferedImage(imageAttr.get("imageWidth"), imageAttr.get("imageHeight"), BufferedImage.TYPE_INT_ARGB);
+									RenderHelper.addAntiAlising((Graphics2D)master.getGraphics());
 								}
 								master.getGraphics().drawImage(getImage, imageAttr.get("imageLeftPosition"), imageAttr.get("imageTopPosition"), null);
 							}else{
@@ -66,6 +68,7 @@ public class ImageReader {
 									firstIHeight = imageAttr.get("imageHeight");
 								}
 								master = new BufferedImage(firstIWidth, firstIHeight, BufferedImage.TYPE_INT_ARGB);
+								RenderHelper.addAntiAlising((Graphics2D)master.getGraphics());
 								master.getGraphics().drawImage(getImage, imageAttr.get("imageLeftPosition"), imageAttr.get("imageTopPosition"), null);
 							}
 							

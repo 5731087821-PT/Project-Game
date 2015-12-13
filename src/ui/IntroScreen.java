@@ -23,91 +23,100 @@ import javax.swing.JOptionPane;
 import Main.ScreenManager;
 import render.AnimationManager;
 import render.RenderHelper;
+import render.RenderHelperMouseEvent;
 import utility.ConfigurableOption;
+import utility.InputUtility;
 import utility.Resource;
 
 @SuppressWarnings("serial")
 public class IntroScreen extends JComponent{
 	
-	private static final boolean CONTINUECHOICE = true;
-	private static final boolean NEWPLAYCHOICE = false;
-	private JLabel playButton;
-	private JLabel continueButton;
-	private JLabel exitButton;
+	private BufferedImage[] playButton = new BufferedImage[2];
+	private BufferedImage[] continueButton = new BufferedImage[2];
+	private BufferedImage[] exitButton = new BufferedImage[2];
 	private AnimationManager introBG;
-	private AnimationManager buttonAnimation;
 	private BufferedImage img;
 	private int width,height;
 
 	public IntroScreen(){
 		super();
-		buttonAnimation = Resource.get("button");
 		introBG = Resource.get("batman-intro");
 		introBG.loop();
 		width = introBG.getWidth();
 		height = ConfigurableOption.screenHeight;
 		setLayout(new FlowLayout());
 		setPreferredSize(new Dimension(width, height));
-		setVisible(true);
+		playButton[0] = Resource.getImage("button",0);
+		playButton[1] = Resource.getImage("button",1);
+		continueButton[0] = Resource.getImage("button",2);
+		continueButton[1] = Resource.getImage("button",3);
+		exitButton[0] = Resource.getImage("button",4);
+		exitButton[1] = Resource.getImage("button",5);
+
 		setBackground(Color.WHITE);
-		setDoubleBuffered(false);
-		playButton = new JLabel(new ImageIcon(buttonAnimation.getCurrentBufferedImage(0).getScaledInstance(50,80,Image.SCALE_DEFAULT)));
-		playButton.addMouseListener(new MouseListener() {
-			
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				
-			}
-			
-			@Override
-			public void mousePressed(MouseEvent e) {
-				
-			}
-			
-			@Override
-			public void mouseExited(MouseEvent e) {
-				
-			}
-			
-			@Override
-			public void mouseEntered(MouseEvent e) {
-			}
-			
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				ScreenManager.changeScreen(ScreenManager.GAMESCREEN);
-			}
-		});
-//		continueButton = new JButton("CONTINUE");
-//		continueButton.addActionListener(new ActionListener() {
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
+		setDoubleBuffered(true);
+		setVisible(true);
+//				ScreenManager.resetScreen();
 //				ScreenManager.changeScreen(ScreenManager.GAMESCREEN);
-//			}
-//		});
-//		
-//		exitButton = new JButton("EXIT");
-//		exitButton.addActionListener(new ActionListener() {
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
 //				System.exit(0);
-//			}
-//		});
-		add(playButton);
-//		add(continueButton);
-//		add(exitButton);
 	}
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.setColor(Color.BLACK);
-		g.fillRect(0, 0, width, height);
+		Graphics2D g2d = (Graphics2D) g;
+		RenderHelper.addAntiAlising(g2d);
+//		g.setColor(Color.BLACK);
+//		g.fillRect(0, 0, width, height);
 		img = introBG.getCurrentBufferedImage();
-		RenderHelper.draw( (Graphics2D)g, img, width/2, 0, 0, height, RenderHelper.TOP|RenderHelper.CENTER);
+		RenderHelper.draw( 
+				g2d, img, 
+				width/2, 0, 
+				0, height, 
+				RenderHelper.TOP|RenderHelper.CENTER);
+		drawStartBT(
+				g2d,playButton[1], 
+				110, 450, 
+				150, 0, 
+				RenderHelper.TOP|RenderHelper.CENTER);
+		
+		
 		introBG.update();
 	}
-	
-	private void showDialog(boolean mode){
+
+	private void drawStartBT(Graphics2D g, BufferedImage img, int x, int y, int width, int height, int position){
+		RenderHelper.draw(
+				null, 
+				img, 
+				x, y, 
+				width, height, 
+				RenderHelper.TOP|RenderHelper.CENTER,
+				new RenderHelperMouseEvent() {
+					@Override
+					public void mouseEntered(){
+						RenderHelper.draw(g, playButton[0], x, y, width, height, position);
+					}
+
+					@Override
+					public void mouseClicked() {
+						ScreenManager.resetScreen();
+						ScreenManager.changeScreen(ScreenManager.GAMESCREEN);
+					}
+
+					@Override
+					public void mousePressed() {
+						
+					}
+
+					@Override
+					public void mouseReleased() {
+						
+					}
+
+					@Override
+					public void mouseExited() {
+						RenderHelper.draw(g, playButton[1], x, y, width, height, position);
+					}
+		});
 		
 	}
 

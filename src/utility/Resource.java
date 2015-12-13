@@ -3,6 +3,7 @@ package utility;
 import java.applet.Applet;
 import java.applet.AudioClip;
 import java.awt.Font;
+import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
 import render.AnimationManager;
@@ -61,6 +62,7 @@ public class Resource {
 		rs.put("city", read("res/bg/city.png"));
 
 		rs.put("button", read("res/etc/button.6.png"));
+		rs.put("icon", read("res/etc/icon.png"));
 
 //		rs.put("test", read("res/character/zombie-walking.6.png")); //use for sprite PNG
 	}
@@ -68,6 +70,20 @@ public class Resource {
 	public static AnimationManager get(String key) {
 		if(rs.containsKey(key)) {
 			return rs.get(key);
+		}
+		throw new RuntimeException("Character Key is incorrect : " + key);
+	}
+	
+	public static BufferedImage getImage(String key) {
+		if(rs.containsKey(key)) {
+			return rs.get(key).getCurrentBufferedImage();
+		}
+		throw new RuntimeException("Character Key is incorrect : " + key);
+	}
+	
+	public static BufferedImage getImage(String key,int index) {
+		if(rs.containsKey(key)) {
+			return rs.get(key).getCurrentBufferedImage(index);
 		}
 		throw new RuntimeException("Character Key is incorrect : " + key);
 	}

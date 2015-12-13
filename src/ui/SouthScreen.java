@@ -37,38 +37,11 @@ public class SouthScreen extends JComponent {
 		setLayout(null);
 		setVisible(true);
 
-//		bgAnimation = Resource.get("zombie-ballon");
+//		bgAnimation = Resource.get("zombie-imps");
 //		bgAnimation = Resource.get("batman-intro");
 		bgAnimation = Resource.get("BMDP");
 		bgAnimation.loop();
-		bgAnimation =  Resource.get("BMDP");
-		getBgAnimation().loop();
 		
-		this.addMouseListener(new MouseListener() {
-			
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				InputUtility.setMouseLeftDown(false);
-				InputUtility.setMouseLeftTriggered(false);
-			}
-			
-			@Override
-			public void mousePressed(MouseEvent e) {
-				InputUtility.setMouseLeftTriggered(true);
-				InputUtility.setMouseLeftDown(true);
-				InputUtility.setMouseX(e.getX());
-				InputUtility.setMouseY(e.getY());
-			}
-			
-			@Override
-			public void mouseExited(MouseEvent e) {}
-			
-			@Override
-			public void mouseEntered(MouseEvent e) {}
-			
-			@Override
-			public void mouseClicked(MouseEvent e) {}
-		});
 	}
 	
 	public void paintComponent(Graphics g){
@@ -77,7 +50,7 @@ public class SouthScreen extends JComponent {
 		g2d.setColor(Color.BLACK);
 		g2d.fillRect(0, 0, width, height);
 		
-		img = getBgAnimation().getCurrentBufferedImage();
+		img = bgAnimation.getCurrentBufferedImage();
 		RenderHelper.draw(g2d, img, width/2, height, 0, height, RenderHelper.CENTER | RenderHelper.BOTTOM);
 		
 		ArrayList<IRenderable> entity = (ArrayList<IRenderable>) RenderableHolder.getInstance().getSouthRenderableList();
@@ -87,13 +60,5 @@ public class SouthScreen extends JComponent {
 		}
 		if(ConfigurableOption.PAUSE || ConfigurableOption.gameOver) return;
 			bgAnimation.update();
-	}
-
-	public static AnimationManager getBgAnimation() {
-		return bgAnimation;
-	}
-
-	public void setBgAnimation(AnimationManager bgAnimation) {
-		this.bgAnimation = bgAnimation;
 	}
 }

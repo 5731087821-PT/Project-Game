@@ -38,9 +38,9 @@ public class NorthScreen extends JComponent {
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
+		RenderHelper.addAntiAlising(g2d);
 		g2d.setColor(Color.BLACK);
 		g2d.fillRect(0, 0, width, height);
-		
 		
 		img = bgAnimation.getCurrentBufferedImage();
 		RenderHelper.draw(g2d, img, width/2, height, 0, height-statusHeight-20, RenderHelper.BOTTOM | RenderHelper.CENTER);

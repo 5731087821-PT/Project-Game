@@ -6,6 +6,7 @@ public class InputUtility {
 	private static int mouseX,mouseY;
 	private static boolean mouseLeftDown,mouseRightDown,mouseOnScreen;
 	private static boolean mouseLeftTriggered,mouseRightTriggered;
+	private static boolean prevMouseLeftTriggered,prevMouseRightTriggered;
 	private static boolean[] keyPressed = new boolean[256];
 	private static boolean[] keyTriggered = new boolean[256];
 	
@@ -17,6 +18,12 @@ public class InputUtility {
 	}
 	public static int getMouseY() {
 		return mouseY;
+	}
+	public static int getMouseXSouth() {
+		return mouseX;
+	}
+	public static int getMouseYSouth() {
+		return mouseY-ConfigurableOption.northScreenHeight;
 	}
 	public static void setMouseY(int mouseY) {
 		InputUtility.mouseY = mouseY;
@@ -49,13 +56,13 @@ public class InputUtility {
 		return mouseLeftTriggered;
 	}
 	public static void setMouseLeftTriggered(boolean mouseLeftTriggered) {
-		InputUtility.mouseLeftTriggered = mouseLeftTriggered;
+		InputUtility.prevMouseLeftTriggered = mouseLeftTriggered;
 	}
 	public static boolean isMouseRightTriggered() {
 		return mouseRightTriggered;
 	}
 	public static void setMouseRightTriggered(boolean mouseRightTriggered) {
-		InputUtility.mouseRightTriggered = mouseRightTriggered;
+		InputUtility.prevMouseRightTriggered = mouseRightTriggered;
 	}
 	public static boolean[] getKeyPressed() {
 		return keyPressed;
@@ -90,13 +97,13 @@ public class InputUtility {
 	}
 	
 	public static void postUpdate(){
-//		keyTriggered[KeyEvent.VK_SPACE] = false;
+		mouseLeftTriggered = prevMouseLeftTriggered;
+		mouseRightTriggered = prevMouseRightTriggered;
+		prevMouseLeftTriggered=false;
+		prevMouseRightTriggered=false;
+		
 		for(int i=0;i<keyTriggered.length;i++){
 			keyTriggered[i] = false;
 		}
-		mouseLeftDown=false;
-		mouseRightDown=false;
-		mouseLeftTriggered=false;
-		mouseRightTriggered=false;
 	}
 }

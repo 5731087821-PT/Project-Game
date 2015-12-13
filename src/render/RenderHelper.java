@@ -1,7 +1,10 @@
 package render;
 
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+
+import utility.InputUtility;
 
 public class RenderHelper {
 	public static final int LEFT = 0;
@@ -13,7 +16,11 @@ public class RenderHelper {
 	public static final int REPEAT = 16;
 	
 	public static void draw(Graphics2D g, BufferedImage img, int x, int y, int width, int height, int position) {
-		
+		draw(g,img,x,y,width,height,position,null);
+	}
+
+	public static void draw(Graphics2D g, BufferedImage img, int x, int y, int width, int height, int position,RenderHelperMouseEvent event) {
+
 		if(width==0&&height==0){
 			width = img.getWidth();
 			height = img.getHeight();
@@ -34,13 +41,53 @@ public class RenderHelper {
 			y -= height;
 		}
 		
-		g.drawImage(img, x, y, width, height, null);
+		if(g != null)
+			g.drawImage(img, x, y, width, height, null);
+	
+		if(event != null)
+			checkEvent(event,x,y,width,height);
 	}
-//	public static void drawRepeatHorizontal(Graphics2D g, BufferedImage img, int x, int y, int width, int height,int preferedWidth , int position) {
-//		draw(g,img,x,y,width,height,position);
-//		
-//		for(int i=0;i<preferedWidth/width;i++){
-//			draw(g,img,x,y,width,height,position);
-//		}
-//	}
+	private static void checkEvent(RenderHelperMouseEvent event, int x, int y, int width, int height) {
+		if(isMouseEntered(x, y, width, height)){
+			event.mouseEntered();
+			if(InputUtility.isMouseLeftClicked())
+				event.mouseClicked();
+			else if(InputUtility.isMouseLeftDown())
+				event.mousePressed();
+			else 
+				event.mouseReleased();
+		}else
+			event.mouseExited();
+	}
+	private static boolean isMouseEntered(int x,int y,int width,int height){
+		if(utility.InputUtility.getMouseX()-x>0 && x - utility.InputUtility.getMouseX()+width > 0 ){
+			if(utility.InputUtility.getMouseY()-y>0 && y - utility.InputUtility.getMouseY()+height > 0 ){
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static void addAntiAlising(Graphics2D g2d){
+		g2d.setRenderingHint(
+				RenderingHints.KEY_INTERPOLATION, 
+				RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        g2d.setRenderingHint(
+        		RenderingHints.KEY_RENDERING, 
+        		RenderingHints.VALUE_RENDER_QUALITY);
+		g2d.setRenderingHint(
+				RenderingHints.KEY_ANTIALIASING, 
+				RenderingHints.VALUE_ANTIALIAS_ON);
+		g2d.setRenderingHint(
+			    RenderingHints.KEY_TEXT_ANTIALIASING,
+			    RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+	}
+	public static void removeAntiAliasing(Graphics2D g2d){
+		g2d.setRenderingHint(
+				RenderingHints.KEY_ANTIALIASING, 
+				RenderingHints.VALUE_ANTIALIAS_OFF);
+		g2d.setRenderingHint(
+			    RenderingHints.KEY_TEXT_ANTIALIASING,
+			    RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
+	}
 }
