@@ -69,8 +69,8 @@ public class Passcode implements IRenderable {
 	}
 	
 	public boolean isInPressAreaX(){
-		return  ( ( (InputUtility.getMouseX() - ((ConfigurableOption.screenWidth/2)-(int)(2.5*width)) ) >= 0 )
-				&& ( ( (ConfigurableOption.screenWidth/2)-(int)(2.5*width) + (5*width) ) - InputUtility.getMouseX()  >=0 ) );
+		return  ( ( (InputUtility.getMouseXSouth() - ((ConfigurableOption.screenWidth/2)-(int)(2.5*width)) ) >= 0 )
+				&& ( ( (ConfigurableOption.screenWidth/2)-(int)(2.5*width) + (5*width) ) - InputUtility.getMouseXSouth()  >=0 ) );
 	}
 	
 	public boolean isInPressAreaY(){
@@ -78,7 +78,7 @@ public class Passcode implements IRenderable {
 	}
 	
 	public boolean isInPressBoxAreaX(AlphabetBox keyBox){
-		return InputUtility.getMouseX() - keyBox.getX() >=0 && keyBox.getX()+keyBox.getWidth() - InputUtility.getMouseX() >=0;
+		return InputUtility.getMouseXSouth() - keyBox.getX() >=0 && keyBox.getX()+keyBox.getWidth() - InputUtility.getMouseXSouth() >=0;
 	}
 	
 	public boolean isInPressBoxAreaY(AlphabetBox keyBox){
@@ -138,32 +138,26 @@ public class Passcode implements IRenderable {
 
 	@Override
 	public int getX() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public int getY() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public int getZ() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public boolean isDestroyed() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public void setDestroyed(boolean destroyed) {
-		// TODO Auto-generated method stub
-		
 	}
 	
 }
