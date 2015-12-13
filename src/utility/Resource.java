@@ -60,6 +60,8 @@ public class Resource {
 		rs.put("town", read("res/bg/town.jpg"));
 		rs.put("city", read("res/bg/city.png"));
 
+		rs.put("button", read("res/etc/button.6.png"));
+
 //		rs.put("test", read("res/character/zombie-walking.6.png")); //use for sprite PNG
 	}
 	
