@@ -64,6 +64,7 @@ public class ScreenManager{
 		new Resource();		
 		resetScreen();
 		frame = new JFrame();
+		frame.setTitle("Zombie Escape");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
 		addListener(frame);
 		panel = new JPanel();

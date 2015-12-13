@@ -119,7 +119,7 @@ public class Passcode implements IRenderable {
 			for (IRenderable renderable : RenderableHolder.getInstance().getNorthRenderableList()) {
 				if (renderable instanceof Gateway && ((Gateway) renderable).getX() == ConfigurableOption.xGateway2) {
 					((Gateway) renderable).setGateClose(false);
-					ConfigurableOption.stageNow = 3;
+					ConfigurableOption.stageNow = 4;
 					break;
 				}
 			}
