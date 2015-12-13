@@ -43,6 +43,7 @@ public class Resource {
 		audio.put("doorbell", audioRead("res/sound/doorbell2.wav"));
 		audio.put("zombiedeath", audioRead("res/sound/zombiedeath.wav"));
 		audio.put("gamebgm", audioRead("res/sound/05. Plants vs. Zombies Original Soundtrack - Loonboon.wav"));
+		audio.put("intro", audioRead("res/sound/02. Plants vs. Zombies Original Soundtrack - Crazy Dave (Intro Theme).wav"));
 		
 		rs.put("batman-walking", read("res/character/batman-walking.gif",45,90,23,68));
 		rs.put("batman-standing", read("res/character/batman-standing.gif",45,90,23,68));

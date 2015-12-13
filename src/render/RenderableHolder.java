@@ -17,6 +17,10 @@ public class RenderableHolder {
 		northEntities = new ArrayList<IRenderable>();
 		southEntities = new ArrayList<IRenderable>();
 	}
+	public synchronized void clear(){
+		northEntities.clear();
+		southEntities.clear();
+	}
 
 	public synchronized void addNorthEntity(IRenderable entity){
 		northEntities.add(entity);

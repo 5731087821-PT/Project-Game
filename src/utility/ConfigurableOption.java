@@ -11,6 +11,7 @@ public class ConfigurableOption {
 	public static final int screenHeight = northScreenHeight+southScreenHeight;
 	public static final int statusHeight = 40;
 
+	public static boolean PAUSE = false;
 	
 	public static int xGateway1 = 260;
 	public static int yGateway1 = 0;

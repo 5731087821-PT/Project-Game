@@ -1,11 +1,14 @@
 package LogicGame;
 
+import java.awt.event.KeyEvent;
+
 import entity.Coin;
 import entity.SpacebarGap;
 import minigame.OpenGatewayZero;
 import minigame.SpacebarTab;
 import render.RenderableHolder;
 import utility.ConfigurableOption;
+import utility.InputUtility;
 
 public class SouthScreenLogic implements Logic{
 	protected OpenGatewayZero openGatewayZero;
@@ -18,7 +21,10 @@ public class SouthScreenLogic implements Logic{
 	}
 	
 	public void logicUpdate() {
-		// TODO Auto-generated method stub
+		if(InputUtility.getKeyTriggered(KeyEvent.VK_ESCAPE)||InputUtility.getKeyTriggered(KeyEvent.VK_ENTER)){
+			ConfigurableOption.PAUSE = true;
+			return;
+		}
 		
 		if(startStage){
 			startStage = false;
