@@ -21,7 +21,7 @@ public class SouthScreenLogic implements Logic{
 	}
 	
 	public void logicUpdate() {
-		if(InputUtility.getKeyTriggered(KeyEvent.VK_ESCAPE)||InputUtility.getKeyTriggered(KeyEvent.VK_ENTER)){
+		if(InputUtility.getKeyTriggered(KeyEvent.VK_ESCAPE)){
 			ConfigurableOption.PAUSE = true;
 			return;
 		}

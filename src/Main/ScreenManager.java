@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
+import javax.swing.BoxLayout;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -66,8 +67,7 @@ public class ScreenManager{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
 		addListener(frame);
 		panel = new JPanel();
-		panel.setPreferredSize(new Dimension(ConfigurableOption.screenWidth, ConfigurableOption.screenHeight));
-		panel.setLayout(new FlowLayout(FlowLayout.LEADING, 0, 0));
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		
 		bgm = Resource.getAudio("gamebgm");
 		changeScreen(INTROSCREEN);
@@ -80,18 +80,17 @@ public class ScreenManager{
 				Thread.sleep(ConfigurableOption.sleepTime);
 			}catch (InterruptedException e){}
 
-			for(JComponent component:currentScreen){
+			for(JComponent component:currentScreen)
 				component.repaint();
-			}
+			
 			if(!ConfigurableOption.PAUSE)
-				for(Logic component:currentLogic){
+				for(Logic component:currentLogic)
 					component.logicUpdate();
-				}
+			
 			InputUtility.postUpdate();
 			frame.requestFocus();
 		}
 	}
-	
 
 	public void addListener(JFrame frame){
 		frame.addKeyListener(new KeyListener() {

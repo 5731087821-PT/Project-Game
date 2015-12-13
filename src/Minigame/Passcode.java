@@ -1,4 +1,4 @@
-package Minigame;
+package minigame;
 
 public class Passcode {
 
