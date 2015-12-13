@@ -1,10 +1,8 @@
 package render;
 
-import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 
 import javax.imageio.ImageIO;
 import javax.imageio.metadata.IIOMetadataNode;
@@ -14,51 +12,72 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public class ImageReader {
+	public static final int DONOTTHING = 0;
+	public static final int OPTIMIZED = 32;
 	private static ClassLoader cl = ImageReader.class.getClassLoader();
-
+	
 	public static ImageData[] get(String url) {
-		
+		return get(url,DONOTTHING);
+	}
+	
+	public static ImageData[] get(String url, int mode) {
 		String extension = url.substring(url.length()-3,url.length());
 		
 		if(extension.equals("gif")) {
 			
 			ImageData[] frame = null;
+			String[] imageatt = new String[]{
+		            "imageLeftPosition",
+		            "imageTopPosition",
+		            "imageWidth",
+		            "imageHeight"
+		    };
 			try {
 				javax.imageio.ImageReader reader = ImageIO.getImageReadersByFormatName("gif").next();
 				ImageInputStream stream = ImageIO.createImageInputStream(cl.getResourceAsStream(url));
 				reader.setInput(stream);
+				
 				int count = reader.getNumImages(true);
+				int delayTime = 10 ;
 				frame = new ImageData[count];
-	
+				BufferedImage master = null;
 				for (int i = 0; i < count; i++) {
-					BufferedImage image = reader.read(i);
-					frame[i] = new ImageData(image);
+
+					BufferedImage getImage = reader.read(i);
 					NodeList child = reader.getImageMetadata(i).getAsTree("javax_imageio_gif_image_1.0").getChildNodes();
 	
+					HashMap<String,Integer> imageAttr = new HashMap<String,Integer>();
 					for (int j = 0; j < child.getLength(); j++) {
 						Node nodeItem = child.item(j);
 						if (nodeItem.getNodeName().equals("ImageDescriptor")) {
-							int offsetX = Integer
-									.valueOf(nodeItem.getAttributes().getNamedItem("imageLeftPosition").getNodeValue());
-							int offsetY = Integer
-									.valueOf(nodeItem.getAttributes().getNamedItem("imageTopPosition").getNodeValue());
-							frame[i].setOffset(offsetX, offsetY);
-							break;
+							for(int k=0;k<imageatt.length;k++){
+								Node attrnode = nodeItem.getAttributes().getNamedItem(imageatt[k]);
+								imageAttr.put(imageatt[k], Integer.parseInt(attrnode.getNodeValue()));
+							}
+							if((mode & OPTIMIZED) != 0){
+								if(i==0){
+									master = new BufferedImage(imageAttr.get("imageWidth"), imageAttr.get("imageHeight"), BufferedImage.TYPE_INT_ARGB);
+								}
+								master.getGraphics().drawImage(getImage, imageAttr.get("imageLeftPosition"), imageAttr.get("imageTopPosition"), null);
+							}else{
+								master = new BufferedImage(imageAttr.get("imageWidth"), imageAttr.get("imageHeight"), BufferedImage.TYPE_INT_ARGB);
+								master.getGraphics().drawImage(getImage, 0, 0, null);
+							}
+							
+						}
+						if(nodeItem.getNodeName().equalsIgnoreCase("GraphicControlExtension")){
+							delayTime = Integer.parseInt(((IIOMetadataNode)nodeItem).getAttribute("delayTime"));
 						}
 					}
 					
-					for (int j = 0; j < child.getLength(); j++) {
-						Node nodeItem = child.item(j);
-						if(nodeItem.getNodeName().equalsIgnoreCase("GraphicControlExtension")){
-							int delayTime = Integer
-									.parseInt(((IIOMetadataNode)nodeItem).getAttribute("delayTime"));
-							if(delayTime == 0) 
-								((IIOMetadataNode)nodeItem).setAttribute("delayTime", "10");
-							frame[i].setDelay(delayTime*10);
-							break;
-						}
-					}
-	
+					BufferedImage imageExport = new BufferedImage(master.getWidth(), master.getHeight(), BufferedImage.TYPE_INT_ARGB);
+					imageExport.getGraphics().drawImage(master, 0, 0, null);
+					frame[i] = new ImageData(imageExport);
+					frame[i].setDelay(delayTime*10);
+					
+					if((mode & OPTIMIZED) == 0)
+						frame[i].setOffset(imageAttr.get("imageLeftPosition"), imageAttr.get("imageTopPosition"));
+
 				}
 
 	
@@ -69,7 +88,6 @@ public class ImageReader {
 			return frame;
 
 		} else if(extension.equals("png") || extension.equals("jpg")) {
-			
 			int frameCounterIndex = url.lastIndexOf(".",url.lastIndexOf(".")-1);
 
 			if(frameCounterIndex>-1){
@@ -108,5 +126,4 @@ public class ImageReader {
 		
 		return null;
 	}
-
 }

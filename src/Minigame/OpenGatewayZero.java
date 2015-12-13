@@ -1,4 +1,4 @@
-package Minigame;
+package minigame;
 
 import java.applet.AudioClip;
 import java.awt.BasicStroke;
@@ -32,11 +32,10 @@ public class OpenGatewayZero implements IRenderable {
 	protected int comboCounter;
 	protected int answerCounter;
 	protected boolean answer;
+	protected boolean destroyed;
 	protected PlayerStatus playerStatus;
 	protected RunningBall runningBall;
 	protected SpacebarGap gap;
-	private int threadCounter;
-	private boolean threadStart;
 	
 	public OpenGatewayZero() {
 		this.xTab = ConfigurableOption.xSpacebarTab;
@@ -45,7 +44,6 @@ public class OpenGatewayZero implements IRenderable {
 		this.direction = 1;
 		this.answerCounter = 0;
 		gap = new SpacebarGap(1000000, 0);
-		this.threadStart = false;
 		
 		RenderableHolder.getInstance().addSouthEntity(gap);
 	}
@@ -68,7 +66,7 @@ public class OpenGatewayZero implements IRenderable {
 	}
 
 	public void enterSpacebar() {
-		runningBall.destroyed = true;
+		runningBall.setDestroyed(true);
 		answerCounter++;
 
 		if (answerCounter >= 3) {
@@ -111,51 +109,19 @@ public class OpenGatewayZero implements IRenderable {
 			runningBall.update();
 		}
 
-		if(runningBall.destroyed){
+		if(runningBall.isDestroyed()){
 			runningBall = null;
 		}
 	}
 	
 	public void zombieAppear(){
 		NorthScreenLogic.spawnZombie = true;
-		threadCounter = 0;//Count up
-		
-		if(!threadStart){
-			new Thread(new Runnable() {
-				public void run() {
-					threadStart = true;
-					
-					Player player = null;
-					
-					ArrayList<IRenderable> list = (ArrayList<IRenderable>) RenderableHolder.getInstance().getNorthRenderableList();
-					for(IRenderable thisOne : list){
-						if(thisOne instanceof Player){
-							player = (Player) thisOne;
-						}
-					}
 
-					
-					while(true){
-						try {
-							Thread.sleep(utility.ConfigurableOption.sleepTime);
-						} catch (InterruptedException e) {}
-						
-						if(threadCounter==0){
-							AudioClip bgm = Resource.getAudio("zombiedeath");
-							bgm.play();	
-						}else if(threadCounter==5){
-							player.animationCurrent.setFlip(true);
-						}else if(threadCounter==30){
-							player.animationCurrent.setFlip(false);
-							threadStart = false;
-							break;
-						}
-						
-						threadCounter++;
-					}
-					
-				}
-			}).start();
+		for(IRenderable rend : RenderableHolder.getInstance().getNorthRenderableList()){
+			if(rend instanceof Player){
+				((Player) rend).zombieIsComming();
+				break;
+			}
 		}
 	}
 	
@@ -183,6 +149,17 @@ public class OpenGatewayZero implements IRenderable {
 	public int getZ() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public boolean isDestroyed() {
+		// TODO Auto-generated method stub
+		return destroyed;
+	}
+
+	@Override
+	public void setDestroyed(boolean destroyed) {
+		this.destroyed = destroyed;
 	}
 
 }

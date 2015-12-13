@@ -11,7 +11,7 @@ public class AnimationManager {
 	public static final int FLIP = 4;
 	public static final int RotateRight = 8;
 	public static final int RotateLeft = 16;
-	public static final int BufferSpecial = 32;
+	public static final int BufferOPTIMIZED = 32;
 	
 	
 	private boolean isPlay;

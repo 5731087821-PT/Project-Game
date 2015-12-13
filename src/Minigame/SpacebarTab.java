@@ -1,4 +1,4 @@
-package Minigame;
+package minigame;
 
 import java.applet.AudioClip;
 import java.awt.BasicStroke;
@@ -28,6 +28,7 @@ public class SpacebarTab implements IRenderable {
 	protected int direction;
 	protected int comboCounter;
 	protected int disappearCounter;
+	protected boolean destroyed;
 	protected boolean answer;
 	protected PlayerStatus playerStatus;
 	protected RunningBall runningBall;
@@ -44,6 +45,7 @@ public class SpacebarTab implements IRenderable {
 		this.direction = 1;
 		this.comboCounter = 1;
 		this.spawnDelayCounter = 0;
+		this.destroyed = false;
 		this.runningBall = new RunningBall();
 		this.coins = new ArrayList<Coin>();
 		gaps = new ArrayList<SpacebarGap>();
@@ -122,10 +124,10 @@ public class SpacebarTab implements IRenderable {
 			answer = false;
 			for (SpacebarGap gap : gaps) {
 				if (enterInGap(gap)) {
-					gap.destroyed = true;
+					gap.setDestroyed(true);
 					for(Coin coin : coins){
 						if(coin.seed == gap.seed){
-							coin.destroyed = true;
+							coin.setDestroyed(true);
 							break;
 						}
 					}
@@ -164,7 +166,7 @@ public class SpacebarTab implements IRenderable {
 		gaps.removeIf(new Predicate<SpacebarGap>() {
 			@Override
 			public boolean test(SpacebarGap gap) {
-				return gap.destroyed;
+				return gap.isDestroyed();
 			}
 		});
 	
@@ -202,6 +204,17 @@ public class SpacebarTab implements IRenderable {
 	public int getZ() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public boolean isDestroyed() {
+		// TODO Auto-generated method stub
+		return destroyed;
+	}
+
+	@Override
+	public void setDestroyed(boolean destroyed) {
+		this.destroyed = destroyed;
 	}
 
 }
