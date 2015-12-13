@@ -2,7 +2,7 @@ package utility;
 
 
 public class ConfigurableOption {
-	public static final boolean debugGraphic = false;
+	public static final boolean debugGraphic = true;
 	
 	public static final int sleepTime = 15;
 	public static final int northScreenHeight = 200;//200
@@ -24,7 +24,7 @@ public class ConfigurableOption {
 	public static int gapWidth = 30;
 	public static int tabDistance = 4*screenWidth/10;
 	
-	public static int stageNow = 2;
+	public static int stageNow = 0;
 	public static int seedCoin = 0;
 	public static int coinLimit = 5;
 	public static int coinCounter = 0;

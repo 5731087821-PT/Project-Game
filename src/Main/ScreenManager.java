@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
@@ -51,7 +52,6 @@ public class ScreenManager{
 		southScreen = new SouthScreen();
 		northScreenLogic = new NorthScreenLogic();
 		southScreenLogic = new SouthScreenLogic();
-		introScreen = new IntroScreen();
 		
 		northScreenLogic.setSouthScreenLogic(southScreenLogic);
 		southScreenLogic.setNorthScreenLogic(northScreenLogic);
@@ -59,12 +59,14 @@ public class ScreenManager{
 	
 	public ScreenManager(){
 		new Resource();		
-		resetScreen();
+		introScreen = new IntroScreen();
+//		resetScreen();
 		frame = new JFrame();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
-		addListener(frame);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setIconImage(Resource.getImage("icon"));
 		panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		addListener(panel);
 		
 		bgm = Resource.getAudio("gamebgm");
 		changeScreen(INTROSCREEN);
@@ -85,21 +87,18 @@ public class ScreenManager{
 					component.logicUpdate();
 			
 			InputUtility.postUpdate();
-			frame.requestFocus();
+			panel.requestFocus();
 		}
 	}
 
-	public void addListener(JFrame frame){
-		frame.addKeyListener(new KeyListener() {
-			
+	public void addListener(JPanel panel){
+		panel.addKeyListener(new KeyListener() {
 			@Override
 			public void keyTyped(KeyEvent e) {}
-			
 			@Override
 			public void keyReleased(KeyEvent e) {
 				InputUtility.setKeyPressed(e.getKeyCode(), false);
 			}
-			
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if(!InputUtility.getKeyPressed(e.getKeyCode()) || InputUtility.getKeyTriggered(e.getKeyCode())){
@@ -108,7 +107,35 @@ public class ScreenManager{
 				}
 			}
 		});
-		frame.setFocusable(true);
+		panel.addMouseListener(new MouseListener() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				InputUtility.setMouseLeftDown(false);
+			}
+			@Override
+			public void mousePressed(MouseEvent e) {
+				InputUtility.setMouseLeftDown(true);
+				InputUtility.setMouseLeftTriggered(true);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {}
+			@Override
+			public void mouseEntered(MouseEvent e) {}
+			@Override
+			public void mouseClicked(MouseEvent e) {}
+		});
+		panel.addMouseMotionListener(new MouseMotionListener() {
+			@Override
+			public void mouseMoved(MouseEvent e) {
+				InputUtility.setMouseX(e.getX());
+				InputUtility.setMouseY(e.getY());
+				if(ConfigurableOption.debugGraphic)
+					System.out.println("MouseX:"+e.getX()+" "+"MouseY:"+e.getY());
+			}
+			@Override
+			public void mouseDragged(MouseEvent e) {}
+		});
+		panel.setFocusable(true);
 	}
 	
 	public static void changeScreen(int screen){
