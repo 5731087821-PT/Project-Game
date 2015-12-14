@@ -2,7 +2,7 @@ package utility;
 
 
 public class ConfigurableOption {
-	public static final boolean debugGraphic = true;
+	public static final boolean debugGraphic = false;
 	
 	public static final int sleepTime = 15;
 	public static final int northScreenHeight = 200;//200

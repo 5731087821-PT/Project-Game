@@ -11,6 +11,7 @@ import utility.ConfigurableOption;
 
 public class NorthScreenLogic implements Logic{
 	protected int spawnZombieCounter;
+	protected boolean firstZombie;
 	protected Player player;
 	protected PlayerStatus playerStatus;
 	protected Gateway gateway1, gateway2;
@@ -26,7 +27,8 @@ public class NorthScreenLogic implements Logic{
 		this.gateway2 = new Gateway(ConfigurableOption.xGateway2, ConfigurableOption.yGateway2);
 		this.zombies = new ArrayList<Zombie>();
 		this.movingDelayCounter = 0;
-		this.spawnZombieCounter = 666;
+		this.spawnZombieCounter = 600;
+		this.firstZombie = true;
 		spawnZombie = true;
 		
 		RenderableHolder.getInstance().addNorthEntity(player);
@@ -44,7 +46,10 @@ public class NorthScreenLogic implements Logic{
 		movingDelayCounter++;
 		spawnZombieCounter++;
 		
+		if(firstZombie && spawnZombieCounter<AA.getCounterTime(10000)) return;
+		
 		if(spawnZombie){
+			firstZombie = false;
 			spawnZombie = false;
 			for(Zombie zombie : zombies){
 				if(zombie.speed<zombies.size()){

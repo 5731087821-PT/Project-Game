@@ -26,7 +26,7 @@ public class Player implements IRenderable {
 	private boolean threadStart;
 
 	public Player() {
-		this.x = ConfigurableOption.screenWidth-(5*ConfigurableOption.screenWidth/7);
+		this.x = -40;
 		this.y = ConfigurableOption.northScreenHeight;
 		this.destroyed = false;
 		this.visible = true;
@@ -55,10 +55,13 @@ public class Player implements IRenderable {
 	}
 
 	public synchronized void update() {
-		if(ConfigurableOption.stageNow == 1 && x < ConfigurableOption.xGateway1+30){
+		if(ConfigurableOption.stageNow == 0 && x < ConfigurableOption.xGateway1-35){
 			this.x+=2;
 			setWalking(true);
-		}else if(ConfigurableOption.stageNow == 2 && x <ConfigurableOption.xGateway2 -30){
+		}else if(ConfigurableOption.stageNow == 1 && x < ConfigurableOption.xGateway1+30){
+			this.x+=2;
+			setWalking(true);
+		}else if(ConfigurableOption.stageNow == 2 && x <ConfigurableOption.xGateway2 -35){
 			this.x+=2;
 			setWalking(true);
 		}else if(ConfigurableOption.stageNow == 3 && x < ConfigurableOption.xGateway2 + 70){
