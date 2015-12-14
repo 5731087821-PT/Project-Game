@@ -46,7 +46,7 @@ public class NorthScreenLogic implements Logic{
 		movingDelayCounter++;
 		spawnZombieCounter++;
 		
-		if(firstZombie && spawnZombieCounter<AA.getCounterTime(10000)) return;
+		if(firstZombie && spawnZombieCounter<TimeToCounter.getCounter(10000)) return;
 		
 		if(spawnZombie){
 			firstZombie = false;

@@ -69,20 +69,20 @@ public class Passcode implements IRenderable {
 	}
 	
 	public boolean isInPressAreaX(){
-		return  ( ( (InputUtility.getMouseX() - ((ConfigurableOption.screenWidth/2)-(int)(2.5*width)) ) >= 0 )
-				&& ( ( (ConfigurableOption.screenWidth/2)-(int)(2.5*width) + (5*width) ) - InputUtility.getMouseX()  >=0 ) );
+		return  ( ( (InputUtility.getMouseXSouth() - ((ConfigurableOption.screenWidth/2)-(int)(2.5*width)) ) >= 0 )
+				&& ( ( (ConfigurableOption.screenWidth/2)-(int)(2.5*width) + (5*width) ) - InputUtility.getMouseXSouth()  >=0 ) );
 	}
 	
 	public boolean isInPressAreaY(){
-		return (InputUtility.getMouseY() - 100 >=0 ) && (100+height*4 - InputUtility.getMouseY() >=0);
+		return (InputUtility.getMouseYSouth() - 100 >=0 ) && (100+height*4 - InputUtility.getMouseYSouth() >=0);
 	}
 	
 	public boolean isInPressBoxAreaX(AlphabetBox keyBox){
-		return InputUtility.getMouseX() - keyBox.getX() >=0 && keyBox.getX()+keyBox.getWidth() - InputUtility.getMouseX() >=0;
+		return InputUtility.getMouseXSouth() - keyBox.getX() >=0 && keyBox.getX()+keyBox.getWidth() - InputUtility.getMouseXSouth() >=0;
 	}
 	
 	public boolean isInPressBoxAreaY(AlphabetBox keyBox){
-		return InputUtility.getMouseY() - keyBox.getY() >=0 && keyBox.getY()+keyBox.getHeight() - InputUtility.getMouseY() >=0;
+		return InputUtility.getMouseYSouth() - keyBox.getY() >=0 && keyBox.getY()+keyBox.getHeight() - InputUtility.getMouseYSouth() >=0;
 	}
 	
 	public void zombieAppear(){

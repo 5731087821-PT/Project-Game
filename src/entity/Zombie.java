@@ -24,7 +24,7 @@ public class Zombie implements IRenderable{
 	public Zombie(int speed) {
 		this.y = ConfigurableOption.northScreenHeight;
 		this.z = 100;
-//		this.z = utility.RandomUtility.random(100, 300);
+		this.z = RandomUtility.random(100, 300);
 		this.speed = speed;
 		this.moving = true;
 		this.destroyed = false;
@@ -51,7 +51,7 @@ public class Zombie implements IRenderable{
 
 	@Override
 	public int getZ() {
-		return z;
+		return this.z;
 	}
 
 	@Override
