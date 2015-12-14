@@ -5,7 +5,7 @@ import java.awt.Graphics2D;
 
 import render.IRenderable;
 import render.RenderableHolder;
-import utility.AA;
+import utility.TimeToCounter;
 import utility.ConfigurableOption;
 import utility.RandomUtility;
 
@@ -52,7 +52,7 @@ public class RunningBall implements IRenderable{
 			this.direction = -1;
 		}else if (x<=ConfigurableOption.xSpacebarTab){
 			this.direction = 1;
-		}else if(ConfigurableOption.stageNow == 2 && shuffleDirectionDelay >= AA.getCounterTime(300)){
+		}else if(ConfigurableOption.stageNow == 2 && shuffleDirectionDelay >= TimeToCounter.getCounter(300)){
 			shuffleDirectionDelay = 0;
 			if(RandomUtility.random(1, 2)==1){
 				this.direction = -1;
