@@ -1,8 +1,9 @@
 package utility;
 
+import Main.ScreenManager;
 
 public class ConfigurableOption {
-	public static final boolean debugGraphic = true;
+	public static final boolean debugGraphic = false;
 	
 	public static final int sleepTime = 15;
 	public static final int northScreenHeight = 200;//200
@@ -11,6 +12,8 @@ public class ConfigurableOption {
 	public static final int screenHeight = northScreenHeight+southScreenHeight;
 	public static final int statusHeight = 40;
 	public static final int GAMEOVER = 4;
+	
+	public static final int STARTSCREEN = ScreenManager.INTROSCREEN;
 
 	public static boolean PAUSE = false;
 	
@@ -32,6 +35,7 @@ public class ConfigurableOption {
 	public static int seedCoin = 0;
 	public static int coinLimit = 10;
 	public static int coinCounter = 0;
+	public static int coins = 100;
 	public static int TEST = 0;
 	
 //	public static boolean GAMEOVER = false;

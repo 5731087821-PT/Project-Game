@@ -20,21 +20,21 @@ import utility.ConfigurableOption;
 @SuppressWarnings("serial")
 public class GameOverScreen extends JComponent{
 	
-	private BufferedImage[] playButton = new BufferedImage[2];
+	private BufferedImage[] restartButton = new BufferedImage[2];
 	private AnimationManager BG;
 	private BufferedImage img;
 	private int width,height;
 
 	public GameOverScreen(){
 		super();
-		BG = Resource.get("batman-intro");
+		BG = Resource.get("babadook");
 		BG.loop();
 		width = BG.getWidth();
-		height = ConfigurableOption.screenHeight;
+		height = BG.getHeightByWidth(width);
 		setLayout(new FlowLayout());
 		setPreferredSize(new Dimension(width, height));
-		playButton[0] = Resource.getImage("button1",0);
-		playButton[1] = Resource.getImage("button1",1);
+		restartButton[0] = Resource.getImage("button-restart",0);
+		restartButton[1] = Resource.getImage("button-restart",1);
 
 		setBackground(Color.WHITE);
 		setDoubleBuffered(true);
@@ -52,10 +52,10 @@ public class GameOverScreen extends JComponent{
 				0, height, 
 				RenderHelper.TOP|RenderHelper.CENTER);
 		drawStartBT(
-				g2d,playButton[1], 
-				110, 450, 
-				150, 0, 
-				RenderHelper.TOP|RenderHelper.CENTER);
+				g2d,restartButton[1], 
+				10, 10, 
+				0, 67, 
+				RenderHelper.TOP|RenderHelper.LEFT);
 		
 		BG.update();
 	}
@@ -70,7 +70,7 @@ public class GameOverScreen extends JComponent{
 				new RenderHelperMouseEvent() {
 					@Override
 					public void mouseEntered(){
-						RenderHelper.draw(g, playButton[0], x, y, width, height, position);
+						RenderHelper.draw(g, restartButton[0], x, y, width, height, position);
 						setCursor(new Cursor(Cursor.HAND_CURSOR));
 					}
 
@@ -88,7 +88,7 @@ public class GameOverScreen extends JComponent{
 
 					@Override
 					public void mouseExited() {
-						RenderHelper.draw(g, playButton[1], x, y, width, height, position);
+						RenderHelper.draw(g, restartButton[1], x, y, width, height, position);
 						setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 					}
 		});

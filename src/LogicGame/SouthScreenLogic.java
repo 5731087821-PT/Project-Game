@@ -90,7 +90,7 @@ public class SouthScreenLogic implements Logic{
 			RenderableHolder.getInstance().getSouthRenderableList().remove(passcode);
 			passcode = null;
 			startStage = true;
-		}else if(ConfigurableOption.stageNow == ConfigurableOption.GAMEOVER){
+		}else if(ConfigurableOption.stageNow >= ConfigurableOption.GAMEOVER){
 			RenderableHolder.getInstance().getSouthRenderableList().clear();
 			
 			openGatewayZero = null;

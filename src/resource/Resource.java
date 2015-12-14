@@ -65,11 +65,14 @@ public class Resource {
 			rs.put("batman-intro", read("res/bg/batman-intro.gif",AnimationManager.BufferOPTIMIZED));
 			rs.put("batman-pic", read("res/bg/batman-pic.png"));
 			rs.put("BMDP", read("res/bg/BMDP.gif",AnimationManager.BufferOPTIMIZED));
+			rs.put("babadook", read("res/bg/babadook.gif",AnimationManager.BufferOPTIMIZED));
 			rs.put("town", read("res/bg/town.jpg"));
 			rs.put("city", read("res/bg/city.png"));
 	
-			rs.put("button1", read("res/etc/button1.60.png"));
+			rs.put("button1", read("res/etc/button1.6.png"));
 			rs.put("button2", read("res/etc/button2.2.png"));
+			rs.put("button-start", read("res/etc/button-start.2.png"));
+			rs.put("button-restart", read("res/etc/button-restart.2.png"));
 			rs.put("batman-icon", read("res/etc/batman-icon.png"));
 	
 	//		rs.put("test", read("res/character/zombie-walking.6.png")); //use for sprite PNG

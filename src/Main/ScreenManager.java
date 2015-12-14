@@ -37,6 +37,7 @@ import resource.Resource;
 import sun.java2d.pipe.DrawImage;
 import ui.*;
 import utility.ConfigurableOption;
+import utility.Debugger;
 import utility.InputUtility;
 import utility.TimeToCounter;;
 
@@ -48,11 +49,16 @@ public class ScreenManager{
 	public static final int GAMEOVERSCREEN = 5;
 	public static final int WINNINGSCREEN = 6;
 	public static final int PAUSESCREEN = 7;
-	
 	private static final boolean FADEIN = true;
 	private static final boolean FADEOUT = false;
+	
+	public static Object locker1 = new Object();
+	public static Object locker2 = new Object();
+	public static boolean chagingScreen;
 
 	private static AudioClip bgm;
+	
+	private static boolean initialize;
 	
 	private static NorthScreen northScreen;
 	private static SouthScreen southScreen;
@@ -61,19 +67,15 @@ public class ScreenManager{
 	private static IntroScreen introScreen;
 	private static PauseScreen pauseScreen;
 	private static GameOverScreen gameOverScreen;
-	private static WinningScreen winningScreen;
 	
 	private static JFrame MainFrame;
 	private static JPanel panelInsideFrame;
 	
 	private static ArrayList<JComponent> currentScreen = new ArrayList<>();
 	private static ArrayList<Logic> currentLogic = new ArrayList<>();
-	private static boolean initialize;
-	private static boolean chagingScreen = false;
 	
 	public static void resetScreen(){
 		ConfigurableOption.PAUSE = false;
-		ConfigurableOption.stageNow = 0;
 		
 		RenderableHolder.getInstance().clear();
 		
@@ -81,7 +83,6 @@ public class ScreenManager{
 		southScreen = new SouthScreen();
 		pauseScreen = new PauseScreen();
 		gameOverScreen = new GameOverScreen();
-		winningScreen = new WinningScreen(); 
 		
 		northScreenLogic = new NorthScreenLogic();
 		southScreenLogic = new SouthScreenLogic();
@@ -91,6 +92,7 @@ public class ScreenManager{
 	
 	public ScreenManager(){
 		initialize = true;
+		chagingScreen = false;
 		new Resource();		
 		introScreen = new IntroScreen();
 		MainFrame = new JFrame();
@@ -103,9 +105,12 @@ public class ScreenManager{
 		
 		addListener(panelInsideFrame);
 		
-		bgm = Resource.getAudio("gamebgm");
-		changeScreen(INTROSCREEN);
 		
+		if(ConfigurableOption.STARTSCREEN != INTROSCREEN)
+			resetScreen();
+
+		bgm = Resource.getAudio("gamebgm");
+		changeScreen(ConfigurableOption.STARTSCREEN);
 		
 		initialize = false;
 		MainFrame.pack();
@@ -134,6 +139,9 @@ public class ScreenManager{
 	}
 	
 	public static void changeScreen(int screen){
+//		if(!initialize)
+//			fadeScreen(panelInsideFrame, FADEOUT);
+		
 		bgm.stop();
 		panelInsideFrame.removeAll();
 		currentScreen.clear();
@@ -169,7 +177,7 @@ public class ScreenManager{
 				break;
 			}case WINNINGSCREEN:{
 				System.out.println("Winning Screen");
-				currentScreen.add(winningScreen);
+				currentScreen.add(new WinningScreen());
 				bgm = Resource.getAudio("winningbgm");
 				bgm.play();
 				break;
@@ -184,8 +192,6 @@ public class ScreenManager{
 		MainFrame.setResizable(false);
 		MainFrame.setVisible(true);
 		chagingScreen = true;
-//		if(!initialize)
-//			fadeScreen(panelInsideFrame, FADEOUT);
 	}
 	
 	public static void fadeScreen(JPanel panelInsideFrame,boolean option){

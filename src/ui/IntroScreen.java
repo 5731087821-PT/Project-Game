@@ -15,12 +15,14 @@ import render.AnimationManager;
 import render.RenderHelper;
 import render.RenderHelperMouseEvent;
 import resource.Resource;
+import score.HighScoreUtility;
 import utility.ConfigurableOption;
 
 @SuppressWarnings("serial")
 public class IntroScreen extends JComponent{
 	
 	private BufferedImage[] playButton = new BufferedImage[2];
+	private BufferedImage[] rankButton = new BufferedImage[2];
 	private AnimationManager BG;
 	private BufferedImage img;
 	private int width,height;
@@ -30,11 +32,16 @@ public class IntroScreen extends JComponent{
 		BG = Resource.get("batman-intro");
 		BG.loop();
 		width = BG.getWidth();
-		height = ConfigurableOption.screenHeight;
+//		height = BG.getHeightByWidth(width) + 60;
+		height = 560;
 		setLayout(new FlowLayout());
 		setPreferredSize(new Dimension(width, height));
+		playButton[0] = Resource.getImage("button-start",0);
+		playButton[1] = Resource.getImage("button-start",1);
 		playButton[0] = Resource.getImage("button1",0);
 		playButton[1] = Resource.getImage("button1",1);
+		rankButton[0] = Resource.getImage("button1",4);
+		rankButton[1] = Resource.getImage("button1",5);
 
 		setBackground(Color.WHITE);
 		setDoubleBuffered(true);
@@ -52,18 +59,23 @@ public class IntroScreen extends JComponent{
 				0, height, 
 				RenderHelper.TOP|RenderHelper.CENTER);
 		drawStartBT(
-				g2d,playButton[1], 
-				110, 450, 
-				150, 0, 
-				RenderHelper.TOP|RenderHelper.CENTER);
+				g2d, 
+				35, height-32, 
+				0, 80, 
+				RenderHelper.BOTTOM|RenderHelper.LEFT);
+//		drawRankBT(
+//				g2d, 
+//				110, 400, 
+//				150, 0, 
+//				RenderHelper.TOP|RenderHelper.CENTER);
 		
 		BG.update();
 	}
 
-	private void drawStartBT(Graphics2D g, BufferedImage img, int x, int y, int width, int height, int position){
+	private void drawStartBT(Graphics2D g,int x, int y, int width, int height, int position){
 		RenderHelper.draw(
 				null, 
-				img, 
+				playButton[1], 
 				x, y, 
 				width, height, 
 				position,
@@ -95,4 +107,37 @@ public class IntroScreen extends JComponent{
 		
 	}
 
+	private void drawRankBT(Graphics2D g, int x, int y, int width, int height, int position){
+		RenderHelper.draw(
+				null, 
+				rankButton[0], 
+				x, y, 
+				width, height, 
+				position,
+				new RenderHelperMouseEvent() {
+					@Override
+					public void mouseEntered(){
+						RenderHelper.draw(g, rankButton[0], x, y, width, height, position);
+						setCursor(new Cursor(Cursor.HAND_CURSOR));
+					}
+
+					@Override
+					public void mouseClicked() {
+						HighScoreUtility.displayTop10();
+					}
+
+					@Override
+					public void mousePressed() {}
+
+					@Override
+					public void mouseReleased() {}
+
+					@Override
+					public void mouseExited() {
+						RenderHelper.draw(g, rankButton[1], x, y, width, height, position);
+						setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+					}
+		});
+		
+	}
 }

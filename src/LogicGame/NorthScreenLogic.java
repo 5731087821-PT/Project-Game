@@ -86,7 +86,6 @@ public class NorthScreenLogic implements Logic{
 	}
 
 	public void setSouthScreenLogic(SouthScreenLogic southScreenLogic) {
-		// TODO Auto-generated method stub
 		this.southScreenLogic = southScreenLogic;
 	}
 }

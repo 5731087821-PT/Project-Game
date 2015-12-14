@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
-
+import entity.Player;
 import render.AnimationManager;
 import render.IRenderable;
 import render.RenderHelper;
@@ -54,7 +54,10 @@ public class NorthScreen extends JComponent {
 				continue;
 			}
 			entity.get(i).draw(g2d);
+			
 			if(ConfigurableOption.stageNow != ConfigurableOption.GAMEOVER)
+				entity.get(i).updateAnimation();
+			else if(entity.get(i) instanceof Player)
 				entity.get(i).updateAnimation();
 		}
 	}

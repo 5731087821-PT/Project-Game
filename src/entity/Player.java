@@ -3,6 +3,8 @@ package entity;
 import java.applet.AudioClip;
 import java.awt.*;
 
+import com.sun.swing.internal.plaf.synth.resources.synth;
+
 import Main.ScreenManager;
 import render.AnimationManager;
 import render.IRenderable;
@@ -10,8 +12,11 @@ import render.RenderAnimationHelper;
 import render.RenderableHolder;
 import resource.Resource;
 import utility.ConfigurableOption;
+import utility.Debugger;
+import utility.TimeToCounter;
 
 public class Player implements IRenderable {
+	public static Object playerLocker = new Object();
 	protected int x;
 	protected int y;
 	protected int charWidth,charHeight;
@@ -24,7 +29,6 @@ public class Player implements IRenderable {
 	private boolean walking;
 	private boolean visible;
 	private int threadCounter;
-	private boolean threadStart;
 
 	public Player() {
 		this.x = -40;
@@ -41,7 +45,9 @@ public class Player implements IRenderable {
 		setWalking(true);
 
 		this.charHeight = 120;
-		this.charWidth = animation.getCharWidth(this.charHeight);
+		this.charWidth = animation.getCharWidthByHeight(this.charHeight);
+		
+		creatThread();
 	}
 
 	public void setWalking(boolean walking){
@@ -55,7 +61,7 @@ public class Player implements IRenderable {
 		animation.loop();
 	}
 
-	public synchronized void update() {
+	public void update() {
 		if(ConfigurableOption.stageNow == 0 && x < ConfigurableOption.xGateway1-35){
 			this.x+=2;
 			setWalking(true);
@@ -68,8 +74,12 @@ public class Player implements IRenderable {
 		}else if(ConfigurableOption.stageNow == 3 && x < ConfigurableOption.xGateway2 + 70){
 			this.x+=2;
 			setWalking(true);
-		}
-		else{
+		}else if(ConfigurableOption.stageNow >= ConfigurableOption.GAMEOVER && x < ConfigurableOption.screenWidth + charWidth){
+			this.x+=2;
+			setWalking(true);
+		}else if(ConfigurableOption.stageNow >=  ConfigurableOption.GAMEOVER){
+			ScreenManager.changeScreen(ScreenManager.WINNINGSCREEN);
+		}else{
 			setWalking(false);
 		}
 	}
@@ -100,38 +110,79 @@ public class Player implements IRenderable {
 			
 			if(--deadCounter == 0){
 				destroyed = true;
-//				ConfigurableOption.GAMEOVER = true;
 				ScreenManager.changeScreen(ScreenManager.GAMEOVERSCREEN);
 			}
 		}
 	}
 	
 	public void zombieIsComming(){
-		threadCounter = 0;//Counter - counting up
-		if(!threadStart){
-			new Thread(new Runnable() {
-				public void run() {
-					threadStart = true;
-					while(true){
-						try {
-							Thread.sleep(utility.ConfigurableOption.sleepTime);
-						} catch (InterruptedException e) {}
-						
-						if(threadCounter==0){
-							AudioClip zombie = Resource.getAudio("zombiedeath");
-							zombie.play();	
-						}else if(threadCounter==5){
-							animation.flip(AnimationManager.FlipToUnUsual);
-						}else if(threadCounter==30){
-							animation.flip(AnimationManager.FlipToUsual);
-							threadStart = false;
-							break;
-						}
-						threadCounter++;
+		threadCounterReset();
+		Debugger.printTest(this);
+		synchronized (playerLocker) {
+			playerLocker.notifyAll();
+		}
+	}
+	
+	
+	public int getThreadCounter() {
+		synchronized (playerLocker) {
+			return threadCounter;
+		}
+	}
+
+    public void threadCounterIncrement() {
+		synchronized (playerLocker) {
+			threadCounter++;
+		}
+    }
+
+    public void threadCounterDecrement() {
+		synchronized (playerLocker) {
+			threadCounter--;
+		}
+    }
+    public void threadCounterReset() {
+		synchronized (playerLocker) {
+	    	threadCounter = 0;
+		}
+    }
+
+	public void creatThread(){
+		new Thread(new Runnable() {
+			public void run() {
+				synchronized (playerLocker) {
+					try {
+						Debugger.printTest(this);
+						playerLocker.wait();
+						Debugger.printTest(this);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
 					}
 				}
-			}).start();
-		}
+				while(true){
+					try {
+						Thread.sleep(utility.ConfigurableOption.sleepTime);
+					} catch (InterruptedException e) {}
+					
+					if(getThreadCounter()==0){
+						AudioClip zombie = Resource.getAudio("zombiedeath");
+						zombie.play();	
+					}else if(getThreadCounter()==TimeToCounter.getCounter(75)){
+						animation.flip(AnimationManager.FlipToUnUsual);
+					}else if(getThreadCounter()==TimeToCounter.getCounter(500)){
+						animation.flip(AnimationManager.FlipToUsual);
+						synchronized (playerLocker) {
+							try {
+								playerLocker.wait();
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+						}
+					}
+					threadCounterIncrement();
+				}
+			}
+		}).start();
 	}
 
 	@Override

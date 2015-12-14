@@ -100,11 +100,11 @@ public class AnimationManager {
 		return charHeight;
 	}
 	
-	public int getCharWidth(int userCharHeight){
+	public int getCharWidthByHeight(int userCharHeight){
 		return (charWidth*userCharHeight)/charHeight;
 	}
 	
-	public int getCharHeight(int userCharWidth) {
+	public int getCharHeightByWidth(int userCharWidth) {
 		return (charHeight*userCharWidth)/charWidth;
 	}
 
@@ -116,12 +116,23 @@ public class AnimationManager {
 		return setY;
 	}
 
+	public int getFrame() {
+		return setY;
+	}
+	
 	public int getWidth() {
 		return width;
 	}
 
 	public int getHeight() {
 		return height;
+	}
+	public int getWidthByHeight(int userHeight){
+		return (width*userHeight)/height;
+	}
+	
+	public int getHeightByWidth(int userWidth) {
+		return (height*userWidth)/width;
 	}
 
 	public void play() {

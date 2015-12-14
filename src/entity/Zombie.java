@@ -38,7 +38,7 @@ public class Zombie implements IRenderable{
 		animation.loop();
 		
 		this.charHeight = 120;
-		this.charWidth = animation.getCharWidth(this.charHeight);
+		this.charWidth = animation.getCharWidthByHeight(this.charHeight);
 		this.x = 0-charWidth/2;
 	}
 
