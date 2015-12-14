@@ -31,6 +31,7 @@ public class ConfigurableOption {
 	public static int seedCoin = 0;
 	public static int coinLimit = 10;
 	public static int coinCounter = 0;
+	public static int TEST = 0;
 	
-	public static boolean gameOver = false;
+	public static boolean GAMEOver = false;
 }
