@@ -17,10 +17,10 @@ import entity.RunningBall;
 import entity.SpacebarGap;
 import render.IRenderable;
 import render.RenderableHolder;
+import resource.Resource;
 import utility.ConfigurableOption;
 import utility.InputUtility;
 import utility.RandomUtility;
-import utility.Resource;
 
 public class GetCoin implements IRenderable {
 	protected int xTab, yTab;

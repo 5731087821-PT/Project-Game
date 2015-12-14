@@ -5,9 +5,9 @@ import java.awt.*;
 import render.AnimationManager;
 import render.IRenderable;
 import render.RenderAnimationHelper;
+import resource.Resource;
 import utility.ConfigurableOption;
 import utility.RandomUtility;
-import utility.Resource;
 
 public class Zombie implements IRenderable{
 	protected int x;

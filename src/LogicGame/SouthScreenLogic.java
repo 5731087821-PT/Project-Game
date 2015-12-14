@@ -1,8 +1,6 @@
 package LogicGame;
 
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import java.util.Iterator;
 
 import Main.ScreenManager;
 import entity.AlphabetBox;
@@ -13,11 +11,9 @@ import minigame.OpenGatewayZero;
 import minigame.Passcode;
 import minigame.WireCut;
 import minigame.GetCoin;
-import render.IRenderable;
 import render.RenderableHolder;
 import utility.ConfigurableOption;
 import utility.InputUtility;
-import utility.RandomUtility;
 
 public class SouthScreenLogic implements Logic{
 	protected OpenGatewayZero openGatewayZero;
@@ -94,7 +90,7 @@ public class SouthScreenLogic implements Logic{
 			RenderableHolder.getInstance().getSouthRenderableList().remove(passcode);
 			passcode = null;
 			startStage = true;
-		}else if(ConfigurableOption.GAMEOver){
+		}else if(ConfigurableOption.stageNow == ConfigurableOption.GAMEOVER){
 			RenderableHolder.getInstance().getSouthRenderableList().clear();
 			
 			openGatewayZero = null;
@@ -115,7 +111,6 @@ public class SouthScreenLogic implements Logic{
 	}
 
 	public void setNorthScreenLogic(NorthScreenLogic northScreenLogic) {
-		// TODO Auto-generated method stub
 		this.northScreenLogic = northScreenLogic;
 	}
 }

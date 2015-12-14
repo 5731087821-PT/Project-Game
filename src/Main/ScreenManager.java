@@ -33,11 +33,11 @@ import LogicGame.Logic;
 import LogicGame.NorthScreenLogic;
 import LogicGame.SouthScreenLogic;
 import render.RenderableHolder;
+import resource.Resource;
 import sun.java2d.pipe.DrawImage;
 import ui.*;
 import utility.ConfigurableOption;
 import utility.InputUtility;
-import utility.Resource;
 import utility.TimeToCounter;;
 
 public class ScreenManager{
@@ -169,7 +169,7 @@ public class ScreenManager{
 				break;
 			}case WINNINGSCREEN:{
 				System.out.println("Winning Screen");
-				currentScreen.add(gameOverScreen);
+				currentScreen.add(winningScreen);
 				bgm = Resource.getAudio("winningbgm");
 				bgm.play();
 				break;

@@ -3,12 +3,13 @@ package entity;
 import java.applet.AudioClip;
 import java.awt.*;
 
+import Main.ScreenManager;
 import render.AnimationManager;
 import render.IRenderable;
 import render.RenderAnimationHelper;
 import render.RenderableHolder;
+import resource.Resource;
 import utility.ConfigurableOption;
-import utility.Resource;
 
 public class Player implements IRenderable {
 	protected int x;
@@ -99,7 +100,8 @@ public class Player implements IRenderable {
 			
 			if(--deadCounter == 0){
 				destroyed = true;
-				ConfigurableOption.GAMEOver = true;
+//				ConfigurableOption.GAMEOVER = true;
+				ScreenManager.changeScreen(ScreenManager.GAMEOVERSCREEN);
 			}
 		}
 	}

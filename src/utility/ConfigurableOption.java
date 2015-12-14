@@ -10,6 +10,7 @@ public class ConfigurableOption {
 	public static final int screenWidth = 720;//720
 	public static final int screenHeight = northScreenHeight+southScreenHeight;
 	public static final int statusHeight = 40;
+	public static final int GAMEOVER = 4;
 
 	public static boolean PAUSE = false;
 	
@@ -33,5 +34,5 @@ public class ConfigurableOption {
 	public static int coinCounter = 0;
 	public static int TEST = 0;
 	
-	public static boolean GAMEOver = false;
+//	public static boolean GAMEOVER = false;
 }

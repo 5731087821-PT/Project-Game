@@ -4,8 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 import render.IRenderable;
+import resource.Resource;
 import utility.ConfigurableOption;
-import utility.Resource;
 
 public class PlayerStatus implements IRenderable{
 	private int coins;

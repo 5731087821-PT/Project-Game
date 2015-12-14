@@ -20,10 +20,10 @@ import entity.SpacebarGap;
 import entity.Zombie;
 import render.IRenderable;
 import render.RenderableHolder;
+import resource.Resource;
 import utility.ConfigurableOption;
 import utility.InputUtility;
 import utility.RandomUtility;
-import utility.Resource;
 
 public class OpenGatewayZero implements IRenderable {
 	protected int xTab, yTab;

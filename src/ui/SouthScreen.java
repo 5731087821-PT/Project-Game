@@ -18,9 +18,9 @@ import render.RenderAnimationHelper;
 import render.RenderHelper;
 import render.RenderHelperMouseEvent;
 import render.RenderableHolder;
+import resource.Resource;
 import utility.ConfigurableOption;
 import utility.InputUtility;
-import utility.Resource;
 
 @SuppressWarnings("serial")
 public class SouthScreen extends JComponent {

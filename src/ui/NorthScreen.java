@@ -6,14 +6,13 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
-import com.sun.javafx.tk.RenderJob;
 
 import render.AnimationManager;
 import render.IRenderable;
 import render.RenderHelper;
 import render.RenderableHolder;
+import resource.Resource;
 import utility.ConfigurableOption;
-import utility.Resource;
 
 @SuppressWarnings("serial")
 public class NorthScreen extends JComponent {
@@ -55,7 +54,7 @@ public class NorthScreen extends JComponent {
 				continue;
 			}
 			entity.get(i).draw(g2d);
-			if(!ConfigurableOption.GAMEOver)
+			if(ConfigurableOption.stageNow != ConfigurableOption.GAMEOVER)
 				entity.get(i).updateAnimation();
 		}
 	}

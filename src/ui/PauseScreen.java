@@ -13,8 +13,8 @@ import Main.ScreenManager;
 import render.AnimationManager;
 import render.RenderHelper;
 import render.RenderHelperMouseEvent;
+import resource.Resource;
 import utility.ConfigurableOption;
-import utility.Resource;
 
 @SuppressWarnings("serial")
 public class PauseScreen extends JComponent{

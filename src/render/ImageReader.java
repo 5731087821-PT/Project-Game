@@ -12,16 +12,18 @@ import javax.imageio.stream.ImageInputStream;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import resource.FethResourceException;
+
 public class ImageReader {
 	public static final int DONOTTHING = 0;
 	public static final int OPTIMIZED = 32;
 	private static ClassLoader cl = ImageReader.class.getClassLoader();
 	
-	public static ImageData[] get(String url) {
+	public static ImageData[] get(String url) throws FethResourceException{
 		return get(url,DONOTTHING);
 	}
 	
-	public static ImageData[] get(String url, int mode) {
+	public static ImageData[] get(String url, int mode) throws FethResourceException{
 		String extension = url.substring(url.length()-3,url.length());
 		
 		if(extension.equals("gif")) {
@@ -90,7 +92,7 @@ public class ImageReader {
 
 	
 			} catch (Exception e) {
-				throw new RuntimeException("Error : "+ url);
+				throw new FethResourceException(FethResourceException.ANIMATION, url);
 			}
 			
 			return frame;
@@ -114,8 +116,8 @@ public class ImageReader {
 					for(int i=0;i<frameCount;i++){
 						frame[i] = new ImageData(image.getSubimage(i*frameWidth, 0, frameWidth, frameHeight));
 					}
-				} catch (IOException e) {
-					e.printStackTrace();
+				} catch (Exception e) {
+					throw new FethResourceException(FethResourceException.ANIMATION, url);
 				}
 				return frame;
 			}else{
@@ -124,10 +126,8 @@ public class ImageReader {
 				try {
 					image[0] = new ImageData(ImageIO.read(cl.getResource(url)));
 					return image;
-				} catch(IOException e) {
-					throw new RuntimeException("Error : "+ url);
-//					e.printStackTrace();
-//					return null;
+				} catch(Exception e) {
+					throw new FethResourceException(FethResourceException.ANIMATION, url);
 				}
 			}
 			
