@@ -22,10 +22,8 @@ public class Zombie implements IRenderable{
 	protected AnimationManager animation; 
 
 	public Zombie(int speed) {
-		this.x = -40;
 		this.y = ConfigurableOption.northScreenHeight;
-//		this.z = 100;
-		this.z = utility.RandomUtility.random(100, 300);
+		this.z = RandomUtility.random(100, 300);
 		this.speed = speed;
 		this.moving = true;
 		this.destroyed = false;
@@ -38,6 +36,7 @@ public class Zombie implements IRenderable{
 		
 		animation = Resource.get(zombieName[RandomUtility.random(0, 4)]);
 		animation.loop();
+		this.x = 0-animation.getCharWidth()/2;
 		
 		this.charHeight = 120;
 		this.charWidth = animation.getCharWidth(this.charHeight);
@@ -51,7 +50,7 @@ public class Zombie implements IRenderable{
 
 	@Override
 	public int getZ() {
-		return z;
+		return this.z;
 	}
 
 	@Override
