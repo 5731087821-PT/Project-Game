@@ -58,29 +58,31 @@ public class Passcode implements IRenderable {
 
 	@Override
 	public void draw(Graphics2D g2d) {
+		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public boolean isVisible() {
+		// TODO Auto-generated method stub
 		return false;
 	}
 	
 	public boolean isInPressAreaX(){
-		return  ( ( (InputUtility.getMouseXSouth() - ((ConfigurableOption.screenWidth/2)-(int)(2.5*width)) ) >= 0 )
-				&& ( ( (ConfigurableOption.screenWidth/2)-(int)(2.5*width) + (5*width) ) - InputUtility.getMouseXSouth()  >=0 ) );
+		return  ( ( (InputUtility.getMouseX() - ((ConfigurableOption.screenWidth/2)-(int)(2.5*width)) ) >= 0 )
+				&& ( ( (ConfigurableOption.screenWidth/2)-(int)(2.5*width) + (5*width) ) - InputUtility.getMouseX()  >=0 ) );
 	}
 	
 	public boolean isInPressAreaY(){
-		return (InputUtility.getMouseYSouth() - 100 >=0 ) && (100+height*4 - InputUtility.getMouseYSouth() >=0);
+		return (InputUtility.getMouseY() - 100 >=0 ) && (100+height*4 - InputUtility.getMouseY() >=0);
 	}
 	
 	public boolean isInPressBoxAreaX(AlphabetBox keyBox){
-		return InputUtility.getMouseXSouth() - keyBox.getX() >=0 && keyBox.getX()+keyBox.getWidth() - InputUtility.getMouseXSouth() >=0;
+		return InputUtility.getMouseX() - keyBox.getX() >=0 && keyBox.getX()+keyBox.getWidth() - InputUtility.getMouseX() >=0;
 	}
 	
 	public boolean isInPressBoxAreaY(AlphabetBox keyBox){
-		return InputUtility.getMouseYSouth() - keyBox.getY() >=0 && keyBox.getY()+keyBox.getHeight() - InputUtility.getMouseYSouth() >=0;
+		return InputUtility.getMouseY() - keyBox.getY() >=0 && keyBox.getY()+keyBox.getHeight() - InputUtility.getMouseY() >=0;
 	}
 	
 	public void zombieAppear(){
@@ -96,6 +98,7 @@ public class Passcode implements IRenderable {
 
 	@Override
 	public void update() {
+		// TODO Auto-generated method stub
 		if(!isInPressAreaX() || !isInPressAreaY()) return;
 			
 		if(passwordCounter<3){
@@ -155,13 +158,6 @@ public class Passcode implements IRenderable {
 
 	@Override
 	public void setDestroyed(boolean destroyed) {
-		
-	}
-
-
-	@Override
-	public void updateAnimation() {
-		// TODO Auto-generated method stub
 		
 	}
 	
