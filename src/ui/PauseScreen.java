@@ -21,15 +21,15 @@ public class PauseScreen extends JComponent{
 	
 	private BufferedImage[] continueButton = new BufferedImage[2];
 	private BufferedImage[] exitButton = new BufferedImage[2];
-	private AnimationManager introBG;
+	private AnimationManager BG;
 	private BufferedImage img;
 	private int width,height;
 
 	public PauseScreen(){
 		super();
-		introBG = Resource.get("batman-intro");
-		introBG.loop();
-		width = introBG.getWidth();
+		BG = Resource.get("batman-intro");
+		BG.loop();
+		width = BG.getWidth();
 		height = ConfigurableOption.screenHeight;
 		setLayout(new FlowLayout());
 		setPreferredSize(new Dimension(width, height));
@@ -47,7 +47,7 @@ public class PauseScreen extends JComponent{
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
 		RenderHelper.addAntiAlising(g2d);
-		img = introBG.getCurrentBufferedImage();
+		img = BG.getCurrentBufferedImage();
 		RenderHelper.draw( 
 				g2d, img, 
 				width/2, 0, 
@@ -64,7 +64,7 @@ public class PauseScreen extends JComponent{
 				25, 495, 
 				0, 80, 
 				RenderHelper.LEFT|RenderHelper.MIDDLE);
-		introBG.update();
+		BG.update();
 	}
 
 	private void drawContinueBT(Graphics2D g, BufferedImage img, int x, int y, int width, int height, int position){
@@ -89,9 +89,7 @@ public class PauseScreen extends JComponent{
 					public void mousePressed() {}
 
 					@Override
-					public void mouseReleased() {
-						
-					}
+					public void mouseReleased() {}
 
 					@Override
 					public void mouseExited() {
@@ -123,9 +121,7 @@ public class PauseScreen extends JComponent{
 					public void mousePressed() {}
 
 					@Override
-					public void mouseReleased() {
-						
-					}
+					public void mouseReleased() {}
 
 					@Override
 					public void mouseExited() {

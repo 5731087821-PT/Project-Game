@@ -36,10 +36,10 @@ public class Zombie implements IRenderable{
 		
 		animation = Resource.get(zombieName[RandomUtility.random(0, 4)]);
 		animation.loop();
-		this.x = 0-animation.getCharWidth()/2;
 		
 		this.charHeight = 120;
 		this.charWidth = animation.getCharWidth(this.charHeight);
+		this.x = 0-charWidth/2;
 	}
 
 	public void update() {

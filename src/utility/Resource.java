@@ -44,7 +44,10 @@ public class Resource {
 		audio.put("doorbell", audioRead("res/sound/doorbell2.wav"));
 		audio.put("zombiedeath", audioRead("res/sound/zombiedeath.wav"));
 		audio.put("gamebgm", audioRead("res/sound/05. Plants vs. Zombies Original Soundtrack - Loonboon.wav"));
-		audio.put("intro", audioRead("res/sound/02. Plants vs. Zombies Original Soundtrack - Crazy Dave (Intro Theme).wav"));
+		audio.put("introbgm", audioRead("res/sound/02. Plants vs. Zombies Original Soundtrack - Crazy Dave (Intro Theme).wav"));
+		audio.put("pausebgm", audioRead("res/sound/02. Plants vs. Zombies Original Soundtrack - Crazy Dave (Intro Theme).wav"));
+		audio.put("gameoverbgm", audioRead("res/sound/02. Plants vs. Zombies Original Soundtrack - Crazy Dave (Intro Theme).wav"));
+		audio.put("winningbgm", audioRead("res/sound/02. Plants vs. Zombies Original Soundtrack - Crazy Dave (Intro Theme).wav"));
 		
 		rs.put("batman-walking", read("res/character/batman-walking.gif",45,90,23,68));
 		rs.put("batman-standing", read("res/character/batman-standing.gif",45,90,23,68));
@@ -57,13 +60,14 @@ public class Resource {
 		rs.put("zombie-running", read("res/character/zombie-running.gif",50,96,50,150,AnimationManager.FLIP));
 		
 		rs.put("batman-intro", read("res/bg/batman-intro.gif",AnimationManager.BufferOPTIMIZED));
+		rs.put("batman-pic", read("res/bg/batman-pic.png"));
 		rs.put("BMDP", read("res/bg/BMDP.gif",AnimationManager.BufferOPTIMIZED));
 		rs.put("town", read("res/bg/town.jpg"));
 		rs.put("city", read("res/bg/city.png"));
 
 		rs.put("button1", read("res/etc/button1.6.png"));
 		rs.put("button2", read("res/etc/button2.2.png"));
-		rs.put("icon", read("res/etc/icon.png"));
+		rs.put("batman-icon", read("res/etc/batman-icon.png"));
 
 //		rs.put("test", read("res/character/zombie-walking.6.png")); //use for sprite PNG
 	}

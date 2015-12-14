@@ -45,8 +45,8 @@ public class ScreenManager{
 	public static final int SELECTSCREEN = 2;
 	public static final int GAMESCREEN = 3;
 	public static final int ATTACKSCREEN = 4;
-	public static final int WINNINGSCREEN = 5;
-	public static final int GAMEOVERSCREEN = 6;
+	public static final int GAMEOVERSCREEN = 5;
+	public static final int WINNINGSCREEN = 6;
 	public static final int PAUSESCREEN = 7;
 	
 	private static final boolean FADEIN = true;
@@ -60,6 +60,8 @@ public class ScreenManager{
 	private static SouthScreenLogic southScreenLogic;
 	private static IntroScreen introScreen;
 	private static PauseScreen pauseScreen;
+	private static GameOverScreen gameOverScreen;
+	private static WinningScreen winningScreen;
 	
 	private static JFrame MainFrame;
 	private static JPanel panelInsideFrame;
@@ -77,10 +79,12 @@ public class ScreenManager{
 		
 		northScreen = new NorthScreen();
 		southScreen = new SouthScreen();
+		pauseScreen = new PauseScreen();
+		gameOverScreen = new GameOverScreen();
+		winningScreen = new WinningScreen(); 
+		
 		northScreenLogic = new NorthScreenLogic();
 		southScreenLogic = new SouthScreenLogic();
-		pauseScreen = new PauseScreen();
-		
 		northScreenLogic.setSouthScreenLogic(southScreenLogic);
 		southScreenLogic.setNorthScreenLogic(northScreenLogic);
 	}
@@ -91,7 +95,7 @@ public class ScreenManager{
 		introScreen = new IntroScreen();
 		MainFrame = new JFrame();
 		MainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		MainFrame.setIconImage(Resource.getImage("icon"));
+		MainFrame.setIconImage(Resource.getImage("batman-icon"));
 		MainFrame.setTitle("Zombie Escape");
 		panelInsideFrame = new JPanel();
 		panelInsideFrame.setLayout(new BoxLayout(panelInsideFrame, BoxLayout.Y_AXIS));
@@ -139,7 +143,7 @@ public class ScreenManager{
 			case INTROSCREEN:{
 				System.out.println("Intro Screen");
 				currentScreen.add(introScreen);
-				bgm = Resource.getAudio("intro");
+				bgm = Resource.getAudio("introbgm");
 				bgm.play();
 				break;
 			}case GAMESCREEN:{
@@ -154,7 +158,19 @@ public class ScreenManager{
 			}case PAUSESCREEN:{
 				System.out.println("Pause Screen");
 				currentScreen.add(pauseScreen);
-				bgm = Resource.getAudio("intro");
+				bgm = Resource.getAudio("pausebgm");
+				bgm.play();
+				break;
+			}case GAMEOVERSCREEN:{
+				System.out.println("GameOver Screen");
+				currentScreen.add(gameOverScreen);
+				bgm = Resource.getAudio("gameoverbgm");
+				bgm.play();
+				break;
+			}case WINNINGSCREEN:{
+				System.out.println("Winning Screen");
+				currentScreen.add(gameOverScreen);
+				bgm = Resource.getAudio("winningbgm");
 				bgm.play();
 				break;
 			}default:{

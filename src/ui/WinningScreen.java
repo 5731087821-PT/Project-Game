@@ -18,16 +18,16 @@ import utility.ConfigurableOption;
 import utility.Resource;
 
 @SuppressWarnings("serial")
-public class IntroScreen extends JComponent{
+public class WinningScreen extends JComponent{
 	
 	private BufferedImage[] playButton = new BufferedImage[2];
 	private AnimationManager BG;
 	private BufferedImage img;
 	private int width,height;
 
-	public IntroScreen(){
+	public WinningScreen(){
 		super();
-		BG = Resource.get("batman-intro");
+		BG = Resource.get("batman-pic");
 		BG.loop();
 		width = BG.getWidth();
 		height = ConfigurableOption.screenHeight;

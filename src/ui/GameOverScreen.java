@@ -18,14 +18,14 @@ import utility.ConfigurableOption;
 import utility.Resource;
 
 @SuppressWarnings("serial")
-public class IntroScreen extends JComponent{
+public class GameOverScreen extends JComponent{
 	
 	private BufferedImage[] playButton = new BufferedImage[2];
 	private AnimationManager BG;
 	private BufferedImage img;
 	private int width,height;
 
-	public IntroScreen(){
+	public GameOverScreen(){
 		super();
 		BG = Resource.get("batman-intro");
 		BG.loop();
