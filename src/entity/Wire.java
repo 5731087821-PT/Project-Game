@@ -28,51 +28,48 @@ public class Wire implements IRenderable {
 	
 	@Override
 	public void draw(Graphics2D g2d) {
-		// TODO Auto-generated method stub
 		g2d.setColor(color);
 		g2d.fillRect(x, y, width, height); 
 	}
 
 	@Override
 	public boolean isVisible() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
 	public boolean isDestroyed() {
-		// TODO Auto-generated method stub
 		return this.destroyed;
 	}
 
 	@Override
 	public void setDestroyed(boolean destroyed) {
-		// TODO Auto-generated method stub
 		this.destroyed = destroyed;
 	}
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public int getX() {
-		// TODO Auto-generated method stub
 		return this.x;
 	}
 
 	@Override
 	public int getY() {
-		// TODO Auto-generated method stub
 		return this.y;
 	}
 
 	@Override
 	public int getZ() {
-		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public void updateAnimation() {
+		
 	}
 
 }

@@ -96,11 +96,9 @@ public class Player implements IRenderable {
 			
 			if(--deadCounter == 0){
 				destroyed = true;
-				ConfigurableOption.gameOver = true;
+				ConfigurableOption.GAMEOver = true;
 			}
 		}
-		if(ConfigurableOption.PAUSE) return;
-			animation.update();
 	}
 	
 	public void zombieIsComming(){
@@ -133,19 +131,16 @@ public class Player implements IRenderable {
 
 	@Override
 	public boolean isVisible() {
-		// TODO Auto-generated method stub
 		return this.visible;
 	}
 
 	@Override
 	public int getX() {
-		// TODO Auto-generated method stub
 		return this.x;
 	}
 
 	@Override
 	public int getY() {
-		// TODO Auto-generated method stub
 		return this.y;
 	}
 
@@ -156,5 +151,10 @@ public class Player implements IRenderable {
 
 	public boolean isDestroying() {
 		return this.destroying;
+	}
+
+	@Override
+	public void updateAnimation() {
+			animation.update();
 	}
 }

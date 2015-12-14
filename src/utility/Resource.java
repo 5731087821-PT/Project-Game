@@ -50,18 +50,19 @@ public class Resource {
 		rs.put("batman-standing", read("res/character/batman-standing.gif",45,90,23,68));
 		rs.put("boy", read("res/character/boy.gif",45,90,35,80));
 		
-		rs.put("zombie-ballon", read("res/character/zombie-ballon.gif",48,100,90,95,AnimationManager.FLIP));
-		rs.put("zombie-helmet", read("res/character/zombie-helmet.gif",40,100,71,100,AnimationManager.FLIP));
-		rs.put("zombie-imps", read("res/character/zombie-imps.gif",50,100,85,100,AnimationManager.FLIP));
+		rs.put("zombie-ballon", read("res/character/zombie-ballon.gif",48,150,90,95,AnimationManager.FLIP));
+		rs.put("zombie-helmet", read("res/character/zombie-helmet.gif",40,100,71,85,AnimationManager.FLIP));
+		rs.put("zombie-imps", read("res/character/zombie-imps.gif",50,100,85,150,AnimationManager.FLIP));
 		rs.put("zombie-moonwalk", read("res/character/zombie-moonwalk.gif",45,100,90,100,AnimationManager.FLIP));
-		rs.put("zombie-running", read("res/character/zombie-running.gif",50,96,50,70,AnimationManager.FLIP));
+		rs.put("zombie-running", read("res/character/zombie-running.gif",50,96,50,150,AnimationManager.FLIP));
 		
 		rs.put("batman-intro", read("res/bg/batman-intro.gif",AnimationManager.BufferOPTIMIZED));
 		rs.put("BMDP", read("res/bg/BMDP.gif",AnimationManager.BufferOPTIMIZED));
 		rs.put("town", read("res/bg/town.jpg"));
 		rs.put("city", read("res/bg/city.png"));
 
-		rs.put("button", read("res/etc/button.6.png"));
+		rs.put("button1", read("res/etc/button1.6.png"));
+		rs.put("button2", read("res/etc/button2.2.png"));
 		rs.put("icon", read("res/etc/icon.png"));
 
 //		rs.put("test", read("res/character/zombie-walking.6.png")); //use for sprite PNG

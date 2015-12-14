@@ -4,6 +4,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import Main.ScreenManager;
 import entity.AlphabetBox;
 import entity.Coin;
 import entity.SpacebarGap;
@@ -31,9 +32,9 @@ public class SouthScreenLogic implements Logic{
 	}
 	
 	public void logicUpdate() {
-		// TODO Auto-generated method stub
 		if(InputUtility.getKeyTriggered(KeyEvent.VK_ESCAPE)){
 			ConfigurableOption.PAUSE = true;
+			ScreenManager.changeScreen(ScreenManager.PAUSESCREEN);
 			return;
 		}
 		
@@ -93,7 +94,7 @@ public class SouthScreenLogic implements Logic{
 			RenderableHolder.getInstance().getSouthRenderableList().remove(passcode);
 			passcode = null;
 			startStage = true;
-		}else if(ConfigurableOption.gameOver){
+		}else if(ConfigurableOption.GAMEOver){
 			RenderableHolder.getInstance().getSouthRenderableList().clear();
 			
 			openGatewayZero = null;

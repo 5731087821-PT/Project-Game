@@ -8,6 +8,7 @@ public interface IRenderable {
 	public boolean isDestroyed();
 	public void setDestroyed(boolean destroyed);
 	public void update();
+	public void updateAnimation();
 	public int getX();
 	public int getY();
 	public int getZ();

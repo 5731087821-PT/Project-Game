@@ -55,7 +55,6 @@ public class GetCoin implements IRenderable {
 
 	@Override
 	public void draw(Graphics2D g2d) {
-		// TODO Auto-generated method stub
 		g2d.setColor(new Color(192, 192, 192));
 		g2d.fillRect(xTab, yTab, ConfigurableOption.tabDistance, ConfigurableOption.spacebarTabHeight);
 
@@ -66,7 +65,6 @@ public class GetCoin implements IRenderable {
 
 	@Override
 	public boolean isVisible() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
@@ -88,7 +86,6 @@ public class GetCoin implements IRenderable {
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
 		spawnDelayCounter++;
 		runningBall.update();
 		
@@ -192,31 +189,33 @@ public class GetCoin implements IRenderable {
 
 	@Override
 	public int getX() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public int getY() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public int getZ() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public boolean isDestroyed() {
-		// TODO Auto-generated method stub
 		return destroyed;
 	}
 
 	@Override
 	public void setDestroyed(boolean destroyed) {
 		this.destroyed = destroyed;
+	}
+
+	@Override
+	public void updateAnimation() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

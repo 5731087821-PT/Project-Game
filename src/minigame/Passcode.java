@@ -58,13 +58,11 @@ public class Passcode implements IRenderable {
 
 	@Override
 	public void draw(Graphics2D g2d) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public boolean isVisible() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 	
@@ -98,7 +96,6 @@ public class Passcode implements IRenderable {
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
 		if(!isInPressAreaX() || !isInPressAreaY()) return;
 			
 		if(passwordCounter<3){
@@ -158,6 +155,13 @@ public class Passcode implements IRenderable {
 
 	@Override
 	public void setDestroyed(boolean destroyed) {
+		
+	}
+
+
+	@Override
+	public void updateAnimation() {
+		// TODO Auto-generated method stub
 		
 	}
 	

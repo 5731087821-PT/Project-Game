@@ -64,37 +64,36 @@ public class PlayerStatus implements IRenderable{
 
 	@Override
 	public boolean isVisible() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public int getX() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public int getY() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public boolean isDestroyed() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public void setDestroyed(boolean destroyed) {
-		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateAnimation() {
 		
 	}
 	

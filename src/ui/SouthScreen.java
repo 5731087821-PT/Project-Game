@@ -16,6 +16,7 @@ import render.AnimationManager;
 import render.IRenderable;
 import render.RenderAnimationHelper;
 import render.RenderHelper;
+import render.RenderHelperMouseEvent;
 import render.RenderableHolder;
 import utility.ConfigurableOption;
 import utility.InputUtility;
@@ -37,14 +38,14 @@ public class SouthScreen extends JComponent {
 		setLayout(null);
 		setVisible(true);
 
-//		bgAnimation = Resource.get("zombie-imps");
-//		bgAnimation = Resource.get("batman-intro");
 		bgAnimation = Resource.get("BMDP");
 		bgAnimation.loop();
-		
+
 	}
 	
 	public void paintComponent(Graphics g){
+		bgAnimation.update();
+		
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.setColor(Color.BLACK);
@@ -57,8 +58,7 @@ public class SouthScreen extends JComponent {
 		for(int i = 0 ; i<entity.size();i++){
 			if(!entity.get(i).isVisible()) continue;
 			entity.get(i).draw(g2d);
+			entity.get(i).updateAnimation();
 		}
-		if(ConfigurableOption.PAUSE || ConfigurableOption.gameOver) return;
-			bgAnimation.update();
 	}
 }

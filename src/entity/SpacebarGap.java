@@ -34,7 +34,6 @@ public class SpacebarGap implements IRenderable{
 	
 	@Override
 	public void draw(Graphics2D g2d) {
-		// TODO Auto-generated method stub
 		if(primaryKey<0){
 			if(disappearCounter > 500){
 				g2d.setColor(new Color(245, 245, 245));
@@ -49,13 +48,11 @@ public class SpacebarGap implements IRenderable{
 
 	@Override
 	public boolean isVisible() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
 		disappearCounter--;
 		if(disappearCounter<=0) this.destroyed = true;
 		if(destroyed){
@@ -66,24 +63,20 @@ public class SpacebarGap implements IRenderable{
 
 	@Override
 	public int getX() {
-		// TODO Auto-generated method stub
 		return this.x;
 	}
 
 	@Override
 	public int getY() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public int getZ() {
-		// TODO Auto-generated method stub
 		return 1;
 	}
 
 	public boolean isDestroyed() {
-		// TODO Auto-generated method stub
 		return destroyed;
 	}
 
@@ -94,6 +87,12 @@ public class SpacebarGap implements IRenderable{
 	
 	public int getPrimaryKey(){
 		return this.primaryKey;
+	}
+
+	@Override
+	public void updateAnimation() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

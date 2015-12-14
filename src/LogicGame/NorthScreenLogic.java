@@ -36,7 +36,6 @@ public class NorthScreenLogic implements Logic{
 	}
 	
 	public void logicUpdate() {
-		// TODO Auto-generated method stub
 		gateway1.update();
 		gateway2.update();
 		player.update();

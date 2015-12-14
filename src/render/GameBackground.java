@@ -92,5 +92,11 @@ public class GameBackground implements IRenderable{
 		
 	}
 
+	@Override
+	public void updateAnimation() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 }

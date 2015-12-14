@@ -101,7 +101,6 @@ public class WireCut implements IRenderable {
 	
 	@Override
 	public void draw(Graphics2D g2d) {
-		// TODO Auto-generated method stub
 		g2d.setColor(Color.DARK_GRAY);
 		g2d.fillRect(x, y, width, height);
 		
@@ -115,25 +114,21 @@ public class WireCut implements IRenderable {
 
 	@Override
 	public boolean isVisible() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
 	public boolean isDestroyed() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public void setDestroyed(boolean destroyed) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
 		runningBall.update();
 		
 		if(wires.size()==0){
@@ -194,19 +189,16 @@ public class WireCut implements IRenderable {
 
 	@Override
 	public int getX() {
-		// TODO Auto-generated method stub
 		return this.x;
 	}
 
 	@Override
 	public int getY() {
-		// TODO Auto-generated method stub
 		return this.y;
 	}
 
 	@Override
 	public int getZ() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 	
@@ -220,6 +212,12 @@ public class WireCut implements IRenderable {
 	
 	public ArrayList<Wire> getWire(){
 		return wires;
+	}
+
+	@Override
+	public void updateAnimation() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

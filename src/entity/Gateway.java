@@ -43,7 +43,6 @@ public class Gateway implements IRenderable{
 
 	@Override
 	public int getZ() {
-		// TODO Auto-generated method stub
 		return 100;
 	}
 
@@ -55,18 +54,22 @@ public class Gateway implements IRenderable{
 
 	@Override
 	public boolean isVisible() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
 	public boolean isDestroyed() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public void setDestroyed(boolean destroyed) {
 		this.destroyed = destroyed;
+	}
+
+	@Override
+	public void updateAnimation() {
+		// TODO Auto-generated method stub
+		
 	}
 }

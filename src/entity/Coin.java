@@ -40,13 +40,11 @@ public class Coin implements IRenderable{
 	
 	@Override
 	public int getZ() {
-		// TODO Auto-generated method stub
 		return 10;
 	}
 
 	@Override
 	public void draw(Graphics2D g2d) {
-		// TODO Auto-generated method stub
 		if(!destroying){
 		g2d.setColor(Color.YELLOW);
 		g2d.fillOval(x, y, radius*2, radius*2);
@@ -68,13 +66,11 @@ public class Coin implements IRenderable{
 	}
 
 	public boolean isDestroyed() {
-		// TODO Auto-generated method stub
 		return this.destroyed;
 	}
 
 	@Override
 	public boolean isVisible() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
@@ -84,13 +80,17 @@ public class Coin implements IRenderable{
 
 	@Override
 	public int getX() {
-		// TODO Auto-generated method stub
 		return this.x;
 	}
 
 	@Override
 	public int getY() {
-		// TODO Auto-generated method stub
 		return this.y;
+	}
+
+	@Override
+	public void updateAnimation() {
+		// TODO Auto-generated method stub
+		
 	}
 }

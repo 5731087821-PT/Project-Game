@@ -1,28 +1,44 @@
 package Main;
 
 import java.applet.AudioClip;
+import java.awt.AlphaComposite;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Paint;
+import java.awt.Panel;
+import java.awt.RenderingHints;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 import LogicGame.Logic;
 import LogicGame.NorthScreenLogic;
 import LogicGame.SouthScreenLogic;
 import render.RenderableHolder;
-import ui.IntroScreen;
-import ui.NorthScreen;
-import ui.SouthScreen;
+import sun.java2d.pipe.DrawImage;
+import ui.*;
 import utility.ConfigurableOption;
 import utility.InputUtility;
-import utility.Resource;;
+import utility.Resource;
+import utility.TimeToCounter;;
 
 public class ScreenManager{
 	public static final int INTROSCREEN = 1;
@@ -30,6 +46,11 @@ public class ScreenManager{
 	public static final int GAMESCREEN = 3;
 	public static final int ATTACKSCREEN = 4;
 	public static final int WINNINGSCREEN = 5;
+	public static final int GAMEOVERSCREEN = 6;
+	public static final int PAUSESCREEN = 7;
+	
+	private static final boolean FADEIN = true;
+	private static final boolean FADEOUT = false;
 
 	private static AudioClip bgm;
 	
@@ -38,56 +59,197 @@ public class ScreenManager{
 	private static NorthScreenLogic northScreenLogic;
 	private static SouthScreenLogic southScreenLogic;
 	private static IntroScreen introScreen;
-	private static JFrame frame;
+	private static PauseScreen pauseScreen;
 	
-	private static JPanel panel;
+	private static JFrame MainFrame;
+	private static JPanel panelInsideFrame;
 	
 	private static ArrayList<JComponent> currentScreen = new ArrayList<>();
 	private static ArrayList<Logic> currentLogic = new ArrayList<>();
+	private static boolean initialize;
+	private static boolean chagingScreen = false;
 	
 	public static void resetScreen(){
+		ConfigurableOption.PAUSE = false;
+		ConfigurableOption.stageNow = 0;
+		
 		RenderableHolder.getInstance().clear();
 		
 		northScreen = new NorthScreen();
 		southScreen = new SouthScreen();
 		northScreenLogic = new NorthScreenLogic();
 		southScreenLogic = new SouthScreenLogic();
+		pauseScreen = new PauseScreen();
 		
 		northScreenLogic.setSouthScreenLogic(southScreenLogic);
 		southScreenLogic.setNorthScreenLogic(northScreenLogic);
 	}
 	
 	public ScreenManager(){
+		initialize = true;
 		new Resource();		
 		introScreen = new IntroScreen();
-		frame = new JFrame();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setIconImage(Resource.getImage("icon"));
-		frame.setTitle("Zombie Escape");
-		panel = new JPanel();
-		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-		addListener(panel);
+		MainFrame = new JFrame();
+		MainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		MainFrame.setIconImage(Resource.getImage("icon"));
+		MainFrame.setTitle("Zombie Escape");
+		panelInsideFrame = new JPanel();
+		panelInsideFrame.setLayout(new BoxLayout(panelInsideFrame, BoxLayout.Y_AXIS));
+		MainFrame.add(panelInsideFrame);
+		
+		addListener(panelInsideFrame);
 		
 		bgm = Resource.getAudio("gamebgm");
 		changeScreen(INTROSCREEN);
-
-		frame.pack();
-		frame.setResizable(false);
-		frame.setVisible(true);
+		
+		
+		initialize = false;
+		MainFrame.pack();
+		MainFrame.setResizable(false);
+		MainFrame.setVisible(true);
 		while(true){
 			try{
 				Thread.sleep(ConfigurableOption.sleepTime);
 			}catch (InterruptedException e){}
 
-			for(JComponent component:currentScreen)
+			for(JComponent component:currentScreen){
 				component.repaint();
+			}
 			
-			if(!ConfigurableOption.PAUSE)
-				for(Logic component:currentLogic)
-					component.logicUpdate();
+			for(Logic component:currentLogic){
+				component.logicUpdate();
+				if(chagingScreen) {
+					chagingScreen = false;
+					break;
+				}
+			}
 			
 			InputUtility.postUpdate();
-			panel.requestFocus();
+			panelInsideFrame.requestFocus();
+		}
+	}
+	
+	public static void changeScreen(int screen){
+		bgm.stop();
+		panelInsideFrame.removeAll();
+		currentScreen.clear();
+		currentLogic.clear();
+		System.out.print("Change screen to ");
+		switch (screen) {
+			case INTROSCREEN:{
+				System.out.println("Intro Screen");
+				currentScreen.add(introScreen);
+				bgm = Resource.getAudio("intro");
+				bgm.play();
+				break;
+			}case GAMESCREEN:{
+				System.out.println("Game Screen");
+				currentScreen.add(northScreen);
+				currentScreen.add(southScreen);
+				currentLogic.add(northScreenLogic);
+				currentLogic.add(southScreenLogic);
+				bgm = Resource.getAudio("gamebgm");
+				bgm.play();
+				break;
+			}case PAUSESCREEN:{
+				System.out.println("Pause Screen");
+				currentScreen.add(pauseScreen);
+				bgm = Resource.getAudio("intro");
+				bgm.play();
+				break;
+			}default:{
+				throw new RuntimeException("Error Screen not found : "+screen);
+			}
+		}
+		for(JComponent comp : currentScreen){
+			panelInsideFrame.add(comp);
+		}
+		MainFrame.pack();
+		MainFrame.setResizable(false);
+		MainFrame.setVisible(true);
+		chagingScreen = true;
+//		if(!initialize)
+//			fadeScreen(panelInsideFrame, FADEOUT);
+	}
+	
+	public static void fadeScreen(JPanel panelInsideFrame,boolean option){
+	    float alpha;
+	    if(option)
+	    	alpha = 0.0f;
+	    else
+	    	alpha = 1.0f;
+	    
+//	    BufferedImage screenImage = new BufferedImage(panelInsideFrame.getWidth(), panelInsideFrame.getHeight(), BufferedImage.TYPE_INT_RGB);
+//	    Graphics2D g2d = (Graphics2D) screenImage.getGraphics();
+//	    g2d.drawImage(Resource.getImage("BMDP"), null, 0, 0);
+	    
+//	    JComponent panel0 = new JPanel();
+//	    panel0.setPreferredSize(new Dimension(screenImage.getWidth(), screenImage.getHeight()));
+//
+//	    try {
+//			ImageIO.write(screenImage, "JPG", new File("foo.jpg"));
+//		} catch (IOException e1) {e1.printStackTrace();}
+//	    
+
+//		while(true){
+//			try{
+//				Thread.sleep(ConfigurableOption.sleepTime);
+//			}catch (InterruptedException e){}
+//
+//			for(JComponent component:currentScreen){
+//				component.repaint();
+//				System.out.println(component.getClass());
+//			}
+//			
+//			for(Logic component:currentLogic){
+//				component.logicUpdate();
+//				if(chagingScreen) {
+//					chagingScreen = false;
+//					break;
+//				}
+//			}
+//			
+//			InputUtility.postUpdate();
+//			panelInsideFrame.requestFocus();
+//		}
+
+	    Graphics g = panelInsideFrame.getGraphics();
+	    Graphics2D g2d = (Graphics2D) g;
+		while(true){
+		    //set the opacity
+		    g2d.setComposite(AlphaComposite.getInstance(
+		            AlphaComposite.SRC_OVER, alpha));
+		    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
+
+		    //do the drawing here
+		    g2d.setColor(Color.BLACK);
+		    g2d.fillRect(0, 0, 100, 100);
+
+		    //increase the opacity and repaint
+		    if(option){
+			    alpha += 0.01f;
+			    if (alpha >= 1.0f) {
+			        alpha = 1.0f;
+			        break;
+			    }
+		    }else{
+			    alpha -= 0.01f;
+			    if (alpha <= 0.0f) {
+			        alpha = 0.0f;
+			        break;
+			    }
+		    }
+		    
+			panelInsideFrame.paint(g2d);
+//			panelInsideFrame.repaint();
+
+		    //sleep for a bit
+		    try {
+		        Thread.sleep(100);
+		    } catch (InterruptedException e) {
+
+		        e.printStackTrace();
+		    }
 		}
 	}
 
@@ -136,41 +298,5 @@ public class ScreenManager{
 			public void mouseDragged(MouseEvent e) {}
 		});
 		panel.setFocusable(true);
-	}
-	
-	public static void changeScreen(int screen){
-		bgm.stop();
-		panel.removeAll();
-		currentScreen.clear();
-		currentLogic.clear();
-		System.out.print("Change screen to ");
-		switch (screen) {
-			case INTROSCREEN:{
-				System.out.println("Intro Screen");
-				currentScreen.add(introScreen);
-				bgm = Resource.getAudio("intro");
-				bgm.play();
-				break;
-			}case GAMESCREEN:{
-				System.out.println("Game Screen");
-				currentScreen.add(northScreen);
-				currentScreen.add(southScreen);
-				currentLogic.add(northScreenLogic);
-				currentLogic.add(southScreenLogic);
-				bgm = Resource.getAudio("gamebgm");
-				bgm.play();
-				break;
-			}default:{
-				throw new RuntimeException("Error Screen not found : "+screen);
-			}
-		}
-		for(JComponent comp : currentScreen){
-			panel.add(comp);
-		}
-		frame.add(panel);
-		frame.pack();
-		frame.setResizable(false);
-		frame.setVisible(true);
-		
 	}
 }
