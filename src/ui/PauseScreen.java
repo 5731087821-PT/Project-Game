@@ -16,12 +16,11 @@ import render.RenderHelper;
 import render.RenderHelperMouseEvent;
 import resource.Resource;
 import utility.ConfigurableOption;
+import utility.Debugger;
 
 @SuppressWarnings("serial")
 public class PauseScreen extends JComponent{
 	
-	private BufferedImage[] continueButton = new BufferedImage[2];
-	private BufferedImage[] exitButton = new BufferedImage[2];
 	private AnimationManager BG;
 	private BufferedImage img;
 	private int width,height;
@@ -51,13 +50,13 @@ public class PauseScreen extends JComponent{
 				0, height, 
 				RenderHelper.TOP|RenderHelper.CENTER);
 		drawExitBT(
-				g2d,exitButton[1], 
+				g2d,Resource.exitButton[1], 
 				25, 410, 
 				0, 70, 
 				RenderHelper.LEFT|RenderHelper.MIDDLE);
 		
 		drawContinueBT(
-				g2d,continueButton[1], 
+				g2d,Resource.continueButton[1], 
 				25, 495, 
 				0, 80, 
 				RenderHelper.LEFT|RenderHelper.MIDDLE);
@@ -75,7 +74,9 @@ public class PauseScreen extends JComponent{
 					@Override
 					public void mouseEntered(){
 						Resource.getAudio("punch").play();
-						RenderHelper.draw(g, continueButton[0], x, y, width, height, position);
+						Debugger.printTest(this);
+
+						RenderHelper.draw(g, Resource.continueButton[0], x, y, width, height, position);
 					}
 
 					@Override
@@ -91,7 +92,7 @@ public class PauseScreen extends JComponent{
 
 					@Override
 					public void mouseExited() {
-						RenderHelper.draw(g, continueButton[1], x, y, width, height, position);
+						RenderHelper.draw(g, Resource.continueButton[1], x, y, width, height, position);
 					}
 		});
 	}
@@ -140,7 +141,7 @@ public class PauseScreen extends JComponent{
 				new RenderHelperMouseEvent() {
 					@Override
 					public void mouseEntered(){
-						RenderHelper.draw(g, exitButton[0], x, y, width, height, position);
+						RenderHelper.draw(g, Resource.exitButton[0], x, y, width, height, position);
 					}
 
 					@Override
@@ -157,7 +158,7 @@ public class PauseScreen extends JComponent{
 
 					@Override
 					public void mouseExited() {
-						RenderHelper.draw(g, exitButton[1], x, y, width, height, position);
+						RenderHelper.draw(g, Resource.exitButton[1], x, y, width, height, position);
 					}
 		});
 	}
