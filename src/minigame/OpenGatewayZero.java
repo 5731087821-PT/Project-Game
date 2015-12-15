@@ -1,51 +1,59 @@
 package minigame;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.Collections;
+
 import com.sun.glass.events.KeyEvent;
 import LogicGame.NorthScreenLogic;
 import entity.Gateway;
-import entity.PlayerStatus;
-import entity.RunningBall;
-import entity.SpacebarGap;
 import render.IRenderable;
+import render.RenderHelper;
 import render.RenderableHolder;
 import resource.Resource;
 import utility.ConfigurableOption;
 import utility.InputUtility;
+import utility.TimeToCounter;
 
 public class OpenGatewayZero implements IRenderable {
-	protected int xTab, yTab;
-	protected int distance;
-	protected int direction;
-	protected int comboCounter;
 	protected int answerCounter;
-	protected boolean answer;
+	protected int amountAlphabet;
+	protected int n;
+	protected int radianCounter;
+	protected double radian;
+	protected double radianAlpha;
 	protected boolean destroyed;
-	protected PlayerStatus playerStatus;
-	protected RunningBall runningBall;
-	protected SpacebarGap gap;
+	protected ArrayList<Integer> passwords;
+	
 	
 	public OpenGatewayZero() {
-		this.xTab = ConfigurableOption.xSpacebarTab;
-		this.yTab = ConfigurableOption.ySpacebarTab;
-		this.distance = ConfigurableOption.tabDistance;
-		this.direction = 1;
 		this.answerCounter = 0;
-		gap = new SpacebarGap(-1, null, 1000000, 0, ConfigurableOption.ySpacebarTab);
+		this.amountAlphabet = 10;
+		this.radianAlpha = (2*Math.PI)/amountAlphabet;
+		this.radian = radianAlpha/2;
+		this.radianCounter = 0;
+		this.passwords = new ArrayList<Integer>();
 		
-		RenderableHolder.getInstance().addSouthEntity(gap);
+		for(int i=0;i<amountAlphabet;i++){
+			passwords.add(i);
+		}
+		Collections.shuffle(passwords);
 	}
 
 	@Override
-	public void draw(Graphics2D g2d) {
-		g2d.setColor(new Color(192, 192, 192));
-		g2d.fillRect(xTab, yTab, ConfigurableOption.tabDistance, ConfigurableOption.spacebarTabHeight);
+	public void draw(Graphics2D g2d) {      
+        //things you draw after here will not be rotated
+		AffineTransform at = new AffineTransform();
+		at.rotate(radian, Resource.getImage("coin").getWidth() / 2, Resource.getImage("coin").getHeight() / 2);
 
-		g2d.setColor(Color.BLACK);
-		g2d.setStroke(new BasicStroke(3));
-		g2d.drawRect(xTab - 1, yTab - 1, ConfigurableOption.tabDistance, 22);
+		AffineTransformOp op = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
+		BufferedImage tempImage = new BufferedImage(Resource.getImage("coin").getWidth(), Resource.getImage("coin").getHeight(), BufferedImage.TYPE_INT_ARGB);
+		Graphics2D gg = (Graphics2D) tempImage.getGraphics();
+		gg.drawImage(Resource.getImage("coin"), op, 0, 0);
+		RenderHelper.draw(g2d, tempImage, 100, 100, 100, 0, RenderHelper.LEFT|RenderHelper.TOP);
 	}
 
 	@Override
@@ -54,7 +62,6 @@ public class OpenGatewayZero implements IRenderable {
 	}
 
 	public void enterSpacebar() {
-		runningBall.setDestroying(true);
 		answerCounter++;
 
 		if (answerCounter >= 3) {
@@ -68,53 +75,38 @@ public class OpenGatewayZero implements IRenderable {
 		}
 	}
 
-	public boolean enterInGap(SpacebarGap gap) {
-		return (runningBall.getX() + runningBall.getDiameter() - gap.getX()) > 10
-				&& (gap.getX() + ConfigurableOption.gapWidth - runningBall.getX() > 10);
-	}
-
 	@Override
 	public void update() {
-		if (runningBall == null) {
-			runningBall = new RunningBall(ConfigurableOption.xSpacebarTab, ConfigurableOption.ySpacebarTab, ConfigurableOption.tabDistance);
-			RenderableHolder.getInstance().addSouthEntity(runningBall);
-		} else {
-			if (InputUtility.getKeyTriggered(KeyEvent.VK_SPACE)) {
-				answer = false;
-				if (enterInGap(gap)) {
-					
-					answer = true;
-					Resource.getAudio("gotitem").play();
-					enterSpacebar();
-				}
+		radianCounter++;
 
-				if (!answer) {
-					Resource.getAudio("bump").play();
-					zombieAppear();
-				}
+		if(InputUtility.getKeyTriggered(KeyEvent.VK_SPACE)){
+			if(n == passwords.get(answerCounter)){
+				Resource.getAudio("gotitem").play();
+				enterSpacebar();
+			}else{
+				Resource.getAudio("bump").play();
+				zombieAppear();
 			}
-
-			runningBall.update();
 		}
-
-		if(runningBall.isDestroyed()){
-			runningBall = null;
+		
+		if(radianCounter >= TimeToCounter.getCounter(10)){
+			radianCounter = 0;
+			radian+=Math.PI/180;
+			radian%=2*Math.PI;
+			n = (int)(radian/(2*Math.PI/amountAlphabet));
 		}
 	}
 	
 	public void zombieAppear(){
 		NorthScreenLogic.spawnZombie = true;
 
-	}
-	
-	public SpacebarGap getGap(){
-		return this.gap;
-	}
-	
-	public RunningBall getRunningBall(){
-		return this.runningBall;
-	}
+	}	
 
+	public ArrayList<Integer> getPassword(){
+		return passwords;
+
+	}
+	
 	@Override
 	public int getX() {
 		return 0;

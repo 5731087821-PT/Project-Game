@@ -159,10 +159,6 @@ public class Passcode implements IRenderable {
 		return false;
 	}
 
-	public void setDestroyed(boolean destroyed) {
-		
-	}
-
 
 	@Override
 	public void setDestroying(boolean destroyed) {
