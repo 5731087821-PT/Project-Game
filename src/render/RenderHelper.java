@@ -21,6 +21,7 @@ public class RenderHelper {
 
 	public static void draw(Graphics2D g, BufferedImage img, int x, int y, int width, int height, int position,RenderHelperMouseEvent event) {
 
+		
 		if(width==0&&height==0){
 			width = img.getWidth();
 			height = img.getHeight();
@@ -41,8 +42,10 @@ public class RenderHelper {
 			y -= height;
 		}
 		
-		if(g != null)
+		if(g != null){
+			addAntiAlising(g);
 			g.drawImage(img, x, y, width, height, null);
+		}
 	
 		if(event != null)
 			checkEvent(event,x,y,width,height);

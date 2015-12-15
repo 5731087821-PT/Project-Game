@@ -1,5 +1,6 @@
 package entity;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
@@ -16,7 +17,7 @@ public class Wire implements IRenderable {
 		this.x = x;
 		this.y = y;
 		this.width = width;
-		this.height = 10;
+		this.height = 15;
 		this.primaryKey = primaryKey;
 		this.color = color;
 		this.destroyed = false;
@@ -30,6 +31,10 @@ public class Wire implements IRenderable {
 	public void draw(Graphics2D g2d) {
 		g2d.setColor(color);
 		g2d.fillRect(x, y, width, height); 
+
+		g2d.setColor(Color.BLACK);
+		g2d.setStroke(new BasicStroke(3));
+		g2d.drawRect(x-1, y-1, width, height+2); 
 	}
 
 	@Override

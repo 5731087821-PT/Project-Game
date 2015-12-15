@@ -2,6 +2,7 @@ package LogicGame;
 
 import java.util.*;
 
+import Main.ScreenManager;
 import entity.Gateway;
 import entity.Player;
 import entity.PlayerStatus;
@@ -22,6 +23,7 @@ public class NorthScreenLogic implements Logic{
 	private SouthScreenLogic southScreenLogic;
 	public static boolean spawnZombie;
 	private List<IRenderable> list;
+	private int nextZombieSpeedUp;
 	
 	public NorthScreenLogic(){
 		this.player = new Player();
@@ -32,6 +34,7 @@ public class NorthScreenLogic implements Logic{
 		this.movingDelayCounter = 0;
 		this.spawnZombieCounter = 600;
 		this.firstZombie = true;
+		nextZombieSpeedUp = (int) ((ConfigurableOption.screenWidth*0.10)/100.0);
 		spawnZombie = true;
 		
 		list = RenderableHolder.getInstance().getNorthRenderableList();
@@ -67,7 +70,7 @@ public class NorthScreenLogic implements Logic{
 			}
 			if(spawnZombieCounter >= TimeToCounter.getCounter(10000)){
 				spawnZombieCounter = 0;
-				Zombie zombie = new Zombie(zombies.size()+1);
+				Zombie zombie = new Zombie(zombies.size()+nextZombieSpeedUp);
 				RenderableHolder.getInstance().addNorthEntity(zombie);
 				zombies.add(zombie);
 				for(IRenderable rend : list){

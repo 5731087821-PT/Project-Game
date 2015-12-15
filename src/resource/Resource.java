@@ -2,7 +2,10 @@ package resource;
 
 import java.applet.Applet;
 import java.applet.AudioClip;
+import java.awt.Cursor;
 import java.awt.Font;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
@@ -21,6 +24,8 @@ public class Resource {
 	public static BufferedImage[] continueButton= new BufferedImage[2];
 	public static BufferedImage[] exitButton= new BufferedImage[2];
 	public static BufferedImage[] restartButton= new BufferedImage[2];
+	public static Cursor CURSOR_DEFAULT;
+	public static  Cursor CURSOR_HAND;
 	
 	public AnimationManager read(String url,int setX,int setY,int setCharWidth,int setCharHeight,int mode) throws FethResourceException{
 		return new AnimationManager(ImageReader.get(url,mode),setX,setY,setCharWidth,setCharHeight,mode);
@@ -77,7 +82,7 @@ public class Resource {
 			rs.put("batman-standing", read("res/character/batman-standing.gif",45,90,23,68));
 			rs.put("boy", read("res/character/boy.gif",45,90,35,80));
 			
-			rs.put("zombie-ballon", read("res/character/zombie-ballon.gif",48,150,90,95,AnimationManager.FLIP));
+			rs.put("zombie-ballon", read("res/character/zombie-ballon.gif",48,150,90,120,AnimationManager.FLIP));
 			rs.put("zombie-helmet", read("res/character/zombie-helmet.gif",40,100,71,90,AnimationManager.FLIP));
 			rs.put("zombie-imps", read("res/character/zombie-imps.gif",50,100,85,150,AnimationManager.FLIP));
 			rs.put("zombie-moonwalk", read("res/character/zombie-moonwalk.gif",45,100,90,100,AnimationManager.FLIP));
@@ -90,20 +95,38 @@ public class Resource {
 			rs.put("town", read("res/bg/town.jpg"));
 			rs.put("city", read("res/bg/city.png"));
 			rs.put("town-creepy", read("res/bg/town-creepy.png"));
+			
+			rs.put("coins-stack", read("res/minigame/getcoin/coins-stack.png"));
+			rs.put("coins-many", read("res/minigame/getcoin/coins-many.png"));
+			rs.put("coins", read("res/minigame/getcoin/coin-dollarsign.png"));
+			rs.put("wireFrame", read("res/minigame/wirecut/Defuser1.png"));
+			rs.put("wirecutter", read("res/minigame/wirecut/wirecutter.png"));
+			rs.put("checkmark", read("res/minigame/passcode/check-mark.png"));
+			rs.put("passcodebg", read("res/minigame/passcode/bg.jpg"));
 	
 			rs.put("button1", read("res/etc/button1.6.png"));
 			rs.put("button2", read("res/etc/button2.2.png"));
 			rs.put("button-start", read("res/etc/button-start.2.png"));
 			rs.put("button-restart", read("res/etc/button-restart.2.png"));
 			rs.put("batman-icon", read("res/etc/batman-icon.png"));
+//			rs.put("cursor-default", read("res/etc/cursor-default.png"));
+//			rs.put("cursor-hand", read("res/etc/cursor-hand.png"));
 
 		} catch (FethResourceException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(), 
 					"Error", JOptionPane.ERROR_MESSAGE);
 			System.exit(0);
 		}
+//		CURSOR_DEFAULT = Toolkit.getDefaultToolkit().createCustomCursor(
+//				Resource.getImage("cursor-default"), 
+//				new Point(0,0), "custom default cursor");
+//		CURSOR_HAND = Toolkit.getDefaultToolkit().createCustomCursor(
+//				Resource.getImage("cursor-hand"), 
+//				new Point(0,0), "custom hand cursor");
 		
-
+		CURSOR_DEFAULT = Cursor.getDefaultCursor();
+		CURSOR_HAND = Cursor.getPredefinedCursor(Cursor.HAND_CURSOR);
+		
 		playButton[0] = getImage("button1",0);
 		playButton[1] = getImage("button1",1);
 		rankButton[0] = getImage("button1",4);

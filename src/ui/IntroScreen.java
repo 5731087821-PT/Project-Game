@@ -31,7 +31,7 @@ public class IntroScreen extends JComponent{
 		BG.loop();
 		width = BG.getWidth();
 //		height = BG.getHeightByWidth(width) + 60;
-		height = 560;
+		height = BG.getHeight()+60;
 		setLayout(new FlowLayout());
 		setPreferredSize(new Dimension(width, height));
 //		playButton[0] = Resource.getImage("button-start",0);
@@ -77,7 +77,7 @@ public class IntroScreen extends JComponent{
 					@Override
 					public void mouseEntered(){
 						RenderHelper.draw(g, Resource.playButton[0], x, y, width, height, position);
-						setCursor(new Cursor(Cursor.HAND_CURSOR));
+						setCursor(Resource.CURSOR_HAND);
 					}
 
 					@Override
@@ -95,7 +95,7 @@ public class IntroScreen extends JComponent{
 					@Override
 					public void mouseExited() {
 						RenderHelper.draw(g, Resource.playButton[1], x, y, width, height, position);
-						setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+						setCursor(Resource.CURSOR_DEFAULT);
 					}
 		});
 		
@@ -111,9 +111,8 @@ public class IntroScreen extends JComponent{
 				new RenderHelperMouseEvent() {
 					@Override
 					public void mouseEntered(){
-						Resource.getAudio("punch").play();
 						RenderHelper.draw(g, Resource.rankButton[0], x, y, width, height, position);
-						setCursor(new Cursor(Cursor.HAND_CURSOR));
+						setCursor(Resource.CURSOR_HAND);
 					}
 
 					@Override
@@ -130,7 +129,7 @@ public class IntroScreen extends JComponent{
 					@Override
 					public void mouseExited() {
 						RenderHelper.draw(g, Resource.rankButton[1], x, y, width, height, position);
-						setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+						setCursor(Resource.CURSOR_DEFAULT);
 					}
 		});
 		

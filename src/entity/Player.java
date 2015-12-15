@@ -44,7 +44,7 @@ public class Player implements IRenderable {
 		animationStanding = Resource.get("batman-standing");
 		setWalking(true);
 
-		this.charHeight = 120;
+		this.charHeight = ConfigurableOption.characterHeight;
 		this.charWidth = animation.getCharWidthByHeight(this.charHeight);
 		
 		creatThread();

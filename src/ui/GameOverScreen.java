@@ -68,7 +68,7 @@ public class GameOverScreen extends JComponent{
 					@Override
 					public void mouseEntered(){
 						RenderHelper.draw(g, Resource.restartButton[0], x, y, width, height, position);
-						setCursor(new Cursor(Cursor.HAND_CURSOR));
+						setCursor(Resource.CURSOR_HAND);
 					}
 
 					@Override
@@ -86,7 +86,7 @@ public class GameOverScreen extends JComponent{
 					@Override
 					public void mouseExited() {
 						RenderHelper.draw(g, Resource.restartButton[1], x, y, width, height, position);
-						setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+						setCursor(Resource.CURSOR_DEFAULT);
 					}
 		});
 		

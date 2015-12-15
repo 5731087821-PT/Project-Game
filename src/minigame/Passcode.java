@@ -11,6 +11,7 @@ import entity.Player;
 import render.IRenderable;
 import render.RenderableHolder;
 import utility.ConfigurableOption;
+import utility.Debugger;
 import utility.InputUtility;
 
 public class Passcode implements IRenderable {
@@ -27,10 +28,18 @@ public class Passcode implements IRenderable {
 		this.width = this.height = 50;
 		this.passwordCounter = 0;
 		
-		passwords.add(new AlphabetBox(5*12, (ConfigurableOption.screenWidth/2) - 30*2, 30, 25, 25));
-		passwords.add(new AlphabetBox(10*12, (ConfigurableOption.screenWidth/2) - 30, 30, 25, 25));
-		passwords.add(new AlphabetBox(15*12, (ConfigurableOption.screenWidth/2), 30, 25, 25));
-		passwords.add(new AlphabetBox(20*12, (ConfigurableOption.screenWidth/2) + 30, 30, 25, 25));
+		passwords.add(new AlphabetBox(5*12, 
+				(ConfigurableOption.screenWidth/2) - 30*2, 30, 
+				25, 25));
+		passwords.add(new AlphabetBox(10*12, 
+				(ConfigurableOption.screenWidth/2) - 30, 30, 
+				25, 25));
+		passwords.add(new AlphabetBox(15*12, 
+				(ConfigurableOption.screenWidth/2), 30, 
+				25, 25));
+		passwords.add(new AlphabetBox(20*12, 
+				(ConfigurableOption.screenWidth/2) + 30, 30, 
+				25, 25));
 		
 		for(int i = 1 ; i<=20 ; i++){
 			randPrimaryKey.add(i);
@@ -39,7 +48,10 @@ public class Passcode implements IRenderable {
 		
 		for(int i = 0, c = 0 ; i < 5 ; i++){
 			for(int j = 0 ; j < 4 ; j++){
-				keyBoxs.add(new AlphabetBox(randPrimaryKey.get(c++)*12, (ConfigurableOption.screenWidth/2)-(int)(2.5*width)+(i*width), 100+j*height, width, height));
+				keyBoxs.add(new AlphabetBox(
+						randPrimaryKey.get(c++)*12, 
+						(ConfigurableOption.screenWidth/2)-(int)(2.5*width)+(i*width), 100+j*height, 
+						width, height));
 			}
 		}
 		
@@ -61,7 +73,6 @@ public class Passcode implements IRenderable {
 
 	@Override
 	public boolean isVisible() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 	
@@ -84,29 +95,24 @@ public class Passcode implements IRenderable {
 	
 	public void zombieAppear(){
 		NorthScreenLogic.spawnZombie = true;
-		
-		for(IRenderable rend : RenderableHolder.getInstance().getNorthRenderableList()){
-			if(rend instanceof Player){
-				((Player) rend).zombieIsComming();
-				break;
-			}
-		}
 	}
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
 		if(!isInPressAreaX() || !isInPressAreaY()) return;
 			
-		if(passwordCounter<3){
+		if(passwordCounter<4){
 			for(AlphabetBox keyBox : keyBoxs){
 				if(isInPressBoxAreaX(keyBox) && isInPressBoxAreaY(keyBox)){
-					if(keyBox.getPrimaryKey() == passwords.get(passwordCounter).getPrimaryKey()){
-						passwords.get(passwordCounter).setSelected(true);
-						keyBox.setSelected(true);
+					if(keyBox.isSelected()==AlphabetBox.CORRECT){
+						break;
+					}else if(keyBox.getPrimaryKey() == passwords.get(passwordCounter).getPrimaryKey()){
+						passwords.get(passwordCounter).setSelected(AlphabetBox.CORRECT);
+						keyBox.setSelected(AlphabetBox.CORRECT);
 						passwordCounter++;
 						break;
 					}else{
+						keyBox.setSelected(AlphabetBox.INCORECT);
 						zombieAppear();
 					}
 				}
@@ -153,8 +159,20 @@ public class Passcode implements IRenderable {
 		return false;
 	}
 
-	@Override
 	public void setDestroyed(boolean destroyed) {
+		
+	}
+
+
+	@Override
+	public void setDestroying(boolean destroyed) {
+		
+	}
+
+
+	@Override
+	public void updateAnimation() {
+		// TODO Auto-generated method stub
 		
 	}
 	

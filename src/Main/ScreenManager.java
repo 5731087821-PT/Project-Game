@@ -5,6 +5,7 @@ import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -17,6 +18,9 @@ import javax.swing.BoxLayout;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import com.sun.javafx.tk.Toolkit;
+
 import LogicGame.Logic;
 import LogicGame.NorthScreenLogic;
 import LogicGame.SouthScreenLogic;
@@ -53,7 +57,7 @@ public class ScreenManager{
 	private static PauseScreen pauseScreen;
 	private static GameOverScreen gameOverScreen;
 	
-	private static JFrame MainFrame;
+	public static JFrame MainFrame;
 	private static JPanel panelInsideFrame;
 	
 	private static ArrayList<JComponent> currentScreen = new ArrayList<>();
@@ -61,7 +65,7 @@ public class ScreenManager{
 	
 	public static void resetScreen(){
 		ConfigurableOption.PAUSE = false;
-		ConfigurableOption.stageNow = 0;
+		ConfigurableOption.stageNow = 3;
 		ConfigurableOption.COINS = 0;
 		
 		RenderableHolder.getInstance().clear();
@@ -89,6 +93,8 @@ public class ScreenManager{
 		panelInsideFrame = new JPanel();
 		panelInsideFrame.setLayout(new BoxLayout(panelInsideFrame, BoxLayout.Y_AXIS));
 		MainFrame.add(panelInsideFrame);
+		
+		MainFrame.setCursor(Resource.CURSOR_DEFAULT);
 		
 		addListener(panelInsideFrame);
 		

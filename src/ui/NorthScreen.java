@@ -19,6 +19,7 @@ public class NorthScreen extends JComponent {
 	private int width, height, statusHeight;
 	private BufferedImage img;
 	private AnimationManager bgAnimation;
+	private ArrayList<IRenderable> entity ;
 	public NorthScreen(){
 		super();
 		this.width = ConfigurableOption.screenWidth;
@@ -29,6 +30,8 @@ public class NorthScreen extends JComponent {
 		setPreferredSize(new Dimension(width, height));
 		setLayout(null);
 		setVisible(true);
+		
+		entity = (ArrayList<IRenderable>) RenderableHolder.getInstance().getNorthRenderableList();
 		
 		bgAnimation = Resource.get("town-creepy");
 		bgAnimation.loop();
@@ -50,7 +53,6 @@ public class NorthScreen extends JComponent {
 				RenderHelper.BOTTOM | RenderHelper.CENTER);
 		bgAnimation.update();
 		
-		ArrayList<IRenderable> entity = (ArrayList<IRenderable>) RenderableHolder.getInstance().getNorthRenderableList();
 		for(int i = 0 ; i<entity.size();i++){
 			if(!entity.get(i).isVisible()) 
 				continue;
@@ -62,6 +64,7 @@ public class NorthScreen extends JComponent {
 			
 			if(ConfigurableOption.stageNow != ConfigurableOption.ENDSTAGE)
 				entity.get(i).updateAnimation();
+//				System.out.println(2);
 			else if(entity.get(i) instanceof Player)
 				entity.get(i).updateAnimation();
 		}

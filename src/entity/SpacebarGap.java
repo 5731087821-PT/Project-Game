@@ -43,7 +43,10 @@ public class SpacebarGap implements IRenderable{
 		}else{
 			g2d.setColor(color);
 		}
-		g2d.fillRoundRect(x, y, width, 20, 6, 6);
+		g2d.fillRoundRect(
+				x, y, 
+				width, ConfigurableOption.spacebarTabHeight, 
+				6, 6);
 	}
 
 	@Override

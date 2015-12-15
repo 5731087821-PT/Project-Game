@@ -3,6 +3,7 @@ package minigame;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.function.Predicate;
 
@@ -13,7 +14,9 @@ import entity.Gateway;
 import entity.RunningBall;
 import entity.SpacebarGap;
 import entity.Wire;
+import render.AnimationManager;
 import render.IRenderable;
+import render.RenderHelper;
 import render.RenderableHolder;
 import resource.Resource;
 import utility.ConfigurableOption;
@@ -30,16 +33,20 @@ public class WireCut implements IRenderable {
 	protected RunningBall runningBall;
 	protected ArrayList<SpacebarGap> gaps;
 	protected ArrayList<Wire> wires;
+	private BufferedImage wireframeImage;
+	private AnimationManager wireframeAnimation;
 	
 	
 	public WireCut(){
+		wireframeAnimation = Resource.get("wireFrame");
+		wireframeImage = wireframeAnimation.getCurrentBufferedImage();
 		this.wires = new ArrayList<Wire>();
 		
-		this.width = ConfigurableOption.wireFrameWidth;
 		this.height = ConfigurableOption.wireFrameHeight;
+		this.width =  wireframeAnimation.getWidthByHeight(height);
 		this.x = (ConfigurableOption.screenWidth/2) - (width/2) ;
 		this.y = 30;
-		this.xTab = x;
+		this.xTab = ConfigurableOption.xSpacebarTab;
 		this.yTab = 30+11*height/9;
 		this.tabDistance = width;
 		this.runningBall = new RunningBall(x, 30+11*height/9, width);
@@ -94,15 +101,18 @@ public class WireCut implements IRenderable {
 	
 	@Override
 	public void draw(Graphics2D g2d) {
-		g2d.setColor(Color.DARK_GRAY);
+		RenderHelper.draw(g2d, wireframeImage, x, y, width, 0, RenderHelper.LEFT|RenderHelper.TOP);
+		g2d.setColor(new Color(245, 245, 245, 50));
 		g2d.fillRect(x, y, width, height);
-		
-		g2d.setColor(new Color(192, 192, 192));
-		g2d.fillRect(xTab, yTab, tabDistance, ConfigurableOption.spacebarTabHeight);
-
 		g2d.setColor(Color.BLACK);
 		g2d.setStroke(new BasicStroke(3));
-		g2d.drawRect(xTab - 1, yTab - 1, tabDistance, 22);
+		g2d.drawRect(x - 1, y - 1, width, height+2);
+
+		g2d.setColor(new Color(192, 192, 192));
+		g2d.fillRect(xTab, yTab, ConfigurableOption.tabDistance, ConfigurableOption.spacebarTabHeight);
+		g2d.setColor(Color.BLACK);
+		g2d.setStroke(new BasicStroke(3));
+		g2d.drawRect(xTab - 1, yTab - 1, ConfigurableOption.tabDistance, ConfigurableOption.spacebarTabHeight+2);
 	}
 
 	@Override

@@ -30,7 +30,7 @@ public class PauseScreen extends JComponent{
 		BG = Resource.get("batman-intro");
 		BG.loop();
 		width = BG.getWidth();
-		height = ConfigurableOption.screenHeight;
+		height = BG.getHeight()+60;
 		setLayout(new FlowLayout());
 		setPreferredSize(new Dimension(width, height));
 
@@ -105,7 +105,6 @@ public class PauseScreen extends JComponent{
 				new RenderHelperMouseEvent() {
 					@Override
 					public void mouseEntered(){
-						Resource.getAudio("punch").play();
 						RenderHelper.draw(g, Resource.restartButton[0], x, y, width, height, position);
 						setCursor(new Cursor(Cursor.HAND_CURSOR));
 					}
