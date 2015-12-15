@@ -10,7 +10,6 @@ import com.sun.glass.events.KeyEvent;
 
 import LogicGame.NorthScreenLogic;
 import entity.Gateway;
-import entity.Player;
 import entity.RunningBall;
 import entity.SpacebarGap;
 import entity.Wire;

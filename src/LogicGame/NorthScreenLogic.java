@@ -2,14 +2,12 @@ package LogicGame;
 
 import java.util.*;
 
-import Main.ScreenManager;
 import entity.Gateway;
 import entity.Player;
 import entity.PlayerStatus;
 import entity.Zombie;
 import render.IRenderable;
 import render.RenderableHolder;
-import resource.Resource;
 import utility.TimeToCounter;
 import utility.ConfigurableOption;
 

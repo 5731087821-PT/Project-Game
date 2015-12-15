@@ -2,10 +2,7 @@ package minigame;
 
 import java.awt.Graphics2D;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-
-import com.sun.corba.se.spi.orbutil.fsm.Input;
 
 import LogicGame.NorthScreenLogic;
 import entity.AlphabetBox;

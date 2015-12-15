@@ -3,43 +3,28 @@ package Main;
 import java.applet.AudioClip;
 import java.awt.AlphaComposite;
 import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Paint;
-import java.awt.Panel;
 import java.awt.RenderingHints;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.Timer;
-
 import LogicGame.Logic;
 import LogicGame.NorthScreenLogic;
 import LogicGame.SouthScreenLogic;
 import render.RenderableHolder;
 import resource.Resource;
-import sun.java2d.pipe.DrawImage;
 import ui.*;
 import utility.ConfigurableOption;
-import utility.Debugger;
-import utility.InputUtility;
-import utility.TimeToCounter;;
+import utility.InputUtility;;
 
 public class ScreenManager{
 	public static final int INTROSCREEN = 1;

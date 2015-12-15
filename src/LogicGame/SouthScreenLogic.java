@@ -1,7 +1,6 @@
 package LogicGame;
 
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 import java.util.List;
 
 import Main.ScreenManager;
@@ -17,7 +16,6 @@ import render.IRenderable;
 import render.RenderableHolder;
 import resource.Resource;
 import utility.ConfigurableOption;
-import utility.Debugger;
 import utility.InputUtility;
 
 public class SouthScreenLogic implements Logic{

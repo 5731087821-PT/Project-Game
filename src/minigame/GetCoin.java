@@ -1,6 +1,5 @@
 package minigame;
 
-import java.applet.AudioClip;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -11,7 +10,6 @@ import com.sun.glass.events.KeyEvent;
 
 import LogicGame.NorthScreenLogic;
 import entity.Coin;
-import entity.Player;
 import entity.PlayerStatus;
 import entity.RunningBall;
 import entity.SpacebarGap;
@@ -21,6 +19,7 @@ import resource.Resource;
 import utility.ConfigurableOption;
 import utility.InputUtility;
 import utility.RandomUtility;
+import utility.TimeToCounter;
 
 public class GetCoin implements IRenderable {
 	protected int xTab, yTab;
@@ -35,7 +34,6 @@ public class GetCoin implements IRenderable {
 	protected ArrayList<SpacebarGap> gaps;
 	protected ArrayList<Coin> coins;
 	private int spawnDelayCounter;
-	private static final int SPAWN_DELAY = 50;
 	
 
 	public GetCoin() {
@@ -82,7 +80,7 @@ public class GetCoin implements IRenderable {
 		spawnDelayCounter++;
 		runningBall.update();
 		
-		if(spawnDelayCounter >= SPAWN_DELAY && ConfigurableOption.stageNow !=2 && ConfigurableOption.coinCounter < ConfigurableOption.coinLimit){
+		if(spawnDelayCounter >= TimeToCounter.getCounter(1000) && ConfigurableOption.stageNow !=2 && ConfigurableOption.coinCounter < ConfigurableOption.coinLimit){
 			if(ConfigurableOption.seedCoin%30==0) ConfigurableOption.seedCoin = 0;
 			disappearCounter = RandomUtility.random(200, 500);
 			spawnDelayCounter =0;

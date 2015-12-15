@@ -1,29 +1,19 @@
 package minigame;
 
-import java.applet.AudioClip;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.util.ArrayList;
-import java.util.function.Predicate;
-
 import com.sun.glass.events.KeyEvent;
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.Redefinable;
-
 import LogicGame.NorthScreenLogic;
-import entity.Coin;
 import entity.Gateway;
-import entity.Player;
 import entity.PlayerStatus;
 import entity.RunningBall;
 import entity.SpacebarGap;
-import entity.Zombie;
 import render.IRenderable;
 import render.RenderableHolder;
 import resource.Resource;
 import utility.ConfigurableOption;
 import utility.InputUtility;
-import utility.RandomUtility;
 
 public class OpenGatewayZero implements IRenderable {
 	protected int xTab, yTab;
