@@ -1,9 +1,6 @@
 package minigame;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.GraphicsConfiguration;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
@@ -13,9 +10,6 @@ import java.util.Collections;
 import com.sun.glass.events.KeyEvent;
 import LogicGame.NorthScreenLogic;
 import entity.Gateway;
-import entity.PlayerStatus;
-import entity.RunningBall;
-import entity.SpacebarGap;
 import render.IRenderable;
 import render.RenderHelper;
 import render.RenderableHolder;
@@ -47,7 +41,6 @@ public class OpenGatewayZero implements IRenderable {
 			passwords.add(i);
 		}
 		Collections.shuffle(passwords);
-		
 	}
 
 	@Override
