@@ -74,10 +74,10 @@ public class Player implements IRenderable {
 		}else if(ConfigurableOption.stageNow == 3 && x < ConfigurableOption.xGateway2 + 70){
 			this.x+=2;
 			setWalking(true);
-		}else if(ConfigurableOption.stageNow >= ConfigurableOption.GAMEOVER && x < ConfigurableOption.screenWidth + charWidth){
+		}else if(ConfigurableOption.stageNow >= ConfigurableOption.ENDSTAGE && x < ConfigurableOption.screenWidth + charWidth){
 			this.x+=2;
 			setWalking(true);
-		}else if(ConfigurableOption.stageNow >=  ConfigurableOption.GAMEOVER){
+		}else if(ConfigurableOption.stageNow >=  ConfigurableOption.ENDSTAGE){
 			ScreenManager.changeScreen(ScreenManager.WINNINGSCREEN);
 		}else{
 			setWalking(false);
@@ -102,8 +102,11 @@ public class Player implements IRenderable {
 		if(!destroying){
 			RenderAnimationHelper.draw(g2d, animation, x, y,0, charHeight);
 		}else{
-			if(deadCounter == 0)
+			if(deadCounter == 0){
+				ScreenManager.bgm.stop();
+				Resource.getAudio("dead").play();
 				deadCounter = 150;
+			}
 			
 			if(deadCounter%25<12)
 				RenderAnimationHelper.draw(g2d, animation, x, y,0, charHeight);
@@ -117,7 +120,6 @@ public class Player implements IRenderable {
 	
 	public void zombieIsComming(){
 		threadCounterReset();
-		Debugger.printTest(this);
 		synchronized (playerLocker) {
 			playerLocker.notifyAll();
 		}
@@ -150,11 +152,12 @@ public class Player implements IRenderable {
 	public void creatThread(){
 		new Thread(new Runnable() {
 			public void run() {
+				long startTime = System.currentTimeMillis();
+				long endTime = System.currentTimeMillis();
+				AudioClip zombie = Resource.getAudio("zombie");
 				synchronized (playerLocker) {
 					try {
-						Debugger.printTest(this);
 						playerLocker.wait();
-						Debugger.printTest(this);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
@@ -163,10 +166,13 @@ public class Player implements IRenderable {
 					try {
 						Thread.sleep(utility.ConfigurableOption.sleepTime);
 					} catch (InterruptedException e) {}
-					
-					if(getThreadCounter()==0){
-						AudioClip zombie = Resource.getAudio("zombiedeath");
-						zombie.play();	
+
+					endTime = System.currentTimeMillis();
+					if(getThreadCounter()==1){
+						if(endTime - startTime > 4000){
+							zombie.play();
+							startTime = System.currentTimeMillis();
+						}	
 					}else if(getThreadCounter()==TimeToCounter.getCounter(75)){
 						animation.flip(AnimationManager.FlipToUnUsual);
 					}else if(getThreadCounter()==TimeToCounter.getCounter(500)){
@@ -201,7 +207,7 @@ public class Player implements IRenderable {
 	}
 
 	@Override
-	public void setDestroyed(boolean destroyed) {
+	public void setDestroying(boolean destroyed) {
 		this.destroying = destroyed;
 	}
 

@@ -1,6 +1,7 @@
 package ui;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
@@ -33,10 +34,6 @@ public class PauseScreen extends JComponent{
 		height = ConfigurableOption.screenHeight;
 		setLayout(new FlowLayout());
 		setPreferredSize(new Dimension(width, height));
-		continueButton[0] = Resource.getImage("button2",0);
-		continueButton[1] = Resource.getImage("button2",1);
-		exitButton[0] = Resource.getImage("button1",2);
-		exitButton[1] = Resource.getImage("button1",3);
 
 		setBackground(Color.WHITE);
 		setDoubleBuffered(true);
@@ -77,6 +74,7 @@ public class PauseScreen extends JComponent{
 				new RenderHelperMouseEvent() {
 					@Override
 					public void mouseEntered(){
+						Resource.getAudio("punch").play();
 						RenderHelper.draw(g, continueButton[0], x, y, width, height, position);
 					}
 
@@ -94,6 +92,40 @@ public class PauseScreen extends JComponent{
 					@Override
 					public void mouseExited() {
 						RenderHelper.draw(g, continueButton[1], x, y, width, height, position);
+					}
+		});
+	}
+	private void drawReStartBT(Graphics2D g, BufferedImage img, int x, int y, int width, int height, int position){
+		RenderHelper.draw(
+				null, 
+				img, 
+				x, y, 
+				width, height, 
+				position,
+				new RenderHelperMouseEvent() {
+					@Override
+					public void mouseEntered(){
+						Resource.getAudio("punch").play();
+						RenderHelper.draw(g, Resource.restartButton[0], x, y, width, height, position);
+						setCursor(new Cursor(Cursor.HAND_CURSOR));
+					}
+
+					@Override
+					public void mouseClicked() {
+						ScreenManager.resetScreen();
+						ScreenManager.changeScreen(ScreenManager.GAMESCREEN);
+					}
+
+					@Override
+					public void mousePressed() {}
+
+					@Override
+					public void mouseReleased() {}
+
+					@Override
+					public void mouseExited() {
+						RenderHelper.draw(g, Resource.restartButton[1], x, y, width, height, position);
+						setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 					}
 		});
 	}

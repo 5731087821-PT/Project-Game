@@ -56,7 +56,7 @@ public class ScreenManager{
 	public static Object locker2 = new Object();
 	public static boolean chagingScreen;
 
-	private static AudioClip bgm;
+	public static AudioClip bgm;
 	
 	private static boolean initialize;
 	
@@ -76,6 +76,8 @@ public class ScreenManager{
 	
 	public static void resetScreen(){
 		ConfigurableOption.PAUSE = false;
+		ConfigurableOption.stageNow = 0;
+		ConfigurableOption.COINS = 0;
 		
 		RenderableHolder.getInstance().clear();
 		
@@ -143,6 +145,7 @@ public class ScreenManager{
 //			fadeScreen(panelInsideFrame, FADEOUT);
 		
 		bgm.stop();
+		Resource.getAudio("bump").play();
 		panelInsideFrame.removeAll();
 		currentScreen.clear();
 		currentLogic.clear();

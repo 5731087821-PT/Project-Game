@@ -86,7 +86,7 @@ public class RunningBall implements IRenderable{
 	}
 
 	@Override
-	public void setDestroyed(boolean destroyed) {
+	public void setDestroying(boolean destroyed) {
 		this.destroyed = destroyed;
 	}
 

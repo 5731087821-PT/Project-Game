@@ -74,7 +74,7 @@ public class Coin implements IRenderable{
 		return true;
 	}
 
-	public void setDestroyed(boolean destroyed) {
+	public void setDestroying(boolean destroyed) {
 		this.destroyed = destroyed;
 	}
 

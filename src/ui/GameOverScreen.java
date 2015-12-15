@@ -20,7 +20,6 @@ import utility.ConfigurableOption;
 @SuppressWarnings("serial")
 public class GameOverScreen extends JComponent{
 	
-	private BufferedImage[] restartButton = new BufferedImage[2];
 	private AnimationManager BG;
 	private BufferedImage img;
 	private int width,height;
@@ -33,8 +32,6 @@ public class GameOverScreen extends JComponent{
 		height = BG.getHeightByWidth(width);
 		setLayout(new FlowLayout());
 		setPreferredSize(new Dimension(width, height));
-		restartButton[0] = Resource.getImage("button-restart",0);
-		restartButton[1] = Resource.getImage("button-restart",1);
 
 		setBackground(Color.WHITE);
 		setDoubleBuffered(true);
@@ -52,9 +49,9 @@ public class GameOverScreen extends JComponent{
 				0, height, 
 				RenderHelper.TOP|RenderHelper.CENTER);
 		drawStartBT(
-				g2d,restartButton[1], 
-				10, 10, 
-				0, 67, 
+				g2d,Resource.restartButton[1], 
+				20, 15, 
+				0, 60, 
 				RenderHelper.TOP|RenderHelper.LEFT);
 		
 		BG.update();
@@ -70,7 +67,8 @@ public class GameOverScreen extends JComponent{
 				new RenderHelperMouseEvent() {
 					@Override
 					public void mouseEntered(){
-						RenderHelper.draw(g, restartButton[0], x, y, width, height, position);
+						Resource.getAudio("punch").play();
+						RenderHelper.draw(g, Resource.restartButton[0], x, y, width, height, position);
 						setCursor(new Cursor(Cursor.HAND_CURSOR));
 					}
 
@@ -88,7 +86,7 @@ public class GameOverScreen extends JComponent{
 
 					@Override
 					public void mouseExited() {
-						RenderHelper.draw(g, restartButton[1], x, y, width, height, position);
+						RenderHelper.draw(g, Resource.restartButton[1], x, y, width, height, position);
 						setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 					}
 		});

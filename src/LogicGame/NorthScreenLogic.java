@@ -1,11 +1,15 @@
 package LogicGame;
 
 import java.util.*;
+
+import Main.ScreenManager;
 import entity.Gateway;
 import entity.Player;
 import entity.PlayerStatus;
 import entity.Zombie;
+import render.IRenderable;
 import render.RenderableHolder;
+import resource.Resource;
 import utility.TimeToCounter;
 import utility.ConfigurableOption;
 
@@ -19,6 +23,7 @@ public class NorthScreenLogic implements Logic{
 	private int movingDelayCounter;
 	private SouthScreenLogic southScreenLogic;
 	public static boolean spawnZombie;
+	private List<IRenderable> list;
 	
 	public NorthScreenLogic(){
 		this.player = new Player();
@@ -31,6 +36,7 @@ public class NorthScreenLogic implements Logic{
 		this.firstZombie = true;
 		spawnZombie = true;
 		
+		list = RenderableHolder.getInstance().getNorthRenderableList();
 		RenderableHolder.getInstance().addNorthEntity(player);
 		RenderableHolder.getInstance().addNorthEntity(playerStatus);
 		RenderableHolder.getInstance().addNorthEntity(gateway1);
@@ -60,6 +66,12 @@ public class NorthScreenLogic implements Logic{
 				Zombie zombie = new Zombie(zombies.size()+1);
 				RenderableHolder.getInstance().addNorthEntity(zombie);
 				zombies.add(zombie);
+				for(IRenderable rend : list){
+					if(rend instanceof Player){
+						((Player) rend).zombieIsComming();
+						break;
+					}
+				}
 			}
 		}
 		
@@ -68,10 +80,7 @@ public class NorthScreenLogic implements Logic{
 			for(Zombie zombie : zombies){
 				zombie.update();
 				if(player.collideWith(zombie)){
-					player.setDestroyed(true);
-				}
-				
-				if(player.isDestroying()){
+					player.setDestroying(true);
 					zombie.moving = false;
 				}
 			}
@@ -79,7 +88,7 @@ public class NorthScreenLogic implements Logic{
 		
 		if(ConfigurableOption.stageNow==4){
 			for(Zombie zombie : zombies){
-				zombie.setDestroyed(true);
+				zombie.setDestroying(true);
 				zombie.moving = false;
 			}
 		}

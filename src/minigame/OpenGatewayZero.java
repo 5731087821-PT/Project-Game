@@ -64,14 +64,14 @@ public class OpenGatewayZero implements IRenderable {
 	}
 
 	public void enterSpacebar() {
-		runningBall.setDestroyed(true);
+		runningBall.setDestroying(true);
 		answerCounter++;
 
 		if (answerCounter >= 3) {
 			for (IRenderable renderable : RenderableHolder.getInstance().getNorthRenderableList()) {
 				if (renderable instanceof Gateway && ((Gateway) renderable).getX() == ConfigurableOption.xGateway1) {
 					((Gateway) renderable).setGateClose(false);
-					ConfigurableOption.stageNow = 1;
+					ConfigurableOption.stageNow++;
 					break;
 				}
 			}
@@ -82,8 +82,6 @@ public class OpenGatewayZero implements IRenderable {
 		return (runningBall.getX() + runningBall.getDiameter() - gap.getX()) > 10
 				&& (gap.getX() + ConfigurableOption.gapWidth - runningBall.getX() > 10);
 	}
-	
-	
 
 	@Override
 	public void update() {
@@ -94,11 +92,14 @@ public class OpenGatewayZero implements IRenderable {
 			if (InputUtility.getKeyTriggered(KeyEvent.VK_SPACE)) {
 				answer = false;
 				if (enterInGap(gap)) {
+					
 					answer = true;
+					Resource.getAudio("gotitem").play();
 					enterSpacebar();
 				}
 
 				if (!answer) {
+					Resource.getAudio("bump").play();
 					zombieAppear();
 				}
 			}
@@ -114,12 +115,6 @@ public class OpenGatewayZero implements IRenderable {
 	public void zombieAppear(){
 		NorthScreenLogic.spawnZombie = true;
 
-		for(IRenderable rend : RenderableHolder.getInstance().getNorthRenderableList()){
-			if(rend instanceof Player){
-				((Player) rend).zombieIsComming();
-				break;
-			}
-		}
 	}
 	
 	public SpacebarGap getGap(){
@@ -151,7 +146,7 @@ public class OpenGatewayZero implements IRenderable {
 	}
 
 	@Override
-	public void setDestroyed(boolean destroyed) {
+	public void setDestroying(boolean destroyed) {
 		this.destroyed = destroyed;
 	}
 
