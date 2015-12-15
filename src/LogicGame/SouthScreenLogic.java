@@ -64,8 +64,9 @@ public class SouthScreenLogic implements Logic{
 		}
 		
 		if(ConfigurableOption.stageNow == 1 && list.contains(openGatewayZero)){
-			list.remove(openGatewayZero.getGap());
-			list.remove(openGatewayZero.getRunningBall());
+			for(Integer password : openGatewayZero.getPassword()){
+				list.remove(password);
+			}
 			list.remove(openGatewayZero);
 			openGatewayZero = null;
 			startStage = true;

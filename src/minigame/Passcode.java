@@ -154,7 +154,14 @@ public class Passcode implements IRenderable {
 	}
 
 	@Override
-	public void setDestroyed(boolean destroyed) {
+	public void setDestroying(boolean destroyed) {
+		
+	}
+
+
+	@Override
+	public void updateAnimation() {
+		// TODO Auto-generated method stub
 		
 	}
 	

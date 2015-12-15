@@ -96,6 +96,8 @@ public class Resource {
 			rs.put("button-start", read("res/etc/button-start.2.png"));
 			rs.put("button-restart", read("res/etc/button-restart.2.png"));
 			rs.put("batman-icon", read("res/etc/batman-icon.png"));
+			
+			rs.put("coin", read("res/minigame/getcoin/Puffle_Rescue_Coin.png"));
 
 		} catch (FethResourceException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(), 

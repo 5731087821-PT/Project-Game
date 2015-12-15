@@ -2,6 +2,7 @@ package LogicGame;
 
 import java.util.*;
 
+import Main.ScreenManager;
 import entity.Gateway;
 import entity.Player;
 import entity.PlayerStatus;
