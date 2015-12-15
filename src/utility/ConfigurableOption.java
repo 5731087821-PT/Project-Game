@@ -38,6 +38,4 @@ public class ConfigurableOption {
 	public static int COINS = 0;
 	
 	public static int TEST = 0;
-	
-//	public static boolean GAMEOVER = false;
 }
