@@ -73,7 +73,6 @@ public class PauseScreen extends JComponent{
 				new RenderHelperMouseEvent() {
 					@Override
 					public void mouseEntered(){
-						Resource.getAudio("punch").play();
 						Debugger.printTest(this);
 
 						RenderHelper.draw(g, Resource.continueButton[0], x, y, width, height, position);

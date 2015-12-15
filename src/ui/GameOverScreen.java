@@ -67,7 +67,6 @@ public class GameOverScreen extends JComponent{
 				new RenderHelperMouseEvent() {
 					@Override
 					public void mouseEntered(){
-						Resource.getAudio("punch").play();
 						RenderHelper.draw(g, Resource.restartButton[0], x, y, width, height, position);
 						setCursor(new Cursor(Cursor.HAND_CURSOR));
 					}

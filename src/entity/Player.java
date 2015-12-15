@@ -113,7 +113,6 @@ public class Player implements IRenderable {
 			
 			if(--deadCounter == 0){
 				destroyed = true;
-				ScreenManager.changeScreen(ScreenManager.GAMEOVERSCREEN);
 			}
 		}
 	}

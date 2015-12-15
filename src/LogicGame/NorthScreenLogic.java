@@ -42,12 +42,18 @@ public class NorthScreenLogic implements Logic{
 	}
 	
 	public void logicUpdate() {
+		if(player.isDestroyed())
+			ScreenManager.changeScreen(ScreenManager.GAMEOVERSCREEN);
+		if(player.isDestroying())
+			return;
+		
 		gateway1.update();
 		gateway2.update();
 		player.update();
 		playerStatus.update();
 		movingDelayCounter++;
 		spawnZombieCounter++;
+		
 		
 		if(firstZombie && spawnZombieCounter<TimeToCounter.getCounter(10000)) return;
 		
