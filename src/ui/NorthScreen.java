@@ -30,7 +30,7 @@ public class NorthScreen extends JComponent {
 		setLayout(null);
 		setVisible(true);
 		
-		bgAnimation = Resource.get("city");
+		bgAnimation = Resource.get("town-creepy");
 		bgAnimation.loop();
 	}
 	
@@ -42,7 +42,12 @@ public class NorthScreen extends JComponent {
 		g2d.fillRect(0, 0, width, height);
 		
 		img = bgAnimation.getCurrentBufferedImage();
-		RenderHelper.draw(g2d, img, width/2, height, 0, height-statusHeight-20, RenderHelper.BOTTOM | RenderHelper.CENTER);
+		RenderHelper.draw(
+				g2d, img, 
+				width/2, height, 
+//				0, height-statusHeight-20, 
+				width, 0, 
+				RenderHelper.BOTTOM | RenderHelper.CENTER);
 		bgAnimation.update();
 		
 		ArrayList<IRenderable> entity = (ArrayList<IRenderable>) RenderableHolder.getInstance().getNorthRenderableList();
@@ -55,7 +60,7 @@ public class NorthScreen extends JComponent {
 			}
 			entity.get(i).draw(g2d);
 			
-			if(ConfigurableOption.stageNow != ConfigurableOption.GAMEOVER)
+			if(ConfigurableOption.stageNow != ConfigurableOption.ENDSTAGE)
 				entity.get(i).updateAnimation();
 			else if(entity.get(i) instanceof Player)
 				entity.get(i).updateAnimation();

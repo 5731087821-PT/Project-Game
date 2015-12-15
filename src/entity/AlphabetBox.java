@@ -51,7 +51,7 @@ public class AlphabetBox implements IRenderable {
 	}
 
 	@Override
-	public void setDestroyed(boolean destroyed) {
+	public void setDestroying(boolean destroyed) {
 		
 	}
 

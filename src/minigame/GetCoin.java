@@ -75,13 +75,6 @@ public class GetCoin implements IRenderable {
 	
 	public void zombieAppear(){
 		NorthScreenLogic.spawnZombie = true;
-		
-		for(IRenderable rend : RenderableHolder.getInstance().getNorthRenderableList()){
-			if(rend instanceof Player){
-				((Player) rend).zombieIsComming();
-				break;
-			}
-		}
 	}
 
 	@Override
@@ -123,13 +116,14 @@ public class GetCoin implements IRenderable {
 			answer = false;
 			for (SpacebarGap gap : gaps) {
 				if (enterInGap(gap)) {
-					gap.setDestroyed(true);
+					gap.setDestroying(true);
 					for(Coin coin : coins){
 						if(coin.seed == gap.seed){
-							coin.setDestroyed(true);
+							coin.setDestroying(true);
 							break;
 						}
 					}
+					Resource.getAudio("collect").play();
 					playerStatus.addScore(playerStatus.getCombo());
 					playerStatus.addCombo(1);
 					answer = true;
@@ -137,14 +131,15 @@ public class GetCoin implements IRenderable {
 				}
 			}
 			if (!answer) {
+				Resource.getAudio("bump").play();
 				zombieAppear();
 				playerStatus.subtractionScore(2);
-				playerStatus.comboInterrupted(); ;
+				playerStatus.comboInterrupted();
 			}
 		}
 		
 		if (InputUtility.getKeyTriggered(KeyEvent.VK_ENTER)){
-			ConfigurableOption.stageNow = 2;
+			ConfigurableOption.stageNow++;
 		}
 
 		for (SpacebarGap gap : gaps) {
@@ -208,7 +203,7 @@ public class GetCoin implements IRenderable {
 	}
 
 	@Override
-	public void setDestroyed(boolean destroyed) {
+	public void setDestroying(boolean destroyed) {
 		this.destroyed = destroyed;
 	}
 

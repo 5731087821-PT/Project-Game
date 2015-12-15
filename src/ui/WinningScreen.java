@@ -21,7 +21,6 @@ import utility.ConfigurableOption;
 @SuppressWarnings("serial")
 public class WinningScreen extends JComponent{
 	
-	private BufferedImage[] restartButton = new BufferedImage[2];
 	private AnimationManager BG;
 	private BufferedImage img;
 	private int width,height;
@@ -34,10 +33,8 @@ public class WinningScreen extends JComponent{
 		height = ConfigurableOption.screenHeight;
 		setLayout(new FlowLayout());
 		setPreferredSize(new Dimension(width, height));
-		restartButton[0] = Resource.getImage("button-restart",0);
-		restartButton[1] = Resource.getImage("button-restart",1);
 		
-		HighScoreUtility.recordHighScore(ConfigurableOption.coins);
+		HighScoreUtility.recordHighScore(ConfigurableOption.COINS);
 
 		setBackground(Color.WHITE);
 		setDoubleBuffered(true);
@@ -54,8 +51,8 @@ public class WinningScreen extends JComponent{
 				width/2, 0, 
 				width/2, 0, 
 				RenderHelper.TOP|RenderHelper.CENTER);
-		drawStartBT(
-				g2d,restartButton[1], 
+		drawReStartBT(
+				g2d,Resource.restartButton[1], 
 				20, height-20, 
 				0, 100, 
 				RenderHelper.BOTTOM|RenderHelper.LEFT);
@@ -63,7 +60,7 @@ public class WinningScreen extends JComponent{
 		BG.update();
 	}
 
-	private void drawStartBT(Graphics2D g, BufferedImage img, int x, int y, int width, int height, int position){
+	private void drawReStartBT(Graphics2D g, BufferedImage img, int x, int y, int width, int height, int position){
 		RenderHelper.draw(
 				null, 
 				img, 
@@ -73,7 +70,8 @@ public class WinningScreen extends JComponent{
 				new RenderHelperMouseEvent() {
 					@Override
 					public void mouseEntered(){
-						RenderHelper.draw(g, restartButton[0], x, y, width, height, position);
+						Resource.getAudio("punch").play();
+						RenderHelper.draw(g, Resource.restartButton[0], x, y, width, height, position);
 						setCursor(new Cursor(Cursor.HAND_CURSOR));
 					}
 
@@ -91,11 +89,10 @@ public class WinningScreen extends JComponent{
 
 					@Override
 					public void mouseExited() {
-						RenderHelper.draw(g, restartButton[1], x, y, width, height, position);
+						RenderHelper.draw(g, Resource.restartButton[1], x, y, width, height, position);
 						setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 					}
 		});
-		
 	}
 
 }

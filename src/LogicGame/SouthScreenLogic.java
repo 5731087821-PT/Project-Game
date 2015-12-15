@@ -1,6 +1,8 @@
 package LogicGame;
 
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 import Main.ScreenManager;
 import entity.AlphabetBox;
@@ -11,8 +13,11 @@ import minigame.OpenGatewayZero;
 import minigame.Passcode;
 import minigame.WireCut;
 import minigame.GetCoin;
+import render.IRenderable;
 import render.RenderableHolder;
+import resource.Resource;
 import utility.ConfigurableOption;
+import utility.Debugger;
 import utility.InputUtility;
 
 public class SouthScreenLogic implements Logic{
@@ -22,9 +27,11 @@ public class SouthScreenLogic implements Logic{
 	protected WireCut wireCut;
 	private NorthScreenLogic northScreenLogic;
 	private boolean startStage;
+	private List<IRenderable> list;
 	
 	public SouthScreenLogic(){
 		this.startStage = true;
+		list = RenderableHolder.getInstance().getSouthRenderableList();
 	}
 	
 	public void logicUpdate() {
@@ -37,61 +44,67 @@ public class SouthScreenLogic implements Logic{
 		if(startStage){
 			startStage = false;
 			if(ConfigurableOption.stageNow == 0){
+//				Resource.getAudio("startgame").play();
 				this.openGatewayZero = new OpenGatewayZero();
 				RenderableHolder.getInstance().addSouthEntity(openGatewayZero);
 			}else if(ConfigurableOption.stageNow == 1){
+				Resource.getAudio("dooropen").play();
 				this.getCoin = new GetCoin();
 				getCoin.setPlayerStatus(northScreenLogic.playerStatus);
 				RenderableHolder.getInstance().addSouthEntity(getCoin);
 			}else if(ConfigurableOption.stageNow == 2){
+				Resource.getAudio("dooropen").play();
 				this.wireCut = new WireCut();
 				RenderableHolder.getInstance().addSouthEntity(wireCut);
 			}else if(ConfigurableOption.stageNow ==3){
+				Resource.getAudio("dooropen").play();
 				this.passcode = new Passcode();
 				RenderableHolder.getInstance().addSouthEntity(passcode);
+			}else if(ConfigurableOption.stageNow ==4){
+				Resource.getAudio("dooropen").play();
 			}
 		}
 		
-		if(ConfigurableOption.stageNow == 1 && RenderableHolder.getInstance().getSouthRenderableList().contains(openGatewayZero)){
-			RenderableHolder.getInstance().getSouthRenderableList().remove(openGatewayZero.getGap());
-			RenderableHolder.getInstance().getSouthRenderableList().remove(openGatewayZero.getRunningBall());
-			RenderableHolder.getInstance().getSouthRenderableList().remove(openGatewayZero);
+		if(ConfigurableOption.stageNow == 1 && list.contains(openGatewayZero)){
+			list.remove(openGatewayZero.getGap());
+			list.remove(openGatewayZero.getRunningBall());
+			list.remove(openGatewayZero);
 			openGatewayZero = null;
 			startStage = true;
-		}else if(ConfigurableOption.stageNow == 2 && RenderableHolder.getInstance().getSouthRenderableList().contains(getCoin)){
+		}else if(ConfigurableOption.stageNow == 2 && list.contains(getCoin)){
 			for(Coin coin : getCoin.getCoin()){
-				RenderableHolder.getInstance().getSouthRenderableList().remove(coin);
+				list.remove(coin);
 			}
 			for(SpacebarGap gap : getCoin.getGap()){
-				RenderableHolder.getInstance().getSouthRenderableList().remove(gap);
+				list.remove(gap);
 			}
-			RenderableHolder.getInstance().getSouthRenderableList().remove(getCoin.getRunningBall());
-			RenderableHolder.getInstance().getSouthRenderableList().remove(getCoin);
+			list.remove(getCoin.getRunningBall());
+			list.remove(getCoin);
 			getCoin = null;
 			startStage = true;
-		}else if(ConfigurableOption.stageNow == 3 && RenderableHolder.getInstance().getSouthRenderableList().contains(wireCut)){
+		}else if(ConfigurableOption.stageNow == 3 && list.contains(wireCut)){
 			for(SpacebarGap gap : wireCut.getGap()){
-				RenderableHolder.getInstance().getSouthRenderableList().remove(gap);
+				list.remove(gap);
 			}
 			for(Wire wire : wireCut.getWire()){
-				RenderableHolder.getInstance().getSouthRenderableList().remove(wire);
+				list.remove(wire);
 			}
-			RenderableHolder.getInstance().getSouthRenderableList().remove(wireCut.getRunningBall());
-			RenderableHolder.getInstance().getSouthRenderableList().remove(wireCut);
+			list.remove(wireCut.getRunningBall());
+			list.remove(wireCut);
 			wireCut = null;
 			startStage = true;
-		}else if(ConfigurableOption.stageNow == 4 && RenderableHolder.getInstance().getSouthRenderableList().contains(passcode)){
+		}else if(ConfigurableOption.stageNow == 4 && list.contains(passcode)){
 			for(AlphabetBox keyBox : passcode.getKeyBox()){
-				RenderableHolder.getInstance().getSouthRenderableList().remove(keyBox);
+				list.remove(keyBox);
 			}
 			for(AlphabetBox password : passcode.getPassword()){
-				RenderableHolder.getInstance().getSouthRenderableList().remove(password);
+				list.remove(password);
 			}
-			RenderableHolder.getInstance().getSouthRenderableList().remove(passcode);
+			list.remove(passcode);
 			passcode = null;
 			startStage = true;
-		}else if(ConfigurableOption.stageNow >= ConfigurableOption.GAMEOVER){
-			RenderableHolder.getInstance().getSouthRenderableList().clear();
+		}else if(ConfigurableOption.stageNow >= ConfigurableOption.ENDSTAGE){
+			list.clear();
 			
 			openGatewayZero = null;
 			getCoin = null;

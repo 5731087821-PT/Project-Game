@@ -132,7 +132,6 @@ public class ImageReader {
 			}
 			
 		} 
-		
-		return null;
+		throw new FethResourceException(FethResourceException.ANIMATION, url);
 	}
 }

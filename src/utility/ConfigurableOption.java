@@ -11,7 +11,7 @@ public class ConfigurableOption {
 	public static final int screenWidth = 720;//720
 	public static final int screenHeight = northScreenHeight+southScreenHeight;
 	public static final int statusHeight = 40;
-	public static final int GAMEOVER = 4;
+	public static final int ENDSTAGE = 4;
 	
 	public static final int STARTSCREEN = ScreenManager.INTROSCREEN;
 
@@ -31,12 +31,11 @@ public class ConfigurableOption {
 	public static int wireFrameWidth = 300;
 	public static int wireFrameHeight = 100;
 	
-	public static int stageNow = 0;
+	public static int stageNow = 4;
 	public static int seedCoin = 0;
 	public static int coinLimit = 10;
 	public static int coinCounter = 0;
-	public static int coins = 100;
-	public static int TEST = 0;
+	public static int COINS = 0;
 	
-//	public static boolean GAMEOVER = false;
+	public static int TEST = 0;
 }

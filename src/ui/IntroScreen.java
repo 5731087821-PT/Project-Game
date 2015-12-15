@@ -21,8 +21,6 @@ import utility.ConfigurableOption;
 @SuppressWarnings("serial")
 public class IntroScreen extends JComponent{
 	
-	private BufferedImage[] playButton = new BufferedImage[2];
-	private BufferedImage[] rankButton = new BufferedImage[2];
 	private AnimationManager BG;
 	private BufferedImage img;
 	private int width,height;
@@ -36,12 +34,8 @@ public class IntroScreen extends JComponent{
 		height = 560;
 		setLayout(new FlowLayout());
 		setPreferredSize(new Dimension(width, height));
-		playButton[0] = Resource.getImage("button-start",0);
-		playButton[1] = Resource.getImage("button-start",1);
-		playButton[0] = Resource.getImage("button1",0);
-		playButton[1] = Resource.getImage("button1",1);
-		rankButton[0] = Resource.getImage("button1",4);
-		rankButton[1] = Resource.getImage("button1",5);
+//		playButton[0] = Resource.getImage("button-start",0);
+//		playButton[1] = Resource.getImage("button-start",1);
 
 		setBackground(Color.WHITE);
 		setDoubleBuffered(true);
@@ -75,14 +69,15 @@ public class IntroScreen extends JComponent{
 	private void drawStartBT(Graphics2D g,int x, int y, int width, int height, int position){
 		RenderHelper.draw(
 				null, 
-				playButton[1], 
+				Resource.playButton[1], 
 				x, y, 
 				width, height, 
 				position,
 				new RenderHelperMouseEvent() {
 					@Override
 					public void mouseEntered(){
-						RenderHelper.draw(g, playButton[0], x, y, width, height, position);
+						Resource.getAudio("punch").play();
+						RenderHelper.draw(g, Resource.playButton[0], x, y, width, height, position);
 						setCursor(new Cursor(Cursor.HAND_CURSOR));
 					}
 
@@ -100,7 +95,7 @@ public class IntroScreen extends JComponent{
 
 					@Override
 					public void mouseExited() {
-						RenderHelper.draw(g, playButton[1], x, y, width, height, position);
+						RenderHelper.draw(g, Resource.playButton[1], x, y, width, height, position);
 						setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 					}
 		});
@@ -110,14 +105,15 @@ public class IntroScreen extends JComponent{
 	private void drawRankBT(Graphics2D g, int x, int y, int width, int height, int position){
 		RenderHelper.draw(
 				null, 
-				rankButton[0], 
+				Resource.rankButton[1], 
 				x, y, 
 				width, height, 
 				position,
 				new RenderHelperMouseEvent() {
 					@Override
 					public void mouseEntered(){
-						RenderHelper.draw(g, rankButton[0], x, y, width, height, position);
+						Resource.getAudio("punch").play();
+						RenderHelper.draw(g, Resource.rankButton[0], x, y, width, height, position);
 						setCursor(new Cursor(Cursor.HAND_CURSOR));
 					}
 
@@ -134,7 +130,7 @@ public class IntroScreen extends JComponent{
 
 					@Override
 					public void mouseExited() {
-						RenderHelper.draw(g, rankButton[1], x, y, width, height, position);
+						RenderHelper.draw(g, Resource.rankButton[1], x, y, width, height, position);
 						setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 					}
 		});

@@ -16,6 +16,7 @@ import entity.SpacebarGap;
 import entity.Wire;
 import render.IRenderable;
 import render.RenderableHolder;
+import resource.Resource;
 import utility.ConfigurableOption;
 import utility.InputUtility;
 import utility.RandomUtility;
@@ -90,13 +91,6 @@ public class WireCut implements IRenderable {
 	
 	public void zombieAppear(){
 		NorthScreenLogic.spawnZombie = true;
-		
-		for(IRenderable rend : RenderableHolder.getInstance().getNorthRenderableList()){
-			if(rend instanceof Player){
-				((Player) rend).zombieIsComming();
-				break;
-			}
-		}
 	}
 	
 	@Override
@@ -123,7 +117,7 @@ public class WireCut implements IRenderable {
 	}
 
 	@Override
-	public void setDestroyed(boolean destroyed) {
+	public void setDestroying(boolean destroyed) {
 		
 	}
 
@@ -135,7 +129,7 @@ public class WireCut implements IRenderable {
 			for (IRenderable renderable : RenderableHolder.getInstance().getNorthRenderableList()) {
 				if (renderable instanceof Gateway && ((Gateway) renderable).getX() == ConfigurableOption.xGateway2) {
 					((Gateway) renderable).setGateClose(false);
-					ConfigurableOption.stageNow = 3;
+					ConfigurableOption.stageNow++;
 					break;
 				}
 			}
@@ -145,17 +139,19 @@ public class WireCut implements IRenderable {
 			boolean answer = false;
 			for (SpacebarGap gap : gaps) {
 				if (enterInGap(gap)) {
-					gap.setDestroyed(true);
+					gap.setDestroying(true);
 					for(Wire wire : wires){
 						if(wire.getPrimaryKey() == gap.getPrimaryKey()){
-							wire.setDestroyed(true);
+							wire.setDestroying(true);
 							break;
 						}
 					}
 					answer = true;
+					Resource.getAudio("gotitem").play();
 				}
 			}
 			if (!answer) {
+				Resource.getAudio("bump").play();
 				zombieAppear();
 			}
 		}

@@ -21,7 +21,7 @@ public class PlayerStatus implements IRenderable{
 
 	
 	public void addScore(int coin){
-		ConfigurableOption.coins += coin;
+		ConfigurableOption.COINS += coin;
 	}
 	
 	public void comboInterrupted(){
@@ -33,8 +33,8 @@ public class PlayerStatus implements IRenderable{
 	}
 	
 	public void subtractionScore(int coin){
-		ConfigurableOption.coins -= coin;
-		if(ConfigurableOption.coins<0) ConfigurableOption.coins = 0;
+		ConfigurableOption.COINS -= coin;
+		if(ConfigurableOption.COINS<0) ConfigurableOption.COINS = 0;
 	}
 	
 	@Override
@@ -48,7 +48,7 @@ public class PlayerStatus implements IRenderable{
 		g2d.fillRect(0, 0, ConfigurableOption.screenWidth, ConfigurableOption.statusHeight);
 		g2d.setColor(Color.WHITE);
 		g2d.setFont(Resource.standardFont);
-		g2d.drawString("COIN: "+ConfigurableOption.coins, 10, 32);
+		g2d.drawString("COIN: "+ConfigurableOption.COINS, 10, 32);
 		g2d.drawString("COMBO: "+this.combo, 200, 32);
 	}
 
@@ -78,7 +78,7 @@ public class PlayerStatus implements IRenderable{
 	}
 
 	@Override
-	public void setDestroyed(boolean destroyed) {
+	public void setDestroying(boolean destroyed) {
 		
 	}
 

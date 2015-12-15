@@ -16,6 +16,11 @@ public class Resource {
 	private static HashMap<String,AudioClip> audio = new HashMap<>();
 
 	public static final Font standardFont = new Font("Tahoma",Font.BOLD,30);
+	public static BufferedImage[] playButton= new BufferedImage[2];
+	public static BufferedImage[] rankButton= new BufferedImage[2];
+	public static BufferedImage[] continueButton= new BufferedImage[2];
+	public static BufferedImage[] exitButton= new BufferedImage[2];
+	public static BufferedImage[] restartButton= new BufferedImage[2];
 	
 	public AnimationManager read(String url,int setX,int setY,int setCharWidth,int setCharHeight,int mode) throws FethResourceException{
 		return new AnimationManager(ImageReader.get(url,mode),setX,setY,setCharWidth,setCharHeight,mode);
@@ -36,31 +41,47 @@ public class Resource {
 	public AnimationManager read(String url) throws FethResourceException{
 		return new AnimationManager(ImageReader.get(url),0,0,0,0,AnimationManager.DONOTTHING);
 	}
-	public AudioClip audioRead(String url){
-		return Applet.newAudioClip(Resource.class.getClassLoader().getResource(url));
+	public AudioClip audioRead(String url) throws FethResourceException{
+		AudioClip audio = null ;
+		try{
+			audio = Applet.newAudioClip(
+					Resource.class.getClassLoader().getResource(url));
+		}catch(Exception e){
+			throw new FethResourceException(FethResourceException.AUDIO, url);
+		}
+		return audio;
 	}
 	
 	public Resource(){
 		try {
-			audio.put("birdSound", audioRead("res/sound/bird.wav"));
-			audio.put("thebeat", audioRead("res/sound/thebeat.wav"));
-			audio.put("doorbell", audioRead("res/sound/doorbell2.wav"));
+			audio.put("dooropen", audioRead("res/sound/dooropen.wav"));
 			audio.put("zombiedeath", audioRead("res/sound/zombiedeath.wav"));
+			audio.put("gotitem", audioRead("res/sound/gotitem.wav"));
+			audio.put("groan", audioRead("res/sound/groan.wav"));
+			audio.put("zombie", audioRead("res/sound/zombie.wav"));
+			audio.put("bump", audioRead("res/sound/bump.wav"));
+			audio.put("coin-impact", audioRead("res/sound/coin-impact.wav"));
+			audio.put("collect", audioRead("res/sound/collect.wav"));
+			audio.put("dead", audioRead("res/sound/dead.wav"));
+			audio.put("error", audioRead("res/sound/error.wav"));
+			audio.put("punch", audioRead("res/sound/punch.wav"));
+
+			audio.put("startgame", audioRead("res/sound/01. Plants vs. Zombies Original Soundtrack - Crazy Dave's Greeting.wav"));
 			audio.put("gamebgm", audioRead("res/sound/05. Plants vs. Zombies Original Soundtrack - Loonboon.wav"));
-			audio.put("introbgm", audioRead("res/sound/02. Plants vs. Zombies Original Soundtrack - Crazy Dave (Intro Theme).wav"));
-			audio.put("pausebgm", audioRead("res/sound/02. Plants vs. Zombies Original Soundtrack - Crazy Dave (Intro Theme).wav"));
-			audio.put("gameoverbgm", audioRead("res/sound/02. Plants vs. Zombies Original Soundtrack - Crazy Dave (Intro Theme).wav"));
-			audio.put("winningbgm", audioRead("res/sound/02. Plants vs. Zombies Original Soundtrack - Crazy Dave (Intro Theme).wav"));
+			audio.put("introbgm", audioRead("res/sound/18. Plants vs. Zombies Original Soundtrack - Crazy Dave IN-GAME.wav"));
+			audio.put("pausebgm", audioRead("res/sound/11. Plants vs. Zombies Original Soundtrack - Rigor Mormist.wav"));
+			audio.put("gameoverbgm", audioRead("res/sound/27. Plants vs. Zombies Original Soundtrack - Cerebrawl IN-GAME.wav"));
+			audio.put("winningbgm", audioRead("res/sound/16. Plants vs. Zombies Original Soundtrack - Zombotany (Unreleased Track).wav"));
 			
 			rs.put("batman-walking", read("res/character/batman-walking.gif",45,90,23,68));
 			rs.put("batman-standing", read("res/character/batman-standing.gif",45,90,23,68));
 			rs.put("boy", read("res/character/boy.gif",45,90,35,80));
 			
 			rs.put("zombie-ballon", read("res/character/zombie-ballon.gif",48,150,90,95,AnimationManager.FLIP));
-			rs.put("zombie-helmet", read("res/character/zombie-helmet.gif",40,100,71,85,AnimationManager.FLIP));
+			rs.put("zombie-helmet", read("res/character/zombie-helmet.gif",40,100,71,90,AnimationManager.FLIP));
 			rs.put("zombie-imps", read("res/character/zombie-imps.gif",50,100,85,150,AnimationManager.FLIP));
 			rs.put("zombie-moonwalk", read("res/character/zombie-moonwalk.gif",45,100,90,100,AnimationManager.FLIP));
-			rs.put("zombie-running", read("res/character/zombie-running.gif",50,96,50,150,AnimationManager.FLIP));
+			rs.put("zombie-running", read("res/character/zombie-running.gif",50,96,50,140,AnimationManager.FLIP));
 			
 			rs.put("batman-intro", read("res/bg/batman-intro.gif",AnimationManager.BufferOPTIMIZED));
 			rs.put("batman-pic", read("res/bg/batman-pic.png"));
@@ -68,19 +89,32 @@ public class Resource {
 			rs.put("babadook", read("res/bg/babadook.gif",AnimationManager.BufferOPTIMIZED));
 			rs.put("town", read("res/bg/town.jpg"));
 			rs.put("city", read("res/bg/city.png"));
+			rs.put("town-creepy", read("res/bg/town-creepy.png"));
 	
 			rs.put("button1", read("res/etc/button1.6.png"));
 			rs.put("button2", read("res/etc/button2.2.png"));
 			rs.put("button-start", read("res/etc/button-start.2.png"));
 			rs.put("button-restart", read("res/etc/button-restart.2.png"));
 			rs.put("batman-icon", read("res/etc/batman-icon.png"));
-	
-	//		rs.put("test", read("res/character/zombie-walking.6.png")); //use for sprite PNG
+
 		} catch (FethResourceException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(), 
 					"Error", JOptionPane.ERROR_MESSAGE);
 			System.exit(0);
 		}
+		
+
+		playButton[0] = getImage("button1",0);
+		playButton[1] = getImage("button1",1);
+		rankButton[0] = getImage("button1",4);
+		rankButton[1] = getImage("button1",5);
+		continueButton[0] = getImage("button2",0);
+		continueButton[1] = getImage("button2",1);
+		exitButton[0] = getImage("button1",2);
+		exitButton[1] = getImage("button1",3);
+		restartButton[0] = getImage("button-restart",0);
+		restartButton[1] = getImage("button-restart",1);
+		
 	}
 	
 	public static AnimationManager get(String key) {
