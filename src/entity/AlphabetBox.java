@@ -75,6 +75,11 @@ public class AlphabetBox implements IRenderable {
 		return 0;
 	}
 	
+	@Override
+	public void updateAnimation(){
+		
+	}
+	
 	public int getWidth(){
 		return this.width;
 	}
@@ -85,11 +90,6 @@ public class AlphabetBox implements IRenderable {
 	
 	public int getPrimaryKey(){
 		return this.primaryKey;
-	}
-
-	@Override
-	public void updateAnimation() {
-		
 	}
 
 }
