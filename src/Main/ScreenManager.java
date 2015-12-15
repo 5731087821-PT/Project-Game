@@ -41,13 +41,9 @@ public class ScreenManager{
 	private static final boolean FADEIN = true;
 	private static final boolean FADEOUT = false;
 	
-	public static Object locker1 = new Object();
-	public static Object locker2 = new Object();
-	public static boolean chagingScreen;
+	private static boolean chagingScreen;
 
 	public static AudioClip bgm;
-	
-	private static boolean initialize;
 	
 	private static NorthScreen northScreen;
 	private static SouthScreen southScreen;
@@ -82,7 +78,6 @@ public class ScreenManager{
 	}
 	
 	public ScreenManager(){
-		initialize = true;
 		chagingScreen = false;
 		new Resource();		
 		introScreen = new IntroScreen();
@@ -105,7 +100,6 @@ public class ScreenManager{
 		bgm = Resource.getAudio("gamebgm");
 		changeScreen(ConfigurableOption.STARTSCREEN);
 		
-		initialize = false;
 		MainFrame.pack();
 		MainFrame.setResizable(false);
 		MainFrame.setVisible(true);
