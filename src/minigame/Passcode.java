@@ -10,6 +10,7 @@ import entity.Gateway;
 import entity.Player;
 import render.IRenderable;
 import render.RenderableHolder;
+import resource.Resource;
 import utility.ConfigurableOption;
 import utility.InputUtility;
 
@@ -82,13 +83,6 @@ public class Passcode implements IRenderable {
 	
 	public void zombieAppear(){
 		NorthScreenLogic.spawnZombie = true;
-		
-		for(IRenderable rend : RenderableHolder.getInstance().getNorthRenderableList()){
-			if(rend instanceof Player){
-				((Player) rend).zombieIsComming();
-				break;
-			}
-		}
 	}
 
 	@Override
@@ -99,11 +93,13 @@ public class Passcode implements IRenderable {
 			for(AlphabetBox keyBox : keyBoxs){
 				if(isInPressBoxAreaX(keyBox) && isInPressBoxAreaY(keyBox)){
 					if(keyBox.getPrimaryKey() == passwords.get(passwordCounter).getPrimaryKey()){
+						Resource.getAudio("gotitem").play();
 						passwords.get(passwordCounter).setSelected(true);
 						keyBox.setSelected(true);
 						passwordCounter++;
 						break;
 					}else{
+						Resource.getAudio("bump").play();
 						zombieAppear();
 					}
 				}
@@ -113,7 +109,7 @@ public class Passcode implements IRenderable {
 			for (IRenderable renderable : RenderableHolder.getInstance().getNorthRenderableList()) {
 				if (renderable instanceof Gateway && ((Gateway) renderable).getX() == ConfigurableOption.xGateway2) {
 					((Gateway) renderable).setGateClose(false);
-					ConfigurableOption.stageNow = 4;
+					ConfigurableOption.stageNow++;
 					break;
 				}
 			}
