@@ -10,7 +10,6 @@ import entity.Gateway;
 import entity.Player;
 import render.IRenderable;
 import render.RenderableHolder;
-import resource.Resource;
 import utility.ConfigurableOption;
 import utility.InputUtility;
 
@@ -56,11 +55,13 @@ public class Passcode implements IRenderable {
 
 	@Override
 	public void draw(Graphics2D g2d) {
+		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public boolean isVisible() {
+		// TODO Auto-generated method stub
 		return false;
 	}
 	
@@ -83,23 +84,29 @@ public class Passcode implements IRenderable {
 	
 	public void zombieAppear(){
 		NorthScreenLogic.spawnZombie = true;
+		
+		for(IRenderable rend : RenderableHolder.getInstance().getNorthRenderableList()){
+			if(rend instanceof Player){
+				((Player) rend).zombieIsComming();
+				break;
+			}
+		}
 	}
 
 	@Override
 	public void update() {
+		// TODO Auto-generated method stub
 		if(!isInPressAreaX() || !isInPressAreaY()) return;
 			
 		if(passwordCounter<3){
 			for(AlphabetBox keyBox : keyBoxs){
 				if(isInPressBoxAreaX(keyBox) && isInPressBoxAreaY(keyBox)){
 					if(keyBox.getPrimaryKey() == passwords.get(passwordCounter).getPrimaryKey()){
-						Resource.getAudio("gotitem").play();
 						passwords.get(passwordCounter).setSelected(true);
 						keyBox.setSelected(true);
 						passwordCounter++;
 						break;
 					}else{
-						Resource.getAudio("bump").play();
 						zombieAppear();
 					}
 				}
@@ -109,7 +116,7 @@ public class Passcode implements IRenderable {
 			for (IRenderable renderable : RenderableHolder.getInstance().getNorthRenderableList()) {
 				if (renderable instanceof Gateway && ((Gateway) renderable).getX() == ConfigurableOption.xGateway2) {
 					((Gateway) renderable).setGateClose(false);
-					ConfigurableOption.stageNow++;
+					ConfigurableOption.stageNow = 4;
 					break;
 				}
 			}
@@ -147,14 +154,7 @@ public class Passcode implements IRenderable {
 	}
 
 	@Override
-	public void setDestroying(boolean destroyed) {
-		
-	}
-
-
-	@Override
-	public void updateAnimation() {
-		// TODO Auto-generated method stub
+	public void setDestroyed(boolean destroyed) {
 		
 	}
 	
