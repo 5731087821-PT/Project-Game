@@ -1,5 +1,6 @@
 package entity;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
@@ -11,12 +12,15 @@ public class Gateway implements IRenderable{
 	protected int y;
 	protected boolean destroyed;
 	protected boolean gateClose;
+	protected int width,height;
 
 	public Gateway(int x, int y) {
 		this.x = x;
 		this.y = y;
 		this.destroyed = false;
 		this.gateClose = true;
+		this.height = ConfigurableOption.northScreenHeight;
+		this.width = height/13;
 	}
 
 	public void update() {
@@ -48,8 +52,12 @@ public class Gateway implements IRenderable{
 
 	@Override
 	public void draw(Graphics2D g2d) {
-		g2d.setColor(new Color(0, 0, 0, 100));
-		g2d.fillRect(x, y, 10, ConfigurableOption.northScreenHeight);
+		g2d.setColor(new Color(187, 187, 187, 250));
+		g2d.fillRect(x, y, width, height);
+
+		g2d.setColor(Color.BLACK);
+		g2d.setStroke(new BasicStroke(width/5));
+		g2d.drawRect(x-1, y-1, width, height-2); 
 	}
 
 	@Override

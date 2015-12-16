@@ -63,13 +63,18 @@ public class SouthScreenLogic implements Logic{
 			}
 		}
 		
-		if(ConfigurableOption.stageNow == 1 && list.contains(openGatewayZero)){
-			for(Integer password : openGatewayZero.getPassword()){
-				list.remove(password);
-			}
+		if(ConfigurableOption.stageNow == 1 && list.contains(openGatewayZero)){			
+			list.remove(openGatewayZero.getGap());
+			list.remove(openGatewayZero.getRunningBall());
 			list.remove(openGatewayZero);
 			openGatewayZero = null;
 			startStage = true;
+//			for(Integer password : openGatewayZero.getPassword()){
+//				list.remove(password);
+//			}
+//			list.remove(openGatewayZero);
+//			openGatewayZero = null;
+//			startStage = true;
 		}else if(ConfigurableOption.stageNow == 2 && list.contains(getCoin)){
 			for(Coin coin : getCoin.getCoin()){
 				list.remove(coin);

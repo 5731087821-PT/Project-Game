@@ -61,7 +61,7 @@ public class ScreenManager{
 	
 	public static void resetScreen(){
 		ConfigurableOption.PAUSE = false;
-		ConfigurableOption.stageNow = 3;
+		ConfigurableOption.stageNow = ConfigurableOption.stageStartAt;
 		ConfigurableOption.COINS = 0;
 		
 		RenderableHolder.getInstance().clear();

@@ -17,7 +17,7 @@ import utility.ConfigurableOption;
 @SuppressWarnings("serial")
 public class NorthScreen extends JComponent {
 	private int width, height, statusHeight;
-	private BufferedImage img;
+	private BufferedImage img,coinsImage;
 	private AnimationManager bgAnimation;
 	private ArrayList<IRenderable> entity ;
 	public NorthScreen(){
@@ -33,6 +33,7 @@ public class NorthScreen extends JComponent {
 		
 		entity = (ArrayList<IRenderable>) RenderableHolder.getInstance().getNorthRenderableList();
 		
+		coinsImage = Resource.getImage("coins-many");
 		bgAnimation = Resource.get("town-creepy");
 		bgAnimation.loop();
 	}
@@ -52,6 +53,12 @@ public class NorthScreen extends JComponent {
 				width, 0, 
 				RenderHelper.BOTTOM | RenderHelper.CENTER);
 		bgAnimation.update();
+
+		RenderHelper.draw(
+				g2d, coinsImage, 
+				width/2, height+11, 
+				(int) (width*0.23), 0, 
+				RenderHelper.BOTTOM | RenderHelper.CENTER);
 		
 		for(int i = 0 ; i<entity.size();i++){
 			if(!entity.get(i).isVisible()) 
@@ -64,7 +71,6 @@ public class NorthScreen extends JComponent {
 			
 			if(ConfigurableOption.stageNow != ConfigurableOption.ENDSTAGE)
 				entity.get(i).updateAnimation();
-//				System.out.println(2);
 			else if(entity.get(i) instanceof Player)
 				entity.get(i).updateAnimation();
 		}

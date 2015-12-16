@@ -17,7 +17,7 @@ public class NorthScreenLogic implements Logic{
 	protected boolean firstZombie;
 	protected Player player;
 	protected PlayerStatus playerStatus;
-	protected Gateway gateway1, gateway2;
+	protected Gateway gateway1, gateway2, gateway0;
 	protected ArrayList<Zombie> zombies;
 	private int movingDelayCounter;
 	private SouthScreenLogic southScreenLogic;
@@ -34,7 +34,7 @@ public class NorthScreenLogic implements Logic{
 		this.movingDelayCounter = 0;
 		this.spawnZombieCounter = 600;
 		this.firstZombie = true;
-		nextZombieSpeedUp = (int) ((ConfigurableOption.screenWidth*0.10)/100.0);
+		nextZombieSpeedUp = ConfigurableOption.nextZombieSpeedUp;
 		spawnZombie = true;
 		
 		list = RenderableHolder.getInstance().getNorthRenderableList();

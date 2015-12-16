@@ -48,9 +48,9 @@ public class WinningScreen extends JComponent{
 		img = BG.getCurrentBufferedImage();
 		RenderHelper.draw( 
 				g2d, img, 
-				width/2, 0, 
-				width/2, 0, 
-				RenderHelper.TOP|RenderHelper.CENTER);
+				width/2, (int) (height*0.45), 
+				(int) (width*0.55), 0, 
+				RenderHelper.MIDDLE|RenderHelper.CENTER);
 		drawReStartBT(
 				g2d,Resource.restartButton[1], 
 				20, height-20, 

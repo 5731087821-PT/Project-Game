@@ -2,6 +2,7 @@ package render;
 
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
 import utility.InputUtility;
@@ -69,6 +70,15 @@ public class RenderHelper {
 			}
 		}
 		return false;
+	}
+	public static void rotate(Graphics2D g,BufferedImage newImg,int x,int y,int width,int height,int angle,int originX,int originY){
+		AffineTransform tmp = g.getTransform();
+		AffineTransform trans = new AffineTransform();
+		
+		trans.rotate(angle, x + originX, y + originY);
+		g.transform(trans);
+		g.drawImage(newImg, x, y, width, height, null);
+		g.setTransform(tmp);
 	}
 
 	public static void addAntiAlising(Graphics2D g2d){
